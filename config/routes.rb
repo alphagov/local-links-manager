@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
   get '/healthcheck', to: proc { [200, {}, ['OK']] }
 
+  get '/api/local_interaction_details', to: 'api#service_interaction_for_local_authority'
+  get '/api/local_authorities', to: 'api#local_authority'
+
+
   resources "local_authorities", only: [:index, :edit, :update], param: :slug do
     resources "services", only: [:index], param: :slug do
       resources "interactions", only: [:index], param: :slug do
