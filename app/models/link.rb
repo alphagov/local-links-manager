@@ -19,11 +19,11 @@ class Link < ActiveRecord::Base
   }
 
   def self.broken
-    self.where.not(status: '200')
+    self.where(arel_table[:status].not_eq('200'))
   end
 
   def self.enabled_links
-    self.joins(:service).where(services: { enabled: true })
+    self.joins(:service).where(Service.arel_table[:enabled].eq(true))
   end
 
   def self.retrieve(params)

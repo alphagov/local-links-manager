@@ -32,7 +32,7 @@
           <li class="list-group-item clearfix">
             <h4 class="pull-left"><%= link_to local_authority.name, '#' %></h4>
             <div class="pull-right">
-              <p><span class="big-number"><%= 7 # TODO - get real count %></span><br/>Broken links</p>
+              <p><span class="big-number"><%= local_authority.broken_links_count %></span><br/>Broken links</p>
             </div>
           </li>
         <% end %>

@@ -16,7 +16,7 @@ class Service < ActiveRecord::Base
     end
   }
 
-  scope :enabled, -> { where(enabled: true) }
+  scope :enabled, -> { where(arel_table[:enabled].eq(true)) }
 
   def provided_by?(authority)
     case tier

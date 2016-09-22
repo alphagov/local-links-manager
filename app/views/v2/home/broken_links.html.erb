@@ -44,7 +44,7 @@
             <tr>
               <td class="name clearfix" colspan="4">
                 <h2 class="pull-left"><%= link_to presented_authority.name, local_authority_services_path(presented_authority.slug) %></h2>
-                <p class="pull-right broken-link-count"><span><%= 7 %> broken links</span></p>
+                <p class="pull-right broken-link-count"><span><%= presented_authority.broken_links_count %> broken links</span></p>
               </td>
             </tr>
             <% if presented_authority.homepage_status != 'Good' %>
