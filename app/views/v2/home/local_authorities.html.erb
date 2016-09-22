@@ -1,5 +1,35 @@
 <% content_for :page_title, "Local Links Manager" %>
 
+<% content_for :head do %>
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" %>
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.6/select2-bootstrap.min.css" %>
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js" %>
+<% end %>
+
+<% content_for :body_end do %>
+  <%= javascript_tag do %>
+    $( "#filter-dropdown" ).select2({
+      placeholder: "Search for a council here",
+      allowClear: true,
+      theme: "bootstrap"
+    }).on("select2:select", function (e) {
+      var selected_id = e.params.data.element.value.toString();
+      $('#local-authorities li').each(function(_idx, element) {
+        var $element = $(element);
+        if ($element.data('localAuthorityId').toString() === selected_id) {
+          $element.show();
+        } else {
+          $element.hide();
+        }
+      });
+    }).on("select2:unselect", function (e) {
+      $('#local-authorities li').each(function(idx, element) {
+        $(element).show();
+      });
+    });
+  <% end %>
+<% end %>
+
 <% breadcrumb :local_links_manager %>
 
 <div class="page-title">
@@ -25,11 +55,14 @@
           <div class="col-md-3">
             <%= render 'sort_order_dropdown' %>
           </div>
+          <div class="col-md-9">
+            <%= select_tag 'filter', options_for_select(LocalAuthority.all.map { |la| [la.name, la.id] }), include_blank: true, id: 'filter-dropdown', class: 'form-control' %>
+          </div>
         </div>
       </div>
-      <ul class="list-group">
+      <ul id="local-authorities" class="list-group">
         <% @local_authorities.each do |local_authority| %>
-          <li class="list-group-item clearfix">
+          <li data-local-authority-id="<%= local_authority.id %>" class="list-group-item clearfix">
             <h4 class="pull-left"><%= link_to local_authority.name, '#' %></h4>
             <div class="pull-right">
               <p><span class="big-number"><%= local_authority.broken_links_count %></span><br/>Broken links</p>

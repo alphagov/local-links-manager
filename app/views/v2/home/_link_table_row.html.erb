@@ -1,4 +1,4 @@
-<tr>
+<%= content_tag 'tr', data: row_data do %>
   <% if link.with_service_lgsl_code %>
     <td class="text-center" rowspan="<%= link.with_service_links_count %>">
       <h4><%= link.with_service_lgsl_code %></h4>
@@ -24,4 +24,4 @@
     <% if link.with_service_label %><h4>&nbsp;</h4><% end %>
     <%= link_to('Edit link', link.edit_path, class: "btn btn-default btn-s") %>
   </td>
-</tr>
+<% end %>
