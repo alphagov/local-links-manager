@@ -19,3 +19,10 @@
   padding-right:0;
   padding-left:0;
 }
+
+.broken-link-count {
+  @extend h2;
+  span {
+    font-size: $font-size-base;
+  }
+}

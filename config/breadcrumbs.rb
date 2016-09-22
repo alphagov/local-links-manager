@@ -16,3 +16,7 @@ crumb :links do |local_authority, service, interaction|
   link interaction.label, local_authority_service_interaction_links_path(local_authority.slug, service.slug, interaction.slug)
   parent :interactions, local_authority, service
 end
+
+crumb :local_links_manager do
+  link 'Local links', v2_root_path
+end

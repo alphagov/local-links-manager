@@ -18,6 +18,10 @@ class Link < ActiveRecord::Base
       .where(service_interactions: { service_id: service })
   }
 
+  def self.broken
+    self.where.not(status: '200')
+  end
+
   def self.enabled_links
     self.joins(:service).where(services: { enabled: true })
   end

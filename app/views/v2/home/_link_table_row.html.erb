@@ -1,0 +1,27 @@
+<tr>
+  <% if link.with_service_lgsl_code %>
+    <td class="text-center" rowspan="<%= link.with_service_links_count %>">
+      <h4><%= link.with_service_lgsl_code %></h4>
+    </td>
+  <% end %>
+  <td class="name">
+    <% if link.with_service_label %>
+      <h4><%= link_to link.with_service_label, '#' %></h4>
+    <% end %>
+    <%= link.interaction_label %>
+    <p><%= link_to truncate(link.url, length: 50, omission: '…'), link.url %></p>
+  </td>
+  <td class="status">
+    <% if link.with_service_label %><h4>&nbsp;</h4><% end %>
+    <span class="<%= link.label_status_class %> text-muted">
+      <b><%= link.status_description %></b>
+    </span>
+    <p class="text-muted">
+    <%= link.last_checked %>
+    </p>
+  </td>
+  <td class="text-center">
+    <% if link.with_service_label %><h4>&nbsp;</h4><% end %>
+    <%= link_to('Edit link', link.edit_path, class: "btn btn-default btn-s") %>
+  </td>
+</tr>

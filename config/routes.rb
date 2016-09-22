@@ -22,6 +22,13 @@ Rails.application.routes.draw do
   # Serve the static CSV using NGINX instead of a controller
   get '/links-export', to: redirect('data/links_to_services_provided_by_local_authorities.csv')
 
+  namespace :v2 do
+    root to: redirect('v2/broken-links')
+    get '/broken-links', to: 'home#broken_links'
+    get '/local-authorities', to: 'home#local_authorities'
+    get '/services', to: 'home#services'
+  end
+
   if Rails.env.development?
     mount GovukAdminTemplate::Engine, at: "/style-guide"
   end

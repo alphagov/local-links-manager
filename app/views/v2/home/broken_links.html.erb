@@ -1,0 +1,64 @@
+<% content_for :page_title, "Local Links Manager" %>
+
+<% breadcrumb :local_links_manager %>
+
+<div class="page-title">
+  <h1>Local Links Manager</h1>
+</div>
+
+<div class="row">
+
+  <div class="col-md-3 sidebar">
+    <nav>
+      <ul class="nav nav-pills nav-stacked">
+        <li role="presentation" class="active"><%= link_to 'View latest broken links', v2_broken_links_path %></li>
+        <li role="presentation"><%= link_to 'View all councils', v2_local_authorities_path %></li>
+        <li role="presentation"><%= link_to 'View all services', v2_services_path %></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="col-md-9 content">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="row">
+          Filter controls go here...
+        </div>
+      </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr class="table-header">
+            <th>Code</th>
+            <th>Services and links</th>
+            <th>Link status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @local_authorities.each do |authority| %>
+            <% authority_links_by_service = @links[authority.id] %>
+            <% next if authority_links_by_service.blank? %>
+            <% presented_authority = LocalAuthorityPresenter.new(authority) %>
+            <tr>
+              <td class="name clearfix" colspan="4">
+                <h2 class="pull-left"><%= link_to presented_authority.name, local_authority_services_path(presented_authority.slug) %></h2>
+                <p class="pull-right broken-link-count"><span><%= 7 %> broken links</span></p>
+              </td>
+            </tr>
+            <% if presented_authority.homepage_status != 'Good' %>
+              <%= render 'link_table_row', link: AnyLinkPresenter.for(authority, context: self) %>
+            <% end %>
+            <% authority_links_by_service.each do |service, links| %>
+              <% first_link, *remaining_links = *links %>
+              <%= render 'link_table_row', link: AnyLinkPresenter.for(first_link, local_authority: authority, with_service: service, with_service_links_count: links.count, context: self) %>
+              <% remaining_links.each do |link| %>
+                <%= render 'link_table_row', link: AnyLinkPresenter.for(link, local_authority: authority, context: self) %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
