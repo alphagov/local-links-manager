@@ -6,7 +6,9 @@ module V2
       @service = Service.find_by(slug: params[:slug])
 
       @local_authorities = LocalAuthority.
-        provides_service(@service).
+        # TODO - this doesn't seem to be applied everywhere so we're not
+        # getting the right links for a tier in all situations - investigate
+        # provides_service(@service).
         with_broken_links_count(ServiceInteraction.arel_table[:service_id].eq(@service.id)).
         order(current_sort_order[:order_args])
 

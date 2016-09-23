@@ -9,7 +9,9 @@ module V2
         )
 
       @services = Service.
-        for_tier(@local_authority.tier).
+        # TODO - this doesn't seem to be applied everywhere so we're not
+        # getting the right links for a tier in all situations - investigate
+        # for_tier(@local_authority.tier).
         with_broken_links_count(Link.arel_table[:local_authority_id].eq(@local_authority.id)).
         order(current_sort_order[:order_args])
 
