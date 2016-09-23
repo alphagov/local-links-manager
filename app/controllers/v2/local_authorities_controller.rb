@@ -22,6 +22,8 @@ module V2
         references(:service, :interaction).
         all.
         group_by { |link| link.service.id }
+
+      @services_for_dropdown = @services.reorder(label: :asc).reject { |s| @links[s.id].blank? }
     end
 
     def self.default_sort_order

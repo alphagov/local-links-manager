@@ -20,6 +20,8 @@ module V2
         references(:service, :interaction).
         all.
         group_by { |link| link.local_authority_id }
+
+      @local_authorities_for_dropdown = @local_authorities.reorder(name: :asc).reject { |la| @links[la.id].blank? }
     end
 
     def self.default_sort_order

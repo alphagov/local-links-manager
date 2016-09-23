@@ -54,8 +54,8 @@
           </div>
           <%= select_tag 'filter',
                          grouped_options_for_select(
-                          'Councils' => LocalAuthority.all.map { |la| [la.name, "localAuthorityId-#{la.id}"] },
-                          'Services' => ([['Homepage', 'serviceId-homepage']] + Service.enabled.all.map { |s| [s.label, "serviceId-#{s.id}"] })
+                          'Councils' => @local_authorities_for_dropdown.map { |la| [la.name, "localAuthorityId-#{la.id}"] },
+                          'Services' => ([['Homepage', 'serviceId-homepage']] + @services_for_dropdown.map { |s| [s.label, "serviceId-#{s.id}"] })
                          ),
                          include_blank: true, id: 'filter-dropdown', class: 'form-control' %>
         </div>
