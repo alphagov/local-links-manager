@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     get '/broken-links', to: 'home#broken_links'
     get '/local-authorities', to: 'home#local_authorities'
     get '/services', to: 'home#services'
+    get '/local-authorities/:slug', to: 'local_authorities#index', as: 'local_authority'
   end
 
   if Rails.env.development?

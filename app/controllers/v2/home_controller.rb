@@ -42,7 +42,7 @@ module V2
           'broken-links' => {
             description: 'Number of broken links',
             param: 'broken-links',
-            order_args: Arel::Table.new(:counts)['broken_links_count'].desc
+            order_args: 'broken_links_count desc'
           },
           'alphabetical' => {
             description: 'A-Z',
@@ -61,7 +61,7 @@ module V2
           'broken-links' => {
             description: 'Number of broken links',
             param: 'broken-links',
-            order_args: Arel::Table.new(:counts)['broken_links_count'].desc
+            order_args: 'broken_links_count desc'
           },
         }.tap { |local_authorities_hash|
           local_authorities_hash.default = local_authorities_hash['default']
@@ -75,7 +75,7 @@ module V2
           'broken-links' => {
             description: 'Number of broken links',
             param: 'broken-links',
-            order_args: Arel::Table.new(:counts)['broken_links_count'].desc
+            order_args: 'broken_links_count desc'
           },
         }.tap { |broken_links_hash|
           broken_links_hash.default = broken_links_hash['default']

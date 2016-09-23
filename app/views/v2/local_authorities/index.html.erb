@@ -1,0 +1,41 @@
+<% content_for :page_title, @local_authority.name %>
+
+<% breadcrumb :v2_local_authorities, @local_authority %>
+
+<%= render "shared/local_authority_details", authority: @local_authority %>
+
+<div class="row">
+  <div class="col-md-12 content">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-md-3">
+            <%= render 'v2/shared/sort_order_dropdown' %>
+          </div>
+        </div>
+      </div>
+      <table id="links" class="table table-bordered">
+        <thead>
+          <tr class="table-header">
+            <th>Code</th>
+            <th>Services and links</th>
+            <th>Link status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @services.each do |service| %>
+            <% links_by_service = @links[service.id] %>
+            <% next if links_by_service.blank? %>
+            <% first_link, *remaining_links = *links_by_service %>
+            <%= render 'v2/shared/link_table_row', link: AnyLinkPresenter.for(first_link, local_authority: @local_authority, with_service: service, with_service_links_count: links_by_service.count, context: self), row_data: { service_id: service.id } %>
+            <% remaining_links.each do |link| %>
+              <%= render 'v2/shared/link_table_row', link: AnyLinkPresenter.for(link, local_authority: @local_authority, context: self), row_data: { service_id: service.id } %>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

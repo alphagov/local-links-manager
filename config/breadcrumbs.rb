@@ -20,3 +20,8 @@ end
 crumb :local_links_manager do
   link 'Local links', v2_root_path
 end
+
+crumb :v2_local_authorities do |local_authority|
+  link local_authority.name, v2_local_authority_path(local_authority.slug)
+  parent :local_links_manager
+end
