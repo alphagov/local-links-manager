@@ -1,7 +1,10 @@
 module V2
   class HomeController < ApplicationController
+    include SupportForSortOrderParam
+
     def broken_links
-      @local_authorities = local_authorities_with_broken_links_count.
+      @local_authorities = LocalAuthority.
+        with_broken_links_count.
         order(current_sort_order[:order_args]).
         where(Arel::Table.new(:counts)['broken_links_count'].gt(0))
 
@@ -21,70 +24,11 @@ module V2
     end
 
     def local_authorities
-      @local_authorities = local_authorities_with_broken_links_count.order(current_sort_order[:order_args])
-    end
-
-    def local_authorities_with_broken_links_count
-      # this seems a tad complex, but then we are using arel so...
-
-      # 1. construct inner query to count links grouped by service_id
-      #    we do this in activerecord and then grab the arel version of it so we
-      #    can...
-      counts = Link.
-        enabled_links.
-        broken.
-        group(Link.arel_table[:local_authority_id]).
-        select(Link.arel_table[:local_authority_id], Link.arel_table[:id].count.as('broken_links_count')).
-        arel
-      counts_table = Arel::Table.new(:counts)
-
-      # 2. ...join that arel query to the services table on the service_id
-      counts_join = LocalAuthority.
-        arel_table.
-        join(counts.as('counts')).
-        on(LocalAuthority.arel_table['id'].eq(counts_table['local_authority_id'])).
-        join_sources
-
-      # 3.  finally, drop back to activerecord to do the query and make sure
-      #     to select the count in the query
-      LocalAuthority.
-        select([LocalAuthority.arel_table[Arel.star], counts_table['broken_links_count']]).
-        joins(counts_join)
+      @local_authorities = LocalAuthority.with_broken_links_count.order(current_sort_order[:order_args])
     end
 
     def services
-      @services =
-        services_with_broken_links_count.order(current_sort_order[:order_args])
-    end
-
-    def services_with_broken_links_count
-      # this seems a tad complex, but then we are using arel so...
-
-      # 1. construct inner query to count links grouped by service_id
-      #    we do this in activerecord and then grab the arel version of it so we
-      #    can...
-      counts = Link.
-        enabled_links.
-        broken.
-        joins(:service_interaction).
-        group(ServiceInteraction.arel_table[:service_id]).
-        select(ServiceInteraction.arel_table[:service_id], Link.arel_table[:id].count.as('broken_links_count')).
-        arel
-      counts_table = Arel::Table.new(:counts)
-
-      # 2. ...join that arel query to the services table on the service_id
-      counts_join = Service.
-        arel_table.
-        join(counts.as('counts')).
-        on(Service.arel_table['id'].eq(counts_table['service_id'])).
-        join_sources
-
-      # 3.  finally, drop back to activerecord to do the query and make sure
-      #     to select the count in the query
-      Service.
-        enabled.
-        select([Service.arel_table[Arel.star], counts_table['broken_links_count']]).
-        joins(counts_join)
+      @services = Service.with_broken_links_count.order(current_sort_order[:order_args])
     end
 
     def self.default_sort_order
@@ -138,15 +82,5 @@ module V2
         }
       }
     end
-
-    def current_sort_order
-      self.class.default_sort_order[action_name][params.fetch(:sort_order, 'default')]
-    end
-    helper_method :current_sort_order
-
-    def all_sort_order_options
-      self.class.default_sort_order[action_name].values
-    end
-    helper_method :all_sort_order_options
   end
 end

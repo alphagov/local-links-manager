@@ -68,7 +68,7 @@
       <div class="panel-heading">
         <div class="row">
           <div class="col-md-3">
-            <%= render 'sort_order_dropdown' %>
+            <%= render 'v2/shared/sort_order_dropdown' %>
           </div>
           <div class="col-md-9">
             <%= select_tag 'filter',
@@ -101,13 +101,13 @@
               </td>
             </tr>
             <% if presented_authority.homepage_status != 'Good' %>
-              <%= render 'link_table_row', link: AnyLinkPresenter.for(authority, context: self), row_data: { local_authority_id: authority.id, service_id: 'homepage' } %>
+              <%= render 'v2/shared/link_table_row', link: AnyLinkPresenter.for(authority, context: self), row_data: { local_authority_id: authority.id, service_id: 'homepage' } %>
             <% end %>
             <% authority_links_by_service.each do |service, links| %>
               <% first_link, *remaining_links = *links %>
-              <%= render 'link_table_row', link: AnyLinkPresenter.for(first_link, local_authority: authority, with_service: service, with_service_links_count: links.count, context: self), row_data: { local_authority_id: authority.id, service_id: service.id } %>
+              <%= render 'v2/shared/link_table_row', link: AnyLinkPresenter.for(first_link, local_authority: authority, with_service: service, with_service_links_count: links.count, context: self), row_data: { local_authority_id: authority.id, service_id: service.id } %>
               <% remaining_links.each do |link| %>
-                <%= render 'link_table_row', link: AnyLinkPresenter.for(link, local_authority: authority, context: self), row_data: { local_authority_id: authority.id, service_id: service.id } %>
+                <%= render 'v2/shared/link_table_row', link: AnyLinkPresenter.for(link, local_authority: authority, context: self), row_data: { local_authority_id: authority.id, service_id: service.id } %>
               <% end %>
             <% end %>
           <% end %>
