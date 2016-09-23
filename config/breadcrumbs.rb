@@ -25,3 +25,8 @@ crumb :v2_local_authorities do |local_authority|
   link local_authority.name, v2_local_authority_path(local_authority.slug)
   parent :local_links_manager
 end
+
+crumb :v2_services do |service|
+  link service.label, v2_service_path(service.slug)
+  parent :local_links_manager
+end

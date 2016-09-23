@@ -45,6 +45,10 @@ class AnyLinkPresenter
     def with_service_label
       @with_service.try :label
     end
+
+    def with_service_slug
+      @with_service.try :slug
+    end
   end
 
   class ForALocalAuthority < SimpleDelegator
@@ -70,6 +74,8 @@ class AnyLinkPresenter
     def with_service_lgsl_code; ''; end
 
     def with_service_label; nil; end
+
+    def with_service_slug; nil; end
 
     def with_service_links_count; 1; end
   end

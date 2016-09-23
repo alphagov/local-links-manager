@@ -1,0 +1,51 @@
+<% content_for :page_title, @service.label %>
+
+<% breadcrumb :v2_services, @service %>
+
+<div class="page-title">
+  <h2><%= @service.label %></h2>
+  <p><b>Service code</b> <%= @service.lgsl_code %></p>
+</div>
+
+<div class="row">
+  <div class="col-md-12 content">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-md-3">
+            <%= render 'v2/shared/sort_order_dropdown' %>
+          </div>
+        </div>
+      </div>
+      <table id="links" class="table table-bordered">
+        <thead>
+          <tr class="table-header">
+            <th>Code</th>
+            <th>Council and links</th>
+            <th>Link status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @local_authorities.each do |local_authority| %>
+            <% links_by_authority = @links[local_authority.id] %>
+            <% next if links_by_authority.blank? %>
+            <% presented_authority = LocalAuthorityPresenter.new(local_authority) %>
+            <tr data-local-authority-id="<%= presented_authority.id %>">
+              <td class="name clearfix" colspan="4">
+                <h2 class="pull-left"><%= link_to presented_authority.name, v2_local_authority_path(presented_authority.slug) %></h2>
+                <p class="pull-right broken-link-count"><span><%= presented_authority.broken_links_count %> broken links</span></p>
+              </td>
+            </tr>
+            <% first_link, *remaining_links = *links_by_authority %>
+            <%= render 'v2/shared/link_table_row', link: AnyLinkPresenter.for(first_link, local_authority: presented_authority, with_service: @service, with_service_links_count: links_by_authority.count, context: self), row_data: { local_authority_id: presented_authority.id, service_id: @service.id } %>
+            <% remaining_links.each do |link| %>
+              <%= render 'v2/shared/link_table_row', link: AnyLinkPresenter.for(link, local_authority: presented_authority, context: self), row_data: { local_authority_id: presented_authority.id, service_id: @service.id } %>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

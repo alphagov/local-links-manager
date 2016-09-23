@@ -72,7 +72,7 @@
             <tr data-service-id="<%= service.id %>">
               <td class="text-center"><h4><%= service.lgsl_code %></h4></td>
               <td class="clearfix">
-                <h4 class="pull-left"><%= link_to service.label, '#' %></h4>
+                <h4 class="pull-left"><%= link_to service.label, v2_service_path(service.slug) %></h4>
                 <div class="pull-right">
                   <p><span class="big-number"><%= service.broken_links_count %></span><br/>Broken links</p>
                 </div>
