@@ -8,25 +8,11 @@
 
 <% content_for :body_end do %>
   <%= javascript_tag do %>
-    $( "#filter-dropdown" ).select2({
-      placeholder: "Search for a council here",
-      allowClear: true,
-      theme: "bootstrap"
-    }).on("select2:select", function (e) {
-      var selected_id = e.params.data.element.value.toString();
-      $('#local-authorities li').each(function(_idx, element) {
-        var $element = $(element);
-        if ($element.data('localAuthorityId').toString() === selected_id) {
-          $element.show();
-        } else {
-          $element.hide();
-        }
-      });
-    }).on("select2:unselect", function (e) {
-      $('#local-authorities li').each(function(idx, element) {
-        $(element).show();
-      });
-    });
+    setupFilterDropdown(
+      "#local-authorities li",
+      "Search for a council here",
+      function() {}
+    );
   <% end %>
 <% end %>
 
@@ -51,13 +37,11 @@
   <div class="col-md-9 content">
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
-        <div class="row">
-          <div class="col-md-3">
+        <div class="input-group">
+          <div class="input-group-btn">
             <%= render 'v2/shared/sort_order_dropdown' %>
           </div>
-          <div class="col-md-9">
-            <%= select_tag 'filter', options_for_select(LocalAuthority.all.map { |la| [la.name, la.id] }), include_blank: true, id: 'filter-dropdown', class: 'form-control' %>
-          </div>
+          <%= select_tag 'filter', options_for_select(LocalAuthority.all.map { |la| [la.name, "localAuthorityId-#{la.id}"] }), include_blank: true, id: 'filter-dropdown', class: 'form-control' %>
         </div>
       </div>
       <ul id="local-authorities" class="list-group">
