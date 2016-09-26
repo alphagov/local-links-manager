@@ -30,3 +30,8 @@ crumb :v2_services do |service|
   link service.label, v2_service_path(service.slug)
   parent :local_links_manager
 end
+
+crumb :v2_local_authority_with_service do |local_authority, service|
+  link service.label, v2_local_authority_with_service_path(local_authority.slug, service.slug)
+  parent :v2_local_authorities, local_authority
+end

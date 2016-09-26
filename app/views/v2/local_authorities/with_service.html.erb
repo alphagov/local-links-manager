@@ -1,0 +1,62 @@
+<% content_for :page_title do %><%= @local_authority.name %> | <%= @service.label %><% end %>
+
+<% content_for :head do %>
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" %>
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.6/select2-bootstrap.min.css" %>
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js" %>
+<% end %>
+
+<% content_for :body_end do %>
+  <%= javascript_tag do %>
+    setupFilterDropdown(
+      "#links tbody tr",
+      "Search for an interaction here",
+      function() {}
+    );
+    setupLinkTypeFilterRadioButtons();
+  <% end %>
+<% end %>
+
+<% breadcrumb :v2_local_authority_with_service, @local_authority, @service %>
+
+<%= render "shared/local_authority_details", authority: @local_authority %>
+
+<hr>
+
+<div class="page-title">
+  <h3><%= @service.label %></h3>
+  <p><b>Service code</b> <%= @service.lgsl_code %></p>
+</div>
+
+<div class="row">
+  <div class="col-md-12 content">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-btn">
+              <%= render 'v2/shared/sort_order_dropdown' %>
+            </div>
+            <%= select_tag 'filter', options_for_select(@interactions_for_dropdown.map { |i| [i.label, "interactionId-#{i.id}"] }), include_blank: true, id: 'filter-dropdown', class: 'form-control' %>
+          </div>
+        </div>
+        <%= render 'v2/shared/link_type_controls' %>
+      </div>
+      <table id="links" class="table table-bordered">
+        <thead>
+          <tr class="table-header">
+            <th>Interactions and links</th>
+            <th>Link status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @links.each do |link| %>
+            <%= render 'v2/shared/link_table_row', link: AnyLinkPresenter.for(link, local_authority: @local_authority, context: self), row_data: { interaction_id: link.interaction.id } %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

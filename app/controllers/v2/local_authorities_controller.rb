@@ -28,6 +28,26 @@ module V2
       @services_for_dropdown = @services.reorder(label: :asc).reject { |s| @links[s.id].blank? }
     end
 
+    def with_service
+      @local_authority =
+        LocalAuthorityPresenter.new(
+          LocalAuthority.find_by(slug: params[:local_authority_slug])
+        )
+
+      @service = Service.find_by(slug: params[:service_slug])
+
+      @links = @local_authority.links.
+        for_service(@service).
+        includes(:interaction).
+        enabled_links.
+        order('links.local_authority_id asc, interactions.lgil_code asc').
+        references(:service, :interaction).
+        where(current_link_type_filter[:where_clauses]).
+        all
+
+      @interactions_for_dropdown = @links.map(&:interaction).sort_by(&:label)
+    end
+
     def self.default_sort_order
       @_default_sort_order ||= {
         'index' => {

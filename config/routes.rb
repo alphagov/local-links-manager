@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     get '/services', to: 'home#services'
     get '/local-authorities/:slug', to: 'local_authorities#index', as: 'local_authority'
     get '/services/:slug', to: 'services#index', as: 'service'
+    get '/local-authorities/:local_authority_slug/:service_slug', to: 'local_authorities#with_service', as: 'local_authority_with_service'
   end
 
   if Rails.env.development?

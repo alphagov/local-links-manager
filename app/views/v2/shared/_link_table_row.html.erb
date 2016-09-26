@@ -6,7 +6,7 @@
   <% end %>
   <td class="name">
     <% if link.with_service_label %>
-      <h4><%= link_to link.with_service_label, v2_service_path(link.with_service_slug) %></h4>
+      <h4><%= link_to link.with_service_label, v2_local_authority_with_service_path(link.local_authority.slug, link.with_service_slug) %></h4>
     <% end %>
     <%= link.interaction_label %>
     <p><%= link_to truncate(link.url, length: 50, omission: '…'), link.url %></p>
