@@ -16,7 +16,7 @@
   <div class="form-group <% if flash[:danger] %>has-error<% end %>">
     <%= f.text_field :homepage_url, class: "form-control" %>
     <div class='actions add-vertical-margins'>
-      <%= link_to 'Cancel', local_authority_services_path(@authority.slug), { class: 'btn btn-default add-right-margin' } %>
+      <%= link_to 'Cancel', where_we_came_from_url, { class: 'btn btn-default add-right-margin' } %>
       <button type='submit' class='btn btn-success'>Save</button>
     </div>
   </div>

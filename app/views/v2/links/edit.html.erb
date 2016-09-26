@@ -9,9 +9,7 @@
   <p><b>Service code</b> <%= @service.lgsl_code %></p>
 </div>
 
-<% if flash[:danger] %>
-<div class="alert alert-danger"><%= flash[:danger] %></div>
-<% end %>
+<%= render 'v2/shared/flashes' %>
 
 <%= form_for @link, url: v2_link_path(@local_authority.slug, @service.slug, @interaction.slug), method: "put" do |f| %>
   <div class="form-group <% if flash[:danger] %>has-error<% end %>">
