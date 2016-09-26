@@ -10,7 +10,7 @@
   <%= javascript_tag do %>
     setupFilterDropdown(
       "#broken-links tbody tr",
-      "Search for a council or service here",
+      "Search for a council, service, or link here",
       function(selectedType, selectedId) {
         if (selectedType === 'serviceId') {
           $('#broken-links tbody tr[data-local-authority-id]:not([data-service-id])').each(function(_idx, element) {

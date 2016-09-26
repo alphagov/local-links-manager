@@ -2,7 +2,23 @@ function setupFilterDropdown(rowSelector, placeholderText, doneCallback) {
   $( "#filter-dropdown" ).select2({
     placeholder: placeholderText,
     allowClear: true,
-    theme: "bootstrap"
+    theme: "bootstrap",
+    tags: true,
+    createTag: function(params) {
+      var term = params.term;
+      if (term.match(/^https?:\/\//)) {
+        console.log(term);
+        $(rowSelector + "[data-url][data-url^='"+term+"']").show();
+        $(rowSelector + "[data-url]:not([data-url^='"+term+"'])").hide();
+        return {
+          id: term,
+          text: term
+        };
+      } else {
+        $(rowSelector + "[data-url]").show();
+        return null;
+      }
+    }
   }).on("select2:select", function (e) {
     var selectedItem = e.params.data.element.value.toString().split('-'),
       selectedType = selectedItem[0],
