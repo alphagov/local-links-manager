@@ -1,0 +1,10 @@
+<div class="form-group link-type-controls">
+  <label class="control-label">View:</label>
+  <% all_link_type_filters.each do |link_type_filter| %>
+    <%= label_tag nil, class: "radio-inline" do %>
+      <%= link_to url_for(params.merge(link_type: link_type_filter[:param])) do %>
+        <%= radio_button_tag 'link_type', link_type_filter[:param], (current_link_type_filter[:param] == link_type_filter[:param])%> <%= link_type_filter[:description] %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

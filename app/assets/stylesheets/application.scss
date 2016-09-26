@@ -26,3 +26,18 @@
     font-size: $font-size-base;
   }
 }
+
+.link-type-controls {
+  label {
+    margin-right: 1em;
+  }
+  a {
+    color: $text-color;
+    &:visited {
+      color: $text-color;
+    }
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

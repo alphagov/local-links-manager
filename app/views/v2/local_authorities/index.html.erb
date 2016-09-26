@@ -13,6 +13,7 @@
       "Search for a service here",
       function() {}
     );
+    setupLinkTypeFilterRadioButtons();
   <% end %>
 <% end %>
 
@@ -24,12 +25,15 @@
   <div class="col-md-12 content">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <div class="input-group">
-          <div class="input-group-btn">
-            <%= render 'v2/shared/sort_order_dropdown' %>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-btn">
+              <%= render 'v2/shared/sort_order_dropdown' %>
+            </div>
+            <%= select_tag 'filter', options_for_select(@services_for_dropdown.map { |s| [s.label, "serviceId-#{s.id}"] }), include_blank: true, id: 'filter-dropdown', class: 'form-control' %>
           </div>
-          <%= select_tag 'filter', options_for_select(@services_for_dropdown.map { |s| [s.label, "serviceId-#{s.id}"] }), include_blank: true, id: 'filter-dropdown', class: 'form-control' %>
         </div>
+        <%= render 'v2/shared/link_type_controls' %>
       </div>
       <table id="links" class="table table-bordered">
         <thead>

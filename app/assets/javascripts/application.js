@@ -24,3 +24,8 @@ function setupFilterDropdown(rowSelector, placeholderText, doneCallback) {
     });
   });
 };
+function setupLinkTypeFilterRadioButtons() {
+  $( "input[name=link_type]" ).on("change", function (e) {
+    window.location.href = $(e.target).parent('a').attr('href');
+  })
+};
