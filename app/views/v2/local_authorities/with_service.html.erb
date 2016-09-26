@@ -39,7 +39,7 @@
             <div class="input-group-btn">
               <%= render 'v2/shared/sort_order_dropdown' %>
             </div>
-            <%= select_tag 'filter', options_for_select(@interactions_for_dropdown.map { |i| [i.label, "interactionId-#{i.id}"] }), include_blank: true, id: 'filter-dropdown', class: 'form-control' %>
+            <%= select_tag 'filter', options_for_select(@interactions_for_dropdown.map { |i| [i.label, "interaction-id:#{i.id}"] }), include_blank: true, id: 'filter-dropdown', class: 'form-control' %>
           </div>
         </div>
         <%= render 'v2/shared/link_type_controls' %>

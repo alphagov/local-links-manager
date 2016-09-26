@@ -37,7 +37,7 @@
             </div>
             <%= select_tag 'filter',
                            options_for_select(
-                             @local_authorities_for_dropdown.map { |la| [la.name, "localAuthorityId-#{la.id}"] },
+                             @local_authorities_for_dropdown.map { |la| [la.name, "local-authority-id:#{la.id}"] },
                            ),
                            include_blank: true, id: 'filter-dropdown', class: 'form-control' %>
           </div>

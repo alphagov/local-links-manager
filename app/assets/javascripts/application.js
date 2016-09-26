@@ -7,37 +7,32 @@ function setupFilterDropdown(rowSelector, placeholderText, doneCallback) {
     createTag: function(params) {
       var term = params.term;
       if (term.match(/^https?:\/\//)) {
-        console.log(term);
-        $(rowSelector + "[data-url][data-url^='"+term+"']").show();
-        $(rowSelector + "[data-url]:not([data-url^='"+term+"'])").hide();
         return {
           id: term,
-          text: term
+          text: term,
+          url: true
         };
       } else {
-        $(rowSelector + "[data-url]").show();
+        $(rowSelector + "[data-url]:hidden").show();
         return null;
       }
     }
   }).on("select2:select", function (e) {
-    var selectedItem = e.params.data.element.value.toString().split('-'),
-      selectedType = selectedItem[0],
-      selectedId = selectedItem[1];
-    $(rowSelector).each(function(_idx, element) {
-      var $element = $(element);
-      if ($element.data(selectedType) !== undefined) {
-        if ($element.data(selectedType).toString() === selectedId) {
-          $element.show();
-        } else {
-          $element.hide();
-        }
-      }
-    });
-    doneCallback(selectedType, selectedId);
+    if (e.params.data['url'] !== true) {
+      var selectedItem = e.params.data.element.value.toString().split(':'),
+        selectedType = selectedItem[0],
+        selectedId = selectedItem[1];
+      $(rowSelector+"[data-"+selectedType+"][data-"+selectedType+"='"+selectedId+"']").show();
+      $(rowSelector+"[data-"+selectedType+"]:not([data-"+selectedType+"='"+selectedId+"'])").hide();
+      doneCallback(selectedType, selectedId);
+    } else {
+      var url = e.params.data.text;
+      $(rowSelector + "[data-url][data-url^='"+url+"']:hidden").show();
+      $(rowSelector + "[data-url]:not([data-url^='"+url+"']):visible").hide();
+      doneCallback('url', url);
+    }
   }).on("select2:unselect", function (e) {
-    $(rowSelector).each(function(idx, element) {
-      $(element).show();
-    });
+    $(rowSelector+":hidden").show();
   });
 };
 function setupLinkTypeFilterRadioButtons() {

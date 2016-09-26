@@ -12,7 +12,7 @@
       "#broken-links tbody tr",
       "Search for a council, service, or link here",
       function(selectedType, selectedId) {
-        if (selectedType === 'serviceId') {
+        if (selectedType !== 'local-authority-id') {
           $('#broken-links tbody tr[data-local-authority-id]:not([data-service-id])').each(function(_idx, element) {
             var $element = $(element);
             if ($('#broken-links tbody tr[data-service-id][data-local-authority-id='+$element.data('localAuthorityId')+']:visible').length === 0) {
@@ -56,8 +56,8 @@
           </div>
           <%= select_tag 'filter',
                          grouped_options_for_select(
-                          'Councils' => @local_authorities_for_dropdown.map { |la| [la.name, "localAuthorityId-#{la.id}"] },
-                          'Services' => ([['Homepage', 'serviceId-homepage']] + @services_for_dropdown.map { |s| [s.label, "serviceId-#{s.id}"] })
+                          'Councils' => @local_authorities_for_dropdown.map { |la| [la.name, "local-authority-id:#{la.id}"] },
+                          'Services' => ([['Homepage', 'service-id:homepage']] + @services_for_dropdown.map { |s| [s.label, "service-id:#{s.id}"] })
                          ),
                          include_blank: true, id: 'filter-dropdown', class: 'form-control' %>
         </div>
