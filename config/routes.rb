@@ -29,7 +29,10 @@ Rails.application.routes.draw do
     get '/services', to: 'home#services'
     get '/local-authorities/:slug', to: 'local_authorities#index', as: 'local_authority'
     get '/services/:slug', to: 'services#index', as: 'service'
-    get '/local-authorities/:local_authority_slug/:service_slug', to: 'local_authorities#with_service', as: 'local_authority_with_service'
+    scope '/local-authorities/:local_authority_slug/:service_slug' do
+      root to: 'local_authorities#with_service', as: 'local_authority_with_service'
+      resource "/:interaction_slug", only: [:edit, :update, :destroy], controller: 'links', as: 'link'
+    end
   end
 
   if Rails.env.development?
