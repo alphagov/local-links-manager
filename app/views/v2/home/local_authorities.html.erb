@@ -51,7 +51,7 @@
       <ul id="local-authorities" class="list-group">
         <% @local_authorities.each do |local_authority| %>
           <li data-local-authority-id="<%= local_authority.id %>" class="list-group-item clearfix" data-row>
-            <h4 class="pull-left"><%= link_to local_authority.name, v2_local_authority_path(local_authority.slug) %></h4>
+            <h3 class="pull-left"><%= link_to local_authority.name, v2_local_authority_path(local_authority.slug) %></h3>
             <div class="pull-right text-right">
               <p><span class="big-number"><%= local_authority.broken_links_count %></span><br/>Broken links</p>
             </div>
