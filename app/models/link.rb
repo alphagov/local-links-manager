@@ -19,7 +19,7 @@ class Link < ActiveRecord::Base
   }
 
   def self.broken
-    self.where(arel_table[:status].not_eq('200'))
+    self.where(arel_table[:status].eq(nil).or(arel_table[:status].not_eq('200')))
   end
 
   def self.enabled_links
