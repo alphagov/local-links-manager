@@ -36,6 +36,7 @@ class LocalAuthority < ActiveRecord::Base
     #    can...
     counts = Link.
       enabled_links.
+      with_correct_service_and_tier.
       where(*link_where_clauses).
       broken.
       group(Link.arel_table[:local_authority_id]).

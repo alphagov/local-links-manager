@@ -10,14 +10,13 @@ module V2
         )
 
       @services = Service.
-        # TODO - this doesn't seem to be applied everywhere so we're not
-        # getting the right links for a tier in all situations - investigate
-        # for_tier(@local_authority.tier).
+        for_tier(@local_authority.tier).
         with_broken_links_count(Link.arel_table[:local_authority_id].eq(@local_authority.id)).
         order(current_sort_order[:order_args])
 
       @links = @local_authority.links.
         includes(:service, :interaction).
+        with_correct_service_and_tier.
         enabled_links.
         order('services.lgsl_code asc, interactions.lgil_code asc').
         references(:service, :interaction).

@@ -10,6 +10,7 @@ module V2
 
       links_by_authority = Link.
           includes(:service, :interaction).
+          with_correct_service_and_tier.
           enabled_links.
           broken.
           order('services.lgsl_code asc, interactions.lgil_code asc').

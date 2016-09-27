@@ -26,6 +26,16 @@ class Link < ActiveRecord::Base
     self.joins(:service).where(Service.arel_table[:enabled].eq(true))
   end
 
+  def self.with_correct_service_and_tier
+    self.joins(:service, :local_authority).where(
+      Service.arel_table[:tier].eq('all')
+        .or(
+          Arel::Nodes::NamedFunction.new('strpos', [Service.arel_table[:tier], LocalAuthority.arel_table[:tier]]).
+          not_eq(0)
+        )
+    )
+  end
+
   def self.retrieve(params)
     self.joins(:local_authority, :service, :interaction).find_by(
       local_authorities: { slug: params[:local_authority_slug] },

@@ -39,6 +39,7 @@ class Service < ActiveRecord::Base
     #    can...
     counts = Link.
       broken.
+      with_correct_service_and_tier.
       enabled_links.
       where(*link_where_clauses).
       joins(:service_interaction).
