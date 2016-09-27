@@ -1,4 +1,4 @@
-<%= content_tag 'tr', data: row_data.merge(url: link.url) do %>
+<%= content_tag 'tr', data: row_data.merge(url: link.url, row: '') do %>
   <% if link.with_service_lgsl_code %>
     <td class="text-center" rowspan="<%= link.with_service_links_count %>">
       <h4><%= link.with_service_lgsl_code %></h4>

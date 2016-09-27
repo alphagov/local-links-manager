@@ -11,6 +11,7 @@
     setupFilterDropdown(
       "#local-authorities li",
       "Search for a council here",
+      function() {},
       function() {}
     );
   <% end %>
@@ -45,11 +46,11 @@
           </div>
           <%= select_tag 'filter', options_for_select(@local_authorities_for_dropdown.map { |la| [la.name, "local-authority-id:#{la.id}"] }), include_blank: true, id: 'filter-dropdown', class: 'form-control' %>
         </div>
-        <p class="pull-right text-right"><span class="big-number"><%= @total_rows %></span> local authorities</p>
+        <p class="pull-right text-right" data-total-rows="<%= @total_rows %>"><span class="big-number"><%= @total_rows %></span> local authorities</p>
       </div>
       <ul id="local-authorities" class="list-group">
         <% @local_authorities.each do |local_authority| %>
-          <li data-local-authority-id="<%= local_authority.id %>" class="list-group-item clearfix">
+          <li data-local-authority-id="<%= local_authority.id %>" class="list-group-item clearfix" data-row>
             <h4 class="pull-left"><%= link_to local_authority.name, v2_local_authority_path(local_authority.slug) %></h4>
             <div class="pull-right text-right">
               <p><span class="big-number"><%= local_authority.broken_links_count %></span><br/>Broken links</p>

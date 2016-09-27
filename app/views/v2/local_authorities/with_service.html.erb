@@ -11,6 +11,7 @@
     setupFilterDropdown(
       "#links tbody tr",
       "Search for an interaction or link here",
+      function() {},
       function() {}
     );
     setupLinkTypeFilterRadioButtons();
@@ -46,7 +47,7 @@
           <%= render 'v2/shared/link_type_controls' %>
         </div>
         <div class="pull-right">
-          <p><span class="number"><%= @total_rows %></span> links <b class="text-muted">|</b> <span class="number"><%= @total_broken_rows %></span> broken links</p>
+          <p><span data-total-rows="<%= @total_rows %>"><span class="number"><%= @total_rows %></span> links</span> <b class="text-muted">|</b> <span data-broken-rows="<%= @total_broken_rows %>"><span class="number"><%= @total_broken_rows %></span> broken links</p>
         </div>
       </div>
       <table id="links" class="table table-bordered">

@@ -11,7 +11,8 @@
     setupFilterDropdown(
       '#services tbody tr',
       "Search for a service here",
-      function () {}
+      function() {},
+      function() {}
     );
   <% end %>
 <% end %>
@@ -45,7 +46,7 @@
           </div>
           <%= select_tag 'filter', options_for_select(@services_for_dropdown.map { |s| [s.label, "service-id:#{s.id}"] }), include_blank: true, id: 'filter-dropdown', class: 'form-control' %>
         </div>
-        <p class="pull-right text-right"><span class="big-number"><%= @total_rows %></span> services</p>
+        <p class="pull-right text-right" data-total-rows="<%= @total_rows %>"><span class="big-number"><%= @total_rows %></span> services</p>
       </div>
       <table id="services" class="table table-bordered">
         <thead>
@@ -56,7 +57,7 @@
         </thead>
         <tbody>
           <% @services.each do |service| %>
-            <tr data-service-id="<%= service.id %>">
+            <tr data-service-id="<%= service.id %>" data-row>
               <td class="text-center"><h4><%= service.lgsl_code %></h4></td>
               <td class="clearfix">
                 <h4 class="pull-left"><%= link_to service.label, v2_service_path(service.slug) %></h4>

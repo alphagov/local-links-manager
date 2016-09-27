@@ -8,20 +8,42 @@
 
 <% content_for :body_end do %>
   <%= javascript_tag do %>
+    function setLaRowCounts(countSelector, countFunc) {
+      var $totalLaRows = $(countSelector+':visible');
+      $totalLaRows.each(function(_idx, elem) {
+        var $elem = $(elem),
+          count = countFunc($elem);
+        $elem.find('.number').html(count);
+      });
+    }
     setupFilterDropdown(
       '#links tbody tr',
       "Search for a council or link here",
       function (selectedType, selectedId) {
-        if (selectedType !== 'local-authority-id') {
-          $('#links tbody tr[data-local-authority-id]:not([data-service-id])').each(function(_idx, element) {
-            var $element = $(element);
-            if ($('#links tbody tr[data-service-id][data-local-authority-id='+$element.data('localAuthorityId')+']:visible').length === 0) {
-              $element.hide();
-            } else {
-              $element.show();
-            }
-          });
-        }
+        $('#links tbody tr[data-local-authority-id]:not([data-row])').each(function(_idx, element) {
+          var $element = $(element);
+          if ($('#links tbody tr[data-row][data-local-authority-id='+$element.data('localAuthorityId')+']:visible').length === 0) {
+            $element.hide();
+          } else {
+            $element.show();
+          }
+        });
+        setLaRowCounts('[data-broken-la-rows]', function($elem) {
+          var la_id = $elem.closest('[data-local-authority-id]').data('localAuthorityId');
+          return $('#links tbody tr[data-service-id][data-local-authority-id='+la_id+']:visible td.status .label-danger').length;
+        });
+        setLaRowCounts('[data-total-la-rows]', function($elem) {
+          var la_id = $elem.closest('[data-local-authority-id]').data('localAuthorityId');
+          return $('#links tbody tr[data-service-id][data-local-authority-id='+la_id+']:visible').length;
+        });
+      },
+      function() {
+        setLaRowCounts('[data-broken-la-rows]', function($elem) {
+          return $elem.data('brokenLaRows');
+        });
+        setLaRowCounts('[data-total-la-rows]', function($elem) {
+          return $elem.data('totalLaRows');
+        });
       }
     );
     setupLinkTypeFilterRadioButtons();
@@ -57,7 +79,7 @@
           <%= render 'v2/shared/link_type_controls' %>
         </div>
         <div class="pull-right">
-          <p class="text-right"><span class="big-number"><%= @total_rows %></span> links</p>
+          <p class="text-right" data-total-rows="<%= @total_rows %>"><span class="big-number"><%= @total_rows %></span> links</p>
         </div>
       </div>
       <table id="links" class="table table-bordered">
@@ -77,9 +99,11 @@
             <tr data-local-authority-id="<%= presented_authority.id %>">
               <td class="name clearfix" colspan="4">
                 <h2 class="pull-left"><%= link_to presented_authority.name, v2_local_authority_path(presented_authority.slug) %></h2>
-                <p class="pull-right broken-link-count">
-                  <span><span class="number"><%= presented_authority.broken_links_count %></span> broken links <b class="text-muted">|</b> <span class="number"><%= links_by_authority.count %></span> links</span>
-                </p>
+                <p class="pull-right broken-link-count"><span>
+                  <span data-broken-la-rows="<%= presented_authority.broken_links_count %>"><span class="number"><%= presented_authority.broken_links_count %></span> broken links</span>
+                  <b class="text-muted">|</b>
+                  <span data-total-la-rows="<%= links_by_authority.count %>"><span class="number"><%= links_by_authority.count %></span> links</span>
+                </span></p>
               </td>
             </tr>
             <% first_link, *remaining_links = *links_by_authority %>
