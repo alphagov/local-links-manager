@@ -26,7 +26,7 @@
 <div class="row">
   <div class="col-md-12 content">
     <div class="panel panel-default">
-      <div class="panel-heading">
+      <div class="panel-heading clearfix">
         <div class="form-group">
           <div class="input-group">
             <div class="input-group-btn">
@@ -35,7 +35,12 @@
             <%= select_tag 'filter', options_for_select(@services_for_dropdown.map { |s| [s.label, "service-id:#{s.id}"] }), include_blank: true, id: 'filter-dropdown', class: 'form-control' %>
           </div>
         </div>
-        <%= render 'v2/shared/link_type_controls' %>
+        <div class="pull-left">
+          <%= render 'v2/shared/link_type_controls' %>
+        </div>
+        <div class="pull-right"
+          <p class="text-right"><span class="big-number"><%= @total_rows %></span> links</p>
+        </div>
       </div>
       <table id="links" class="table table-bordered">
         <thead>

@@ -25,16 +25,23 @@ module V2
         links_by_authority.
           map { |la, links| [la, links.group_by { |link| link.service }] }
       ]
+      @total_rows = @links.reduce(0) do |sum, (_la, links_by_service)|
+        sum + links_by_service.reduce(0) do |ssum, (_service, links)|
+          ssum + links.size
+        end
+      end
     end
 
     def local_authorities
       @local_authorities = LocalAuthority.with_broken_links_count.order(current_sort_order[:order_args])
       @local_authorities_for_dropdown = @local_authorities.reorder(name: :asc)
+      @total_rows = @local_authorities.count("id")
     end
 
     def services
       @services = Service.with_broken_links_count.order(current_sort_order[:order_args])
       @services_for_dropdown = @services.reorder(label: :asc)
+      @total_rows = @services.count("id")
     end
 
     def self.default_sort_order

@@ -25,6 +25,7 @@ module V2
         group_by { |link| link.service.id }
 
       @services_for_dropdown = @services.reorder(label: :asc).reject { |s| @links[s.id].blank? }
+      @total_rows = @links.reduce(0) { |sum, (_service, links)| sum + links.size }
     end
 
     def with_service
@@ -45,6 +46,8 @@ module V2
         all
 
       @interactions_for_dropdown = @links.map(&:interaction).sort_by(&:label)
+      @total_rows = @links.count
+      @total_broken_rows = @links.broken.count
     end
 
     def self.default_sort_order
