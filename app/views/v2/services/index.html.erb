@@ -11,7 +11,18 @@
     setupFilterDropdown(
       '#links tbody tr',
       "Search for a council or link here",
-      function () {}
+      function (selectedType, selectedId) {
+        if (selectedType !== 'local-authority-id') {
+          $('#links tbody tr[data-local-authority-id]:not([data-service-id])').each(function(_idx, element) {
+            var $element = $(element);
+            if ($('#links tbody tr[data-service-id][data-local-authority-id='+$element.data('localAuthorityId')+']:visible').length === 0) {
+              $element.hide();
+            } else {
+              $element.show();
+            }
+          });
+        }
+      }
     );
     setupLinkTypeFilterRadioButtons();
   <% end %>
