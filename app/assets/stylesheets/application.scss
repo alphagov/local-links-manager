@@ -15,29 +15,80 @@
  */
 @import 'govuk_admin_template';
 
+
+
 .no-gutter {
   padding-right:0;
   padding-left:0;
 }
 
-.broken-link-count {
-  @extend h3;
-  span {
-    font-size: $font-size-base;
+.v2 {
+  .panel-heading {
+    padding-top: 25px;
   }
-}
-
-.link-type-controls {
-  label {
-    margin-right: 1em;
+  thead > tr > th,
+  tbody > tr > td {
+    padding-left: 25px;
+    padding-right: 25px;
   }
-  a {
-    color: $text-color;
-    &:visited {
-      color: $text-color;
+  tr.no-service-label > td {
+    padding-top: 15px;
+  }
+  td.status .label {
+    font-size: 100%;
+  }
+  td.name {
+    h3, .broken-link-count {
+      margin-top: ($line-height-computed / 2);
     }
-    &:hover {
-      text-decoration: none;
+  }
+  .dropdown {
+    display: inline-block;
+    margin-right: 15px;
+  }
+  .broken-link-count {
+    @extend h3;
+    span {
+      font-size: $font-size-base;
+    }
+  }
+  .total-number-container {
+    .form-group, .total-number {
+      margin-bottom: 0px;
+    }
+    margin-bottom: 0px;
+  }
+  .total-number {
+    font-weight: 500;
+    .big-number {
+      line-height: 1;
+    }
+  }
+  .lgsl_h4 {
+    @extend h4;
+    font-size: $font-size-base;
+    font-weight: normal;
+    line-height: floor(($font-size-h4 * $headings-line-height));
+  }
+  .lgsl_h3 {
+    @extend h3;
+    font-size: $font-size-base;
+    font-weight: normal;
+    line-height: floor(($font-size-h3 * $headings-line-height));
+  }
+
+  .link-type-controls {
+    label {
+      margin-right: 1em;
+    }
+    a {
+      color: $text-color;
+      &:visited {
+        color: $text-color;
+      }
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 }

@@ -39,15 +39,14 @@
 
   <div class="col-md-9 content">
     <div class="panel panel-default">
-      <div class="panel-heading clearfix">
-        <div class="input-group">
-          <div class="input-group-btn">
-            <%= render 'v2/shared/sort_order_dropdown' %>
-          </div>
-          <%= select_tag 'filter', options_for_select(@services_for_dropdown.map { |s| [s.label, "service-id:#{s.id}"] }), include_blank: true, id: 'filter-dropdown', class: 'form-control' %>
-        </div>
-        <p class="pull-right text-right" data-total-rows="<%= @total_rows %>"><span class="big-number"><%= @total_rows %></span> services</p>
-      </div>
+      <%= render 'v2/shared/panel_heading',
+                 options_for_filter_select_tag: options_for_select(
+                   @services_for_dropdown.map { |s| [s.label, "service-id:#{s.id}"] }
+                 ),
+                 with_link_type_controls: false,
+                 total_rows: @total_rows,
+                 total_rows_description: 'services'
+      %>
       <table id="services" class="table table-bordered">
         <thead>
           <tr class="table-header">
@@ -58,9 +57,9 @@
         <tbody>
           <% @services.each do |service| %>
             <tr data-service-id="<%= service.id %>" data-row>
-              <td class="text-center"><h4><%= service.lgsl_code %></h4></td>
+              <td class="text-center col-md-1"><p class="lgsl_h3"><%= service.lgsl_code %></p></td>
               <td class="clearfix">
-                <h4 class="pull-left"><%= link_to service.label, v2_service_path(service.slug) %></h4>
+                <h3 class="pull-left"><%= link_to service.label, v2_service_path(service.slug) %></h3>
                 <div class="pull-right">
                   <p><span class="big-number"><%= service.broken_links_count %></span><br/>Broken links</p>
                 </div>
