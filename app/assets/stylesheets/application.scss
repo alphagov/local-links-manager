@@ -23,6 +23,9 @@
 }
 
 .v2 {
+  .home-nav {
+    margin-bottom: ($line-height-computed / 2);
+  }
   .panel-heading {
     padding-top: 25px;
   }

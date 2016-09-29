@@ -52,17 +52,10 @@
 
 <div class="row">
 
-  <div class="col-md-3 sidebar">
-    <nav>
-      <ul class="nav nav-pills nav-stacked">
-        <li role="presentation" class="active"><%= link_to 'View latest broken links', v2_broken_links_path %></li>
-        <li role="presentation"><%= link_to 'View all councils', v2_local_authorities_path %></li>
-        <li role="presentation"><%= link_to 'View all services', v2_services_path %></li>
-      </ul>
-    </nav>
-  </div>
+  <div class="col-md-12 content">
 
-  <div class="col-md-9 content">
+    <%= render 'home_nav' %>
+
     <div class="panel panel-default">
       <%= render 'v2/shared/panel_heading',
                  options_for_filter_select_tag: grouped_options_for_select(

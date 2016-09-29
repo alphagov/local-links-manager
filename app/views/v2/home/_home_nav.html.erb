@@ -1,0 +1,7 @@
+<nav class="home-nav">
+  <ul class="nav nav-tabs">
+    <li role="presentation"<% if action_name == 'broken_links' %> class="active"<% end %>><%= link_to 'View latest broken links', v2_broken_links_path %></li>
+    <li role="presentation"<% if action_name == 'local_authorities' %> class="active"<% end %>><%= link_to 'View all councils', v2_local_authorities_path %></li>
+    <li role="presentation"<% if action_name == 'services' %> class="active"<% end %>><%= link_to 'View all services', v2_services_path %></li>
+  </ul>
+</nav>
