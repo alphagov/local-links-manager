@@ -9,7 +9,7 @@
       <h4><%= link_to link.with_service_label, v2_local_authority_with_service_path(link.local_authority.slug, link.with_service_slug) %></h4>
     <% end %>
     <p><%= link.interaction_label %><br>
-    <%= link_to truncate(link.url, length: 50, omission: '…'), link.url %></p>
+    <%= link_to nil, link.url %></p>
   </td>
   <td class="status">
     <% if link.with_service_label %><h4>&nbsp;</h4><% end %>

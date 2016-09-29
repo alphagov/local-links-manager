@@ -29,10 +29,14 @@
   .panel-heading {
     padding-top: 25px;
   }
+  .table {
+    table-layout:fixed;
+  }
   thead > tr > th,
   tbody > tr > td {
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
+    overflow-wrap: break-word;
   }
   tr.no-service-label > td {
     padding-top: 15px;
