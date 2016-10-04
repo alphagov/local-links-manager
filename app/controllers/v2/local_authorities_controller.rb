@@ -82,17 +82,20 @@ module V2
           'broken' => {
             description: 'Broken links',
             param: 'broken',
-            where_clauses: Link.arel_table[:status].not_eq('200')
+            where_clauses: Link.arel_table[:status].not_eq('200'),
+            total_count_description: 'broken links',
           },
           'good' => {
             description: 'Good links',
             param: 'good',
-            where_clauses: Link.arel_table[:status].eq('200')
+            where_clauses: Link.arel_table[:status].eq('200'),
+            total_count_description: 'good links',
           },
           'all' => {
             description: 'All links',
             param: 'all',
-            where_clauses: '1=1'
+            where_clauses: '1=1',
+            total_count_description: 'links',
           },
         }.tap { |index_hash|
           index_hash.default = index_hash['broken']

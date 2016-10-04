@@ -70,7 +70,7 @@
                    @local_authorities_for_dropdown.map { |la| [la.name, "local-authority-id:#{la.id}"] },
                  ),
                  total_rows: @total_rows,
-                 total_rows_description: 'links'
+                 total_rows_description: current_link_type_filter[:total_count_description]
       %>
       <table id="links" class="table table-bordered">
         <thead>

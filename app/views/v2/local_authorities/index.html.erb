@@ -35,7 +35,7 @@
                    @services_for_dropdown.map { |s| [s.label, "service-id:#{s.id}"] }
                  ),
                  total_rows: @total_rows,
-                 total_rows_description: 'links'
+                 total_rows_description: current_link_type_filter[:total_count_description]
       %>
       <table id="links" class="table table-bordered">
         <thead>
