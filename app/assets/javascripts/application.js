@@ -6,7 +6,23 @@ function setupFilterDropdown(rowSelector, placeholderText, filterCallback, unfil
       $totalRows.find('.big-number').html(count);
     }
   }
-  $( "#filter-dropdown" ).select2({
+  function itemSelected(event_data) {
+    if (event_data['url'] !== true) {
+      var selectedItem = event_data.id.toString().split(':'),
+        selectedType = selectedItem[0],
+        selectedId = selectedItem[1];
+      $(rowSelector+"[data-row][data-"+selectedType+"][data-"+selectedType+"='"+selectedId+"']").show();
+      $(rowSelector+"[data-row][data-"+selectedType+"]:not([data-"+selectedType+"='"+selectedId+"'])").hide();
+      filterCallback(selectedType, selectedId);
+    } else {
+      var url = event_data.text;
+      $(rowSelector + "[data-row][data-url][data-url^='"+url+"']:hidden").show();
+      $(rowSelector + "[data-row][data-url]:not([data-url^='"+url+"']):visible").hide();
+      filterCallback('url', url);
+    }
+    setTotalRows(function(_$totalRows) { return $(rowSelector+'[data-row]:visible').length; });
+  }
+  var filterDropdown = $( "#filter-dropdown" ).select2({
     placeholder: placeholderText,
     allowClear: true,
     theme: "bootstrap",
@@ -24,25 +40,24 @@ function setupFilterDropdown(rowSelector, placeholderText, filterCallback, unfil
         return null;
       }
     }
-  }).on("select2:select", function (e) {
-    if (e.params.data['url'] !== true) {
-      var selectedItem = e.params.data.element.value.toString().split(':'),
-        selectedType = selectedItem[0],
-        selectedId = selectedItem[1];
-      $(rowSelector+"[data-row][data-"+selectedType+"][data-"+selectedType+"='"+selectedId+"']").show();
-      $(rowSelector+"[data-row][data-"+selectedType+"]:not([data-"+selectedType+"='"+selectedId+"'])").hide();
-      filterCallback(selectedType, selectedId);
-    } else {
-      var url = e.params.data.text;
-      $(rowSelector + "[data-row][data-url][data-url^='"+url+"']:hidden").show();
-      $(rowSelector + "[data-row][data-url]:not([data-url^='"+url+"']):visible").hide();
-      filterCallback('url', url);
-    }
-    setTotalRows(function(_$totalRows) { return $(rowSelector+'[data-row]:visible').length; });
+  })
+  filterDropdown.on("select2:select", function (e) {
+    itemSelected(e.params.data);
   }).on("select2:unselect", function (e) {
     $(rowSelector+":hidden").show();
     setTotalRows(function($totalRows) { return $totalRows.data('totalRows'); });
     unfilterCallback();
+  });
+  $(window).bind("pageshow", function() {
+    if (filterDropdown.val() !== "") {
+      var option = filterDropdown.find("option[value='"+filterDropdown.val()+"']"),
+      data = {
+        id: option.val(),
+        text: option.text,
+        url: option.val().match(/^https?:\/\//)
+      }
+      itemSelected(data);
+    }
   });
 };
 function setupLinkTypeFilterRadioButtons() {
