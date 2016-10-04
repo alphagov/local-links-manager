@@ -29,9 +29,9 @@ module V2
     def self.default_sort_order
       @_default_sort_order ||= {
         'index' => {
-          'default' => {
-            description: 'Default (A-Z)',
-            param: 'default',
+          'alphabetical' => {
+            description: 'A-Z (council name)',
+            param: 'alphabetical',
             order_args: LocalAuthority.arel_table[:name].asc
           },
           'broken-links' => {
@@ -40,7 +40,7 @@ module V2
             order_args: 'broken_links_count desc'
           },
         }.tap { |services_hash|
-          services_hash.default = services_hash['default']
+          services_hash.default = services_hash['broken-links']
         }
       }.tap { |sort_order_hash|
         sort_order_hash.default = sort_order_hash['index']
@@ -66,7 +66,7 @@ module V2
             where_clauses: Link.arel_table[:status].not_eq('200')
           }
         }.tap { |index_hash|
-          index_hash.default = index_hash['all']
+          index_hash.default = index_hash['broken']
         }
       }.tap { |link_type_hash|
         link_type_hash.default = link_type_hash['index']

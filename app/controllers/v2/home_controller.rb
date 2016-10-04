@@ -47,9 +47,9 @@ module V2
     def self.default_sort_order
       @_default_sort_order ||= {
         'services' => {
-          'default' => {
-            description: 'Default (code)',
-            param: 'default',
+          'code' => {
+            description: 'Service code',
+            param: 'code',
             order_args: Service.arel_table['lgsl_code'].asc
           },
           'broken-links' => {
@@ -63,12 +63,12 @@ module V2
             order_args: Service.arel_table['label'].asc
           },
         }.tap { |services_hash|
-          services_hash.default = services_hash['default']
+          services_hash.default = services_hash['broken-links']
         },
         'local_authorities' => {
-          'default' => {
-            description: 'Default (A-Z)',
-            param: 'default',
+          'alphabetical' => {
+            description: 'A-Z',
+            param: 'alphabetical',
             order_args: LocalAuthority.arel_table[:name].asc
           },
           'broken-links' => {
@@ -77,12 +77,12 @@ module V2
             order_args: 'broken_links_count desc'
           },
         }.tap { |local_authorities_hash|
-          local_authorities_hash.default = local_authorities_hash['default']
+          local_authorities_hash.default = local_authorities_hash['broken-links']
         },
         'broken_links' => {
-          'default' => {
-            description: 'Default (A-Z)',
-            param: 'default',
+          'alphabetical' => {
+            description: 'A-Z (council name)',
+            param: 'alphabetical',
             order_args: LocalAuthority.arel_table[:name].asc
           },
           'broken-links' => {
@@ -91,7 +91,7 @@ module V2
             order_args: 'broken_links_count desc'
           },
         }.tap { |broken_links_hash|
-          broken_links_hash.default = broken_links_hash['default']
+          broken_links_hash.default = broken_links_hash['broken-links']
         }
       }
     end

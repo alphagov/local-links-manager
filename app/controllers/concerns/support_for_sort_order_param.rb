@@ -3,7 +3,7 @@ module SupportForSortOrderParam
 
   included do
     def current_sort_order
-      self.class.default_sort_order[action_name][params.fetch(:sort_order, 'default')]
+      self.class.default_sort_order[action_name][params[:sort_order]]
     end
     helper_method :current_sort_order
 
