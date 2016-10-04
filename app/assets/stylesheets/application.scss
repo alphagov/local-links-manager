@@ -26,6 +26,9 @@
   .home-nav, .link-type-controls {
     margin-bottom: ($line-height-computed / 2);
   }
+  .home-nav {
+    font-size: $font-size-base * 1.2;
+  }
   .panel-heading {
     padding-top: 25px;
   }
@@ -82,5 +85,28 @@
     font-size: $font-size-base;
     font-weight: normal;
     line-height: floor(($font-size-h3 * $headings-line-height));
+  }
+
+  .nav.nav-tabs {
+    *[role='presentation'] {
+      a {
+        background-color: $gray-lighter;
+        border-bottom-color: $nav-tabs-border-color;
+        &:hover {
+          background-color: $gray-light;
+          border-color: $gray-light;
+        };
+      }
+      &.active {
+        a {
+          background-color: $body-bg;
+          border-bottom-color: $body-bg;
+          &:hover {
+            border-color: $nav-tabs-border-color;
+            border-bottom-color: $body-bg;
+          }
+        }
+      }
+    }
   }
 }
