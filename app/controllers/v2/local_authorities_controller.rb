@@ -79,21 +79,21 @@ module V2
     def self.default_link_type_filters
       @_default_link_type_filters ||= {
         'index' => {
-          'all' => {
-            description: 'All links',
-            param: 'all',
-            where_clauses: '1=1'
+          'broken' => {
+            description: 'Broken links',
+            param: 'broken',
+            where_clauses: Link.arel_table[:status].not_eq('200')
           },
           'good' => {
             description: 'Good links',
             param: 'good',
             where_clauses: Link.arel_table[:status].eq('200')
           },
-          'broken' => {
-            description: 'Broken links',
-            param: 'broken',
-            where_clauses: Link.arel_table[:status].not_eq('200')
-          }
+          'all' => {
+            description: 'All links',
+            param: 'all',
+            where_clauses: '1=1'
+          },
         }.tap { |index_hash|
           index_hash.default = index_hash['broken']
         }

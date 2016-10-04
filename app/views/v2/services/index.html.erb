@@ -61,12 +61,14 @@
 
 <div class="row">
   <div class="col-md-12 content">
+
+    <%= render 'v2/shared/link_type_controls' %>
+
     <div class="panel panel-default">
       <%= render 'v2/shared/panel_heading',
                  options_for_filter_select_tag: options_for_select(
                    @local_authorities_for_dropdown.map { |la| [la.name, "local-authority-id:#{la.id}"] },
                  ),
-                 with_link_type_controls: true,
                  total_rows: @total_rows,
                  total_rows_description: 'links'
       %>

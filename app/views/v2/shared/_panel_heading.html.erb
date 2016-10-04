@@ -12,9 +12,6 @@
     </div>
   </div>
   <div class="total-number-container form-group clearfix">
-    <% if with_link_type_controls %><div class="pull-left">
-      <%= render 'v2/shared/link_type_controls' %>
-    </div><% end %>
     <div class="pull-right">
       <% if content_for? :panel_heading_custom_total_rows %>
         <%= yield :panel_heading_custom_total_rows %>

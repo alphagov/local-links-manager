@@ -33,6 +33,9 @@
 
 <div class="row">
   <div class="col-md-12 content">
+
+    <%= render 'v2/shared/link_type_controls' %>
+
     <div class="panel panel-default">
       <% content_for :panel_heading_custom_total_rows do %>
         <p class="total-number"><span data-total-rows="<%= @total_rows %>"><span class="number"><%= @total_rows %></span> links</span> <span class="text-muted">|</span> <span data-broken-rows="<%= @total_broken_rows %>"><span class="number"><%= @total_broken_rows %></span> broken links</p>
@@ -40,8 +43,7 @@
       <%= render 'v2/shared/panel_heading',
                  options_for_filter_select_tag: options_for_select(
                    @interactions_for_dropdown.map { |i| [i.label, "interaction-id:#{i.id}"] }
-                 ),
-                 with_link_type_controls: true
+                 )
       %>
       <table id="links" class="table table-bordered">
         <thead>

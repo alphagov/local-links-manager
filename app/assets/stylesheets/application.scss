@@ -23,7 +23,7 @@
 }
 
 .v2 {
-  .home-nav {
+  .home-nav, .link-type-controls {
     margin-bottom: ($line-height-computed / 2);
   }
   .panel-heading {
@@ -82,20 +82,5 @@
     font-size: $font-size-base;
     font-weight: normal;
     line-height: floor(($font-size-h3 * $headings-line-height));
-  }
-
-  .link-type-controls {
-    label {
-      margin-right: 1em;
-    }
-    a {
-      color: $text-color;
-      &:visited {
-        color: $text-color;
-      }
-      &:hover {
-        text-decoration: none;
-      }
-    }
   }
 }
