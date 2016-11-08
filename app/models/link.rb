@@ -18,8 +18,22 @@ class Link < ApplicationRecord
       .where(service_interactions: { service_id: service })
   }
 
+  def self.broken
+    self.where(arel_table[:status].eq(nil).or(arel_table[:status].not_eq('200')))
+  end
+
   def self.enabled_links
-    self.joins(:service).where(services: { enabled: true })
+    self.joins(:service).where(Service.arel_table[:enabled].eq(true))
+  end
+
+  def self.with_correct_service_and_tier
+    self.joins(:service, :local_authority).where(
+      Service.arel_table[:tier].eq('all')
+        .or(
+          Arel::Nodes::NamedFunction.new('strpos', [Service.arel_table[:tier], LocalAuthority.arel_table[:tier]]).
+          not_eq(0)
+        )
+    )
   end
 
   def self.retrieve(params)

@@ -1,0 +1,7 @@
+<nav class="link-type-controls">
+  <ul class="nav nav-tabs">
+    <% all_link_type_filters.each do |link_type_filter| %>
+      <li role="presentation"<% if current_link_type_filter[:param] == link_type_filter[:param] %> class="active"<% end %>><%= link_to link_type_filter[:description], url_for(params.merge(link_type: link_type_filter[:param])) %></li>
+    <% end %>
+  </ul>
+</nav>

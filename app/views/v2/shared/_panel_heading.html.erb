@@ -1,0 +1,23 @@
+<div class="panel-heading">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-btn">
+        <%= render 'v2/shared/sort_order_dropdown' %>
+      </div>
+      <%= select_tag 'filter',
+                     options_for_filter_select_tag,
+                     include_blank: true,
+                     id: 'filter-dropdown',
+                     class: 'form-control' %>
+    </div>
+  </div>
+  <div class="total-number-container form-group clearfix">
+    <div class="pull-right">
+      <% if content_for? :panel_heading_custom_total_rows %>
+        <%= yield :panel_heading_custom_total_rows %>
+      <% else %>
+        <p class="total-number text-right" data-total-rows="<%= total_rows %>"><span class="big-number"><%= total_rows %></span> <%= total_rows_description %></p>
+      <% end %>
+    </div>
+  </div>
+</div>

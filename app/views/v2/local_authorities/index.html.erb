@@ -1,0 +1,64 @@
+<% content_for :page_title, @local_authority.name %>
+
+<% content_for :head do %>
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" %>
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.6/select2-bootstrap.min.css" %>
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js" %>
+<% end %>
+
+<% content_for :body_end do %>
+  <%= javascript_tag do %>
+    setupFilterDropdown(
+      "#links tbody tr",
+      "Search for a service or link here",
+      function() {},
+      function() {}
+    );
+    setupLinkTypeFilterRadioButtons();
+  <% end %>
+<% end %>
+
+<% breadcrumb :v2_local_authorities, @local_authority %>
+
+<%= render "shared/local_authority_details", authority: @local_authority %>
+
+<%= render 'v2/shared/flashes' %>
+
+<div class="row">
+  <div class="col-md-12 content">
+
+    <%= render 'v2/shared/link_type_controls' %>
+
+    <div class="panel panel-default">
+      <%= render 'v2/shared/panel_heading',
+                 options_for_filter_select_tag: options_for_select(
+                   @services_for_dropdown.map { |s| [s.label, "service-id:#{s.id}"] }
+                 ),
+                 total_rows: @total_rows,
+                 total_rows_description: current_link_type_filter[:total_count_description]
+      %>
+      <table id="links" class="table table-bordered">
+        <thead>
+          <tr class="table-header">
+            <th class="col-md-1">Code</th>
+            <th class="col-md-6">Services and links</th>
+            <th class="col-md-3">Link status</th>
+            <th class="col-md-2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @services.each do |service| %>
+            <% links_by_service = @links[service.id] %>
+            <% next if links_by_service.blank? %>
+            <% first_link, *remaining_links = *links_by_service %>
+            <%= render 'v2/shared/link_table_row', link: AnyLinkPresenter.for(first_link, local_authority: @local_authority, with_service: service, with_service_links_count: links_by_service.count, context: self), row_data: { service_id: service.id } %>
+            <% remaining_links.each do |link| %>
+              <%= render 'v2/shared/link_table_row', link: AnyLinkPresenter.for(link, local_authority: @local_authority, context: self), row_data: { service_id: service.id } %>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

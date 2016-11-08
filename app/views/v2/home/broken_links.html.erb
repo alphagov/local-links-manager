@@ -1,0 +1,106 @@
+<% content_for :page_title, "Local Links Manager" %>
+
+<% content_for :head do %>
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" %>
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.6/select2-bootstrap.min.css" %>
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js" %>
+<% end %>
+
+<% content_for :body_end do %>
+  <%= javascript_tag do %>
+    function setBrokenLaRowsCount(countFunc) {
+      var $totalBrokenLaRows = $('[data-broken-la-rows]:visible');
+      $totalBrokenLaRows.each(function(_idx, elem) {
+        var $elem = $(elem),
+          count = countFunc($elem);
+        $elem.find('.number').html(count);
+      });
+    }
+    setupFilterDropdown(
+      "#broken-links tbody tr",
+      "Search for a council, service, or link here",
+      function(selectedType, selectedId) {
+        $('#broken-links tbody tr[data-local-authority-id]:not([data-row])').each(function(_idx, element) {
+          var $element = $(element);
+          if ($('#broken-links tbody tr[data-row][data-local-authority-id='+$element.data('localAuthorityId')+']:visible').length === 0) {
+            $element.hide();
+          } else {
+            $element.show();
+          }
+        });
+        setBrokenLaRowsCount(function($elem) {
+          var la_id = $elem.closest('[data-local-authority-id]').data('localAuthorityId');
+          return $('#broken-links tbody tr[data-service-id][data-local-authority-id='+la_id+']:visible').length;
+        });
+      },
+      function() {
+        setBrokenLaRowsCount(function($elem) {
+          return $elem.data('brokenLaRows');
+        });
+      }
+    );
+  <% end %>
+<% end %>
+
+<% breadcrumb :local_links_manager %>
+
+<div class="page-title">
+  <h1>Local Links Manager</h1>
+</div>
+
+<%= render 'v2/shared/flashes' %>
+
+<div class="row">
+
+  <div class="col-md-12 content">
+
+    <%= render 'home_nav' %>
+
+    <div class="panel panel-default">
+      <%= render 'v2/shared/panel_heading',
+                 options_for_filter_select_tag: grouped_options_for_select(
+                   'Councils' => @local_authorities_for_dropdown.map { |la| [la.name, "local-authority-id:#{la.id}"] },
+                   'Services' => ([['Homepage', 'service-id:homepage']] + @services_for_dropdown.map { |s| [s.label, "service-id:#{s.id}"] })
+                 ),
+                 total_rows: @total_rows,
+                 total_rows_description: 'broken links'
+      %>
+      <table id="broken-links" class="table table-bordered">
+        <thead>
+          <tr class="table-header">
+            <th class="col-md-1">Code</th>
+            <th class="col-md-6">Services and links</th>
+            <th class="col-md-3">Link status</th>
+            <th class="col-md-2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @local_authorities.each do |authority| %>
+            <% authority_links_by_service = @links[authority.id] %>
+            <% next if authority_links_by_service.blank? %>
+            <% presented_authority = LocalAuthorityPresenter.new(authority) %>
+            <tr data-local-authority-id="<%= authority.id %>">
+              <td class="name clearfix" colspan="4">
+                <h3 class="pull-left"><%= link_to presented_authority.name, v2_local_authority_path(presented_authority.slug) %></h3>
+                <p class="pull-right broken-link-count">
+                  <span data-broken-la-rows="<%= presented_authority.broken_links_count %>"><span class="number"><%= presented_authority.broken_links_count %></span> broken links</span>
+                </p>
+              </td>
+            </tr>
+            <% if presented_authority.homepage_status != 'Good' %>
+              <%= render 'v2/shared/link_table_row', link: AnyLinkPresenter.for(authority, context: self), row_data: { local_authority_id: authority.id, service_id: 'homepage' } %>
+            <% end %>
+            <% authority_links_by_service.each do |service, links| %>
+              <% first_link, *remaining_links = *links %>
+              <%= render 'v2/shared/link_table_row', link: AnyLinkPresenter.for(first_link, local_authority: authority, with_service: service, with_service_links_count: links.count, context: self), row_data: { local_authority_id: authority.id, service_id: service.id } %>
+              <% remaining_links.each do |link| %>
+                <%= render 'v2/shared/link_table_row', link: AnyLinkPresenter.for(link, local_authority: authority, context: self), row_data: { local_authority_id: authority.id, service_id: service.id } %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

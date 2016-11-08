@@ -1,0 +1,12 @@
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="sort-services-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Sort by: <%= current_sort_order[:description] %>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="sort-services-dropdown">
+    <% all_sort_order_options.each do |sort_order_option| %>
+      <li><%= link_to sort_order_option[:description],
+                      url_for(params.merge(sort_order: sort_order_option[:param])) %></li>
+    <% end %>
+  </ul>
+</div>

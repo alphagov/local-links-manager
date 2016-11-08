@@ -15,7 +15,101 @@
  */
 @import 'govuk_admin_template';
 
+
+
 .no-gutter {
   padding-right:0;
   padding-left:0;
+}
+
+.v2 {
+  .home-nav, .link-type-controls {
+    margin-bottom: ($line-height-computed / 2);
+  }
+  .home-nav {
+    font-size: $font-size-base * 1.2;
+  }
+  .panel-heading {
+    padding-top: 25px;
+  }
+  .table {
+    table-layout:fixed;
+  }
+  thead > tr > th,
+  tbody > tr > td {
+    padding-left: 15px;
+    padding-right: 15px;
+    overflow-wrap: break-word;
+  }
+  tr.no-service-label > td {
+    padding-top: 15px;
+  }
+  td.status .label {
+    font-size: 100%;
+  }
+  td.name {
+    h3, .broken-link-count {
+      margin-top: ($line-height-computed / 2);
+    }
+  }
+  .dropdown {
+    display: inline-block;
+    margin-right: 15px;
+  }
+  .broken-link-count {
+    @extend h3;
+    span {
+      font-size: $font-size-base;
+    }
+  }
+  .total-number-container {
+    .form-group, .total-number {
+      margin-bottom: 0px;
+    }
+    margin-bottom: 0px;
+  }
+  .total-number {
+    font-weight: 500;
+    .big-number {
+      line-height: 1;
+    }
+  }
+  .lgsl_h4 {
+    @extend h4;
+    font-size: $font-size-base;
+    font-weight: normal;
+    line-height: floor(($font-size-h4 * $headings-line-height));
+  }
+  .lgsl_h3 {
+    @extend h3;
+    font-size: $font-size-base;
+    font-weight: normal;
+    line-height: floor(($font-size-h3 * $headings-line-height));
+  }
+
+  .nav.nav-tabs {
+    *[role='presentation'] {
+      a {
+        background-color: $component-active-bg;
+        color: $component-active-color;
+        border-bottom-color: $nav-tabs-border-color;
+        &:hover {
+          background-color: darken($component-active-bg, 15%);
+          border-color: darken($component-active-bg, 15%);
+        };
+        margin-right: 10px;
+      }
+      &.active {
+        a {
+          background-color: $body-bg;
+          border-bottom-color: $body-bg;
+          color: $text-color;
+          &:hover {
+            border-color: $nav-tabs-border-color;
+            border-bottom-color: $body-bg;
+          }
+        }
+      }
+    }
+  }
 }

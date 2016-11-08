@@ -5,7 +5,9 @@
     <span class="<%= authority.label_status_class %> text-muted"><b><%= authority.homepage_status %></b></span>
     <span class="text-muted"><%= authority.homepage_link_last_checked %></span>
   </p>
-  <p>
-    <%= link_to authority.homepage_button_text, edit_local_authority_path(slug: authority.slug), class: 'btn btn-default btn-xs' %>
-  </p>
+  <% unless local_assigns[:without_edit_link] %>
+    <p>
+      <%= link_to authority.homepage_button_text, edit_local_authority_path(slug: authority.slug), class: 'btn btn-default btn-xs' %>
+    </p>
+  <% end %>
 </div>

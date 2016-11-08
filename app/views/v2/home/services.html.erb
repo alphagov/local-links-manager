@@ -1,0 +1,68 @@
+<% content_for :page_title, "Local Links Manager" %>
+
+<% content_for :head do %>
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" %>
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.6/select2-bootstrap.min.css" %>
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js" %>
+<% end %>
+
+<% content_for :body_end do %>
+  <%= javascript_tag do %>
+    setupFilterDropdown(
+      '#services tbody tr',
+      "Search for a service here",
+      function() {},
+      function() {}
+    );
+  <% end %>
+<% end %>
+
+<% breadcrumb :local_links_manager %>
+
+<div class="page-title">
+  <h1>Local Links Manager</h1>
+</div>
+
+<%= render 'v2/shared/flashes' %>
+
+<div class="row">
+
+  <div class="col-md-12 content">
+
+    <%= render 'home_nav' %>
+
+    <div class="panel panel-default">
+      <%= render 'v2/shared/panel_heading',
+                 options_for_filter_select_tag: options_for_select(
+                   @services_for_dropdown.map { |s| [s.label, "service-id:#{s.id}"] }
+                 ),
+                 total_rows: @total_rows,
+                 total_rows_description: 'services'
+      %>
+      <table id="services" class="table table-bordered">
+        <thead>
+          <tr class="table-header">
+            <th class="col-md-1">Code</th>
+            <th class="col-md-11">Service</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @services.each do |service| %>
+            <tr data-service-id="<%= service.id %>" data-row>
+              <td class="text-center col-md-1"><p class="lgsl_h3"><%= service.lgsl_code %></p></td>
+              <td class="clearfix">
+                <h3 class="pull-left"><%= link_to service.label, v2_service_path(service.slug) %></h3>
+                <div class="pull-right">
+                  <p><span class="big-number"><%= service.broken_links_count %></span><br/>Broken links</p>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+

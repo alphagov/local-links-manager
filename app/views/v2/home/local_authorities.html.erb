@@ -1,0 +1,55 @@
+<% content_for :page_title, "Local Links Manager" %>
+
+<% content_for :head do %>
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" %>
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.6/select2-bootstrap.min.css" %>
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js" %>
+<% end %>
+
+<% content_for :body_end do %>
+  <%= javascript_tag do %>
+    setupFilterDropdown(
+      "#local-authorities li",
+      "Search for a council here",
+      function() {},
+      function() {}
+    );
+  <% end %>
+<% end %>
+
+<% breadcrumb :local_links_manager %>
+
+<div class="page-title">
+  <h1>Local Links Manager</h1>
+</div>
+
+<%= render 'v2/shared/flashes' %>
+
+<div class="row">
+
+  <div class="col-md-12 content">
+
+    <%= render 'home_nav' %>
+
+    <div class="panel panel-default">
+      <%= render 'v2/shared/panel_heading',
+                 options_for_filter_select_tag: options_for_select(
+                   @local_authorities_for_dropdown.map { |la| [la.name, "local-authority-id:#{la.id}"] }
+                 ),
+                 total_rows: @total_rows,
+                 total_rows_description: 'local authorities'
+      %>
+      <ul id="local-authorities" class="list-group">
+        <% @local_authorities.each do |local_authority| %>
+          <li data-local-authority-id="<%= local_authority.id %>" class="list-group-item clearfix" data-row>
+            <h3 class="pull-left"><%= link_to local_authority.name, v2_local_authority_path(local_authority.slug) %></h3>
+            <div class="pull-right text-right">
+              <p><span class="big-number"><%= local_authority.broken_links_count %></span><br/>Broken links</p>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+</div>

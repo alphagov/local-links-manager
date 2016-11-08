@@ -1,0 +1,35 @@
+<% breadcrumb :v2_links, @local_authority, @service, @interaction %>
+
+<%= render "shared/local_authority_details", authority: @local_authority, without_edit_link: true %>
+
+<hr>
+
+<div class="page-title">
+  <h3><%= @service.label %></h3>
+  <p><b>Service code</b> <%= @service.lgsl_code %></p>
+</div>
+
+<%= render 'v2/shared/flashes' %>
+
+<%= form_for @link, url: v2_link_path(@local_authority.slug, @service.slug, @interaction.slug), method: "put" do |f| %>
+  <div class="form-group <% if flash[:danger] %>has-error<% end %>">
+    <div class="col-xs-12 no-gutter">
+      <h4><%= @interaction.label %></h4>
+      <%= f.label :url, 'Page url' %>
+      <p class="text-muted">for example http://www.local-authority.gov.uk</p>
+      <%= f.text_field :url, class: "form-control" %>
+    </div>
+    <div class="actions add-vertical-margins col-xs-6 no-gutter">
+      <%= link_to 'Cancel', where_we_came_from_url, class: 'btn btn-default add-right-margin' %>
+      <%= f.submit 'Update', class: 'btn btn-success' %>
+    </div>
+  </div>
+<% end %>
+
+<% if @link.url %>
+  <div class='actions add-vertical-margins col-xs-6 no-gutter'>
+    <%= form_tag(v2_link_path(@local_authority.slug, @service.slug, @interaction.slug), method: :delete) do %>
+      <%= button_tag 'Delete', class: "btn btn-danger pull-right" %>
+    <% end %>
+  </div>
+<% end %>
