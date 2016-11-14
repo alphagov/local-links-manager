@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161104150651) do
+ActiveRecord::Schema.define(version: 20161114122001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,13 +44,13 @@ ActiveRecord::Schema.define(version: 20161104150651) do
     t.string   "name",                                  null: false
     t.string   "slug",                                  null: false
     t.string   "snac",                                  null: false
-    t.string   "tier",                                  null: false
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.string   "status"
     t.datetime "link_last_checked"
     t.integer  "parent_local_authority_id"
     t.integer  "broken_link_count",         default: 0
+    t.integer  "tier_id"
     t.index ["gss"], name: "index_local_authorities_on_gss", unique: true, using: :btree
     t.index ["slug"], name: "index_local_authorities_on_slug", unique: true, using: :btree
     t.index ["snac"], name: "index_local_authorities_on_snac", unique: true, using: :btree
@@ -64,16 +64,29 @@ ActiveRecord::Schema.define(version: 20161104150651) do
     t.index ["service_id", "interaction_id"], name: "index_service_interactions_on_service_id_and_interaction_id", unique: true, using: :btree
   end
 
+  create_table "service_tiers", force: :cascade do |t|
+    t.integer  "service_id"
+    t.integer  "tier_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "services", force: :cascade do |t|
-    t.integer  "lgsl_code",                  null: false
-    t.string   "label",                      null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.string   "tier"
-    t.string   "slug",                       null: false
-    t.boolean  "enabled",    default: false, null: false
+    t.integer  "lgsl_code",                         null: false
+    t.string   "label",                             null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "slug",                              null: false
+    t.boolean  "enabled",           default: false, null: false
+    t.integer  "broken_link_count", default: 0
     t.index ["label"], name: "index_services_on_label", unique: true, using: :btree
     t.index ["lgsl_code"], name: "index_services_on_lgsl_code", unique: true, using: :btree
+  end
+
+  create_table "tiers", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

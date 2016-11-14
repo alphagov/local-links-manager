@@ -4,6 +4,8 @@ class Service < ApplicationRecord
 
   has_many :service_interactions
   has_many :interactions, through: :service_interactions
+  has_many :service_tiers
+  has_many :tiers, through: :service_tiers
 
   scope :for_tier, ->(tier) {
     case tier
@@ -27,11 +29,5 @@ class Service < ApplicationRecord
     else
       tiers.include? authority.tier
     end
-  end
-
-private
-
-  def tiers
-    tier.split('/')
   end
 end
