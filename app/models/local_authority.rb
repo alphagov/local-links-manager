@@ -4,6 +4,7 @@ class LocalAuthority < ApplicationRecord
   validates :gss, :snac, :slug, uniqueness: true
   validates :gss, :name, :snac, :tier, :slug, presence: true
   validates :homepage_url, non_blank_url: true, allow_blank: true
+  validates :tier_id, presence: true
 
   has_many :links
   belongs_to :parent_local_authority, foreign_key: :parent_local_authority_id, class_name: "LocalAuthority"

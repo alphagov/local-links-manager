@@ -8,18 +8,15 @@ describe LocalLinksManager::Import::ServicesTierImporter, :csv_importer do
     it 'imports the tiers from the csv file and updates existing services' do
       abandoned_shopping_trolleys = FactoryGirl.create(:service,
         lgsl_code: 1152,
-        label: "Abandoned shopping trolleys",
-        tier: nil
+        label: "Abandoned shopping trolleys"
       )
       arson_reduction = FactoryGirl.create(:service,
         lgsl_code: 800,
-        label: "Arson reduction",
-        tier: nil
+        label: "Arson reduction"
       )
       yellow_lines = FactoryGirl.create(:service,
         lgsl_code: 538,
-        label: "Yellow lines",
-        tier: nil
+        label: "Yellow lines"
       )
 
       csv_rows = [
@@ -43,9 +40,9 @@ describe LocalLinksManager::Import::ServicesTierImporter, :csv_importer do
 
       expect(subject.import_tiers).to be_successful
 
-      expect(abandoned_shopping_trolleys.reload.tier).to eq('county/unitary')
-      expect(arson_reduction.reload.tier).to eq('district/unitary')
-      expect(yellow_lines.reload.tier).to eq('all')
+      expect(abandoned_shopping_trolleys.reload.tiers.pluck(:name)).to match_array(%w[ county unitary ])
+      expect(arson_reduction.reload.tiers.pluck(:name)).to match_array(%w[ district unitary ])
+      expect(yellow_lines.reload.tiers.pluck(:name)).to match_array(%w[ district unitary county ])
     end
 
     it 'does not create new services for rows in the csv without a matching Service instance' do
@@ -67,9 +64,9 @@ describe LocalLinksManager::Import::ServicesTierImporter, :csv_importer do
 
     it 'does not update tiers to be blank' do
       abandoned_shopping_trolleys = FactoryGirl.create(:service,
+        :all_tiers,
         lgsl_code: 1152,
-        label: "Abandoned shopping trolleys",
-        tier: 'all'
+        label: "Abandoned shopping trolleys"
       )
 
       csv_rows = [
@@ -85,24 +82,21 @@ describe LocalLinksManager::Import::ServicesTierImporter, :csv_importer do
       expect(response).not_to be_successful
       expect(response.errors).to include('LGSL 1152 is missing a tier')
 
-      expect(abandoned_shopping_trolleys.reload.tier).not_to be_blank
+      expect(abandoned_shopping_trolleys.reload.tiers).not_to be_blank
     end
 
     it 'does not halt in the face of an error on a single row' do
       abandoned_shopping_trolleys = FactoryGirl.create(:service,
         lgsl_code: 1152,
-        label: "Abandoned shopping trolleys",
-        tier: nil
+        label: "Abandoned shopping trolleys"
       )
       arson_reduction = FactoryGirl.create(:service,
         lgsl_code: 800,
-        label: "Arson reduction",
-        tier: nil
+        label: "Arson reduction"
       )
       soil_excavation = FactoryGirl.create(:service,
         lgsl_code: 1419,
-        label: "Soil excavation",
-        tier: nil
+        label: "Soil excavation"
       )
 
       csv_rows = [
@@ -137,9 +131,9 @@ describe LocalLinksManager::Import::ServicesTierImporter, :csv_importer do
       expect(response).not_to be_successful
       expect(response.errors.count).to eq(3)
 
-      expect(abandoned_shopping_trolleys.reload.tier).to eq('county/unitary')
-      expect(arson_reduction.reload.tier).to be_blank
-      expect(soil_excavation.reload.tier).to eq('district/unitary')
+      expect(abandoned_shopping_trolleys.reload.tiers.pluck(:name)).to match_array(%w[ county unitary ])
+      expect(arson_reduction.reload.tiers).to be_blank
+      expect(soil_excavation.reload.tiers.pluck(:name)).to match_array(%w[ district unitary ])
     end
   end
 end

@@ -8,5 +8,13 @@ FactoryGirl.define do
     homepage_url "http://www.angus.gov.uk"
     status nil
     link_last_checked nil
+
+    trait :district_tier do
+      tier { Tier.district }
+    end
+
+    trait :county_tier do
+      tier { Tier.county }
+    end
   end
 end

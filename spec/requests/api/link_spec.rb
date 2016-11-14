@@ -7,8 +7,7 @@ RSpec.describe "link path", type: :request do
                          name: 'Blackburn',
                          slug: 'blackburn',
                          homepage_url: "http://blackburn.example.com",
-                         snac: "00AG",
-                         tier: "unitary")
+                         snac: "00AG")
     }
     let(:service) { FactoryGirl.create(:service, label: 'abandoned-shopping-trolleys', lgsl_code: 2) }
     let(:interaction) { FactoryGirl.create(:interaction, label: 'report', lgil_code: 4) }
@@ -88,8 +87,7 @@ RSpec.describe "link path", type: :request do
                          name: 'Blackburn',
                          slug: 'blackburn',
                          homepage_url: "http://blackburn.gov.uk",
-                         snac: "00AG",
-                         tier: "unitary")
+                         snac: "00AG")
     }
     let!(:service) { FactoryGirl.create(:service, label: 'abandoned-shopping-trolleys', lgsl_code: 2) }
 

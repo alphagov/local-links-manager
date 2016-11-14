@@ -19,7 +19,7 @@ private
       "local_authority" => {
         "name" => @authority.name,
         "snac" => @authority.snac,
-        "tier" => @authority.tier,
+        "tier" => @authority.tier.name,
         "homepage_url" => @authority.homepage_url
       }
     }

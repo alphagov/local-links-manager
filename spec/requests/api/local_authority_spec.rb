@@ -4,18 +4,18 @@ RSpec.describe "find local authority", type: :request do
   context "for councils that have a parent authority" do
     let(:parent_local_authority) {
       FactoryGirl.create(:local_authority,
+                         :county_tier,
                          name: 'Rochester',
                          slug: 'rochester',
-                         homepage_url: "http://rochester.example.com",
-                         tier: "county",
+                         homepage_url: "http://rochester.example.com"
                         )
     }
     let!(:local_authority) {
       FactoryGirl.create(:local_authority,
+                         :district_tier,
                          name: 'Blackburn',
                          slug: 'blackburn',
                          homepage_url: "http://blackburn.example.com",
-                         tier: "district",
                          parent_local_authority: parent_local_authority
                         )
     }
@@ -51,7 +51,6 @@ RSpec.describe "find local authority", type: :request do
                          name: 'Blackburn',
                          slug: 'blackburn',
                          homepage_url: "http://blackburn.example.com",
-                         tier: "unitary"
                         )
     }
 
