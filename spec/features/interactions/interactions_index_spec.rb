@@ -3,8 +3,8 @@ require 'rails_helper'
 feature "The interactions index page for a service provided by a local authority" do
   before do
     User.create(email: 'user@example.com', name: 'Test User', permissions: ['signin'])
-    @local_authority = FactoryGirl.create(:local_authority, name: 'Angus', tier: 'county')
-    @service_1 = FactoryGirl.create(:service, label: 'Service 1', lgsl_code: 1, tier: 'county/unitary')
+    @local_authority = FactoryGirl.create(:local_authority, :county_tier, name: 'Angus')
+    @service_1 = FactoryGirl.create(:service, :county, label: 'Service 1')
     visit local_authority_service_interactions_path(local_authority_slug: @local_authority.slug, service_slug: @service_1.slug)
   end
 

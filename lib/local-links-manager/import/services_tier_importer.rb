@@ -44,10 +44,28 @@ module LocalLinksManager
         if item[:tier].blank?
           response.errors << "LGSL #{item[:lgsl_code]} is missing a tier"
           summariser.increment_ignored_items_count
+        elsif not update_tier(service, item[:tier])
+          response.errors << "LGSL #{item[:lgsl_code]} has incorrect tier name"
+          summariser.increment_ignored_items_count
         else
-          service.tier = item[:tier]
-          service.save!
           summariser.increment_updated_record_count
+        end
+      end
+
+      def update_tier(service, tier_name)
+        case tier_name
+        when 'district/unitary'
+          ServiceTier.create(service: service, tier: Tier.district)
+          ServiceTier.create(service: service, tier: Tier.unitary)
+        when 'county/unitary'
+          ServiceTier.create(service: service, tier: Tier.county)
+          ServiceTier.create(service: service, tier: Tier.unitary)
+        when 'all'
+          ServiceTier.create(service: service, tier: Tier.county)
+          ServiceTier.create(service: service, tier: Tier.unitary)
+          ServiceTier.create(service: service, tier: Tier.district)
+        else
+          false
         end
       end
     end

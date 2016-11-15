@@ -6,26 +6,24 @@ require_relative 'errors'
 module LocalLinksManager
   module Import
     class LocalAuthoritiesImporter
-      DISTRICT = 'district'.freeze
-      COUNTY = 'county'.freeze
-      UNITARY = 'unitary'.freeze
-
-      LOCAL_AUTHORITY_MAPPING = {
-        "COI" => UNITARY,
-        "CTY" => COUNTY,
-        "DIS" => DISTRICT,
-        "LBO" => UNITARY,
-        "LGD" => UNITARY,
-        "MTD" => UNITARY,
-        "UTA" => UNITARY,
-      }.freeze
-
       def self.import_from_mapit
         new.authorities_from_mapit
       end
 
       def initialize(import_comparer = ImportComparer.new)
         @comparer = import_comparer
+      end
+
+      def local_authority_mapping
+        {
+          "COI" => unitary_tier_id,
+          "CTY" => county_tier_id,
+          "DIS" => district_tier_id,
+          "LBO" => unitary_tier_id,
+          "LGD" => unitary_tier_id,
+          "MTD" => unitary_tier_id,
+          "UTA" => unitary_tier_id,
+        }
       end
 
       def authorities_from_mapit
@@ -50,7 +48,7 @@ module LocalLinksManager
       end
 
       def self.local_authority_types
-        LOCAL_AUTHORITY_MAPPING.keys.join(',')
+        new.local_authority_mapping.keys.join(',')
       end
 
       def import_name
@@ -73,7 +71,7 @@ module LocalLinksManager
         la.name = mapit_la[:name]
         la.snac = mapit_la[:snac]
         la.slug = mapit_la[:slug]
-        la.tier = mapit_la[:tier]
+        la.tier_id = mapit_la[:tier_id]
         la.save!
         if existing_record
           summariser.increment_updated_record_count
@@ -101,14 +99,26 @@ module LocalLinksManager
         authority[:snac] = parsed_authority["codes"]["ons"]
         authority[:gss] = parsed_authority["codes"]["gss"]
         authority[:slug] = parsed_authority["codes"]["govuk_slug"]
-        authority[:tier] = identify_tier(parsed_authority["type"])
+        authority[:tier_id] = identify_tier_id(parsed_authority["type"])
         authority[:mapit_id] = parsed_authority["id"]
         authority[:parent_mapit_id] = parsed_authority["parent_area"]
         authority
       end
 
-      def identify_tier(area_type)
-        LOCAL_AUTHORITY_MAPPING[area_type]
+      def identify_tier_id(area_type)
+        local_authority_mapping[area_type]
+      end
+
+      def district_tier_id
+        @_district_tier_id ||= Tier.find_by(name: 'district').id
+      end
+
+      def unitary_tier_id
+        @_unitary_tier_id ||= Tier.find_by(name: 'unitary').id
+      end
+
+      def county_tier_id
+        @_county_tier_id ||= Tier.find_by(name: 'county').id
       end
 
       def connect_parents(mapit_las)

@@ -31,7 +31,7 @@ describe LocalLinksManager::Import::LocalAuthoritiesImporter do
 
           expect(la.name).to eq("Aberdeen City Council")
           expect(la.snac).to eq("00QA")
-          expect(la.tier).to eq("unitary")
+          expect(la.tier.name).to eq("unitary")
           expect(la.slug).to eq("aberdeen-city-council")
         end
 
@@ -68,7 +68,7 @@ describe LocalLinksManager::Import::LocalAuthoritiesImporter do
           expect(la.name).to eq("A Different Council")
           expect(la.snac).to eq("XXXX")
           expect(la.slug).to eq("another-slug")
-          expect(la.tier).to eq("district")
+          expect(la.tier.name).to eq("district")
         end
 
         it 'skips updating if GSS or SNAC code is blank' do
@@ -247,7 +247,7 @@ describe LocalLinksManager::Import::LocalAuthoritiesImporter do
 
           expect(la.name).to eq('Aylesbury District Council')
           expect(la.snac).to eq('11UB')
-          expect(la.tier).to eq('district')
+          expect(la.tier.name).to eq('district')
           expect(la.slug).to eq('aylesbury-district-council')
           expect(la.parent_local_authority_id).to eq(parent_local_authority.id)
         end

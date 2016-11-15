@@ -22,7 +22,7 @@ private
     {
       "name" => local_authority.name,
       "homepage_url" => local_authority.homepage_url,
-      "tier" => local_authority.tier
+      "tier" => local_authority.tier.name
     }
   end
 

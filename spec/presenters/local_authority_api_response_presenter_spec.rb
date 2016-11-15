@@ -12,12 +12,12 @@ describe LocalAuthorityApiResponsePresenter do
             {
               "name" => authority.name,
               "homepage_url" => authority.homepage_url,
-              "tier" => authority.tier
+              "tier" => authority.tier.name
             },
             {
               "name" => parent_local_authority.name,
               "homepage_url" => parent_local_authority.homepage_url,
-              "tier" => parent_local_authority.tier
+              "tier" => parent_local_authority.tier.name
             }
           ]
         }
@@ -36,7 +36,7 @@ describe LocalAuthorityApiResponsePresenter do
             {
               "name" => authority.name,
               "homepage_url" => authority.homepage_url,
-              "tier" => authority.tier
+              "tier" => authority.tier.name
             }
           ]
         }
