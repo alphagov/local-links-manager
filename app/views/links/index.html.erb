@@ -1,0 +1,47 @@
+<% content_for :page_title, @service.label %>
+
+<% breadcrumb :links, @local_authority, @service %>
+
+<div class="page-title">
+  <h1><%= @local_authority.name %></h1>
+
+  <h2><%= @service.label %></h2>
+  <p><b>Service code</b> <%= @service.lgsl_code %></p>
+</div>
+
+<% if flash[:success] %>
+<div class="alert alert-success"><%= flash[:success] %></div>
+<% end %>
+
+<table class="table table-bordered">
+  <thead>
+    <tr class="table-header">
+      <th>Interactions and links</th>
+      <th>Link status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @links.each do |link| %>
+      <% next if link.url.nil? %>
+      <tr id="<%= link.interaction.lgil_code %>"
+      <% if link.updated? %> class="success" <% end %>>
+        <td class="name">
+          <%= link.interaction.label %>
+          <p><%= link_to_if link.url, nil, link.url %></p>
+        </td>
+        <td class="status">
+          <span class="<%= link.label_status_class %> text-muted">
+            <b><%= link.status_description %></b>
+          </span>
+          <p class="text-muted">
+          <%= link.last_checked %>
+          </p>
+        </td>
+        <td class='text-center'>
+          <%= link_to('Edit link', edit_link_path(interaction_slug: link.interaction.slug), class: "btn btn-default btn-s") %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
