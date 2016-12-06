@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-feature "The interactions index page for a service provided by a local authority" do
+feature "The links index page for a service provided by a local authority" do
   before do
     User.create(email: 'user@example.com', name: 'Test User', permissions: ['signin'])
     @local_authority = create(:county_council)
     @service = create(:service, :county_unitary)
-    @interaction = create(:interaction)
-    @service_interaction = create(:service_interaction, service_id: @service.id, interaction_id: @interaction.id)
+    interaction = create(:interaction)
+    @service_interaction = create(:service_interaction, service_id: @service.id, interaction_id: interaction.id)
     @link = create(:link, local_authority: @local_authority, service_interaction: @service_interaction)
-    visit local_authority_with_service_path(local_authority_slug: @local_authority.slug, service_slug: @service.slug)
+    visit link_index_path(local_authority_slug: @local_authority.slug, service_slug: @service.slug)
   end
 
   it "displays the LGSL code" do
@@ -27,7 +27,7 @@ feature "The interactions index page for a service provided by a local authority
     expect(page).to have_css('h1', text: @local_authority.name)
   end
 
-  it "shows each service interaction's" do
-    expect(page).to have_content(@interaction.label)
+  it "shows the local authority links for the service" do
+    expect(page).to have_content(@link.url)
   end
 end

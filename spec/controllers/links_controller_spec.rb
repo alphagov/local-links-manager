@@ -8,6 +8,14 @@ RSpec.describe LinksController, type: :controller do
     @interaction = FactoryGirl.create(:interaction)
   end
 
+  describe "GET #index" do
+    it "returns http success" do
+      login_as_stub_user
+      get :index, params: { local_authority_slug: @local_authority.slug, service_slug: @service.slug }
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe 'GET edit' do
     it 'retrieves HTTP success' do
       get :edit, params: { local_authority_slug: @local_authority.slug, service_slug: @service.slug, interaction_slug: @interaction.slug }

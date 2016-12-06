@@ -12,12 +12,7 @@ crumb :service do |service|
   parent :root
 end
 
-crumb :interactions do |local_authority, service|
-  link service.label, local_authority_with_service_path(local_authority.slug, service.slug)
+crumb :links do |local_authority, service|
+  link service.label, link_index_path(local_authority.slug, service.slug)
   parent :services, local_authority
-end
-
-crumb :links do |local_authority, service, interaction|
-  link interaction.label, link_path(local_authority.slug, service.slug, interaction.slug)
-  parent :interactions, local_authority, service
 end

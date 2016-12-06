@@ -3,8 +3,13 @@ require 'local-links-manager/export/bad_links_url_and_status_exporter'
 
 class LinksController < ApplicationController
   before_action :load_dependencies
+  before_action :retrieve_link, only: [:edit, :update, :destroy]
   before_action :set_back_url_before_post_request, only: [:edit, :update, :destroy]
   helper_method :back_url
+
+  def index
+    @links = presented_links
+  end
 
   def edit
     if flash[:link_url]
@@ -56,7 +61,14 @@ private
     @local_authority = LocalAuthorityPresenter.new(LocalAuthority.find_by(slug: params[:local_authority_slug]))
     @interaction = Interaction.find_by(slug: params[:interaction_slug])
     @service = Service.find_by(slug: params[:service_slug])
+  end
+
+  def retrieve_link
     @link = Link.retrieve(params)
+  end
+
+  def presented_links
+    @_links ||= @local_authority.links.for_service(@service).map { |link| LinkPresenter.new(link, view_context: self) }
   end
 
   def set_back_url_before_post_request
@@ -66,7 +78,7 @@ private
   def back_url
     flash[:back] ||
       request.env['HTTP_REFERER'] ||
-      local_authority_with_service_path(
+      link_index_path(
         local_authority_slug: params[:local_authority_slug],
         service_slug: params[:service_slug]
       )
