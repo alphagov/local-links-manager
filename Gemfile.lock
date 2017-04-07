@@ -345,7 +345,7 @@ DEPENDENCIES
   gds-api-adapters (= 36.0.0)
   gds-sso (~> 13.0)
   govuk-lint
-  govuk_admin_template (~> 4.2)
+  govuk_admin_template
   gretel (= 3.0.9)
   jbuilder (~> 2.0)
   logstasher (= 0.6.2)
@@ -368,5 +368,8 @@ DEPENDENCIES
   webmock (~> 1.2)
   whenever
 
+RUBY VERSION
+   ruby 2.2.3p173
+
 BUNDLED WITH
-   1.10.6
+   1.14.5
