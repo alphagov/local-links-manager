@@ -1,3 +1,7 @@
+<% content_for :before_pageview_js do %>
+    GOVUKAdmin.setDimension(7, <%= @link_count %>);
+<% end %>
+
 <% content_for :page_title, @authority.name %>
 
 <% if flash[:success] %>
@@ -10,27 +14,33 @@
 
 <%= render partial: 'link_filter_nav' %>
 
-<table class="table table-bordered table-service table-with-counts" data-module="filterable-table">
-  <thead>
-    <tr class="table-header">
-      <th colspan='4'>
-        <div class='filter-control'>
-          <%= render partial: 'govuk_admin_template/table_filter_form', locals: { placeholder: 'Search for a council or link here' } %>
-        </div>
-        <div class='count'>
-          <span><%= @link_count %></span>
-          <%= 'link'.pluralize(@link_count) %>
-        </div>
-      </th>
-    </tr>
-    <tr class="table-header">
-      <th class='center'>Code</th>
-      <th width:'40%'>Services and links</th>
-      <th>Link status</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render partial: 'service', collection: @services, locals: { links: @links } %>
-  </tbody>
-</table>
+<div data-module="track-search"
+     data-track-action="filterUsed"
+     data-track-label="filterUsed"
+     data-track-category="userInteraction:LLM">
+  <table class="table table-bordered table-service table-with-counts" data-module="filterable-table">
+    <thead>
+      <tr class="table-header">
+        <th colspan='4'>
+          <div class='filter-control'>
+            <%= render partial: 'govuk_admin_template/table_filter_form', locals: { placeholder: 'Search for a council or link here' } %>
+          </div>
+
+          <div class='count'>
+            <span><%= @link_count %></span>
+            <%= 'link'.pluralize(@link_count) %>
+          </div>
+        </th>
+      </tr>
+      <tr class="table-header">
+        <th class='center'>Code</th>
+        <th width:'40%'>Services and links</th>
+        <th>Link status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'service', collection: @services, locals: { links: @links } %>
+    </tbody>
+  </table>
+</div>

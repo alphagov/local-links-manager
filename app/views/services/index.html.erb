@@ -1,3 +1,7 @@
+<% content_for :before_pageview_js do %>
+    GOVUKAdmin.setDimension(7, <%= @services.count %>);
+<% end %>
+
 <% content_for :page_title, 'Services' %>
 
 <% breadcrumb :root %>
