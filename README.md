@@ -42,6 +42,15 @@ layer. It's only presented as an internal API and doesn't face public users.
 
 `bundle exec rake`
 
+Javascript is tested using Jasmine and the [Jasmine gem](https://github.com/pivotal/jasmine-gem). Tests can be run either in the browser or on the command line via the dummy app’s tasks:
+```sh
+# browser
+bundle exec rake jasmine
+
+# command line
+bundle exec rake jasmine:ci
+```
+
 ### Developing Locally
 
 If you are using the development vm before running any of the rake tasks below you will need to have [Mapit](https://github.com/alphagov/mapit) checked out locally.

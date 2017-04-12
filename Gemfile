@@ -12,7 +12,7 @@ gem 'airbrake', '~> 4.0'
 gem 'dalli'
 gem 'faraday'
 gem 'faraday_middleware'
-gem 'govuk_admin_template'
+gem 'govuk_admin_template', '~> 5.0'
 gem 'govuk-lint'
 gem 'gds-sso', '~> 13.0'
 gem 'gretel', '3.0.9'
@@ -41,6 +41,8 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', '0.10.0', require: false
   gem 'simplecov-rcov', '0.2.3', require: false
+  gem 'jasmine'
+  gem 'jquery-rails'
 end
 
 group :test do
