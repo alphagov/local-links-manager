@@ -28,6 +28,10 @@
   </td>
   <td class="text-center">
     <h4>&nbsp;</h4>
-    <%= link_to('Edit link', link.edit_path, class: "btn btn-default btn-s") %>
+    <div data-module="track-click"
+         data-track-action="editButtonClick"
+         data-track-category="userInteraction:LLM">
+          <%= link_to 'Edit link', link.edit_path, class: "btn btn-default btn-s js-track", data: { track_label: link.edit_path } %>
+    </div>
   </td>
 <% end %>
