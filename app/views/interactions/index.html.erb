@@ -42,8 +42,12 @@
           <%= interaction.link_last_checked %>
           </p>
         </td>
-        <td class='text-center'>
-          <%= link_to(interaction.button_text, edit_link_path(interaction_slug: interaction.slug), class: "btn btn-default btn-s") %>
+        <td class="text-center">
+          <div data-module="track-click"
+               data-track-action="editButtonClick"
+               data-track-category="userInteraction:LLM">
+               <%= link_to interaction.button_text, edit_link_path(interaction_slug: interaction.slug), class: "btn btn-default btn-s js-track", data: { track_label: edit_link_path(interaction_slug: interaction.slug) } %>"} %>
+          </div>
         </td>
       </tr>
     <% end %>

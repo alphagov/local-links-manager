@@ -7,32 +7,47 @@
   <p><b>Service code</b> <%= @service.lgsl_code %></p>
 </div>
 
-
 <% if flash[:danger] %>
-<div class="alert alert-danger"><%= flash[:danger] %></div>
+  <div class="alert alert-danger"
+       data-module="auto-track-event"
+       data-track-action="alert-error"
+       data-track-label="<%= strip_tags(flash[:danger]) %>"
+       data-track-category="userAlert:LLM">
+    <%= flash[:danger] %>
+  </div>
 <% end %>
 
 <h3><%= @interaction.label %></h3>
 
-<%= form_for @link, url: link_path(@local_authority.slug, @service.slug, @interaction.slug), method: "put" do |f| %>
-  <div class="form-group <% if flash[:danger] %>has-error<% end %>">
-    <div class='col-xs-12 no-gutter'>
-      <%= f.label :url, 'Page URL' %>
+<div class="edit-link-form"
+     data-module="track-submit"
+     data-track-action="save-button-click"
+     data-track-label="editLink"
+     data-track-category="userInteraction:LLM">
 
-      <p class="text-muted">for example http://www.local-authority.gov.uk</p>
+  <%= form_for @link, url: link_path(@local_authority.slug, @service.slug, @interaction.slug), method: "put" do |f| %>
+    <div class="form-group <% if flash[:danger] %>has-error<% end %>">
+      <div class='col-xs-12 no-gutter'>
+        <%= f.label :url, 'Page URL' %>
 
-      <%= f.text_field :url, class: "form-control" %>
+        <p class="text-muted">for example http://www.local-authority.gov.uk</p>
+
+        <%= f.text_field :url, class: "form-control" %>
+      </div>
+
+      <div class='actions add-vertical-margins col-xs-6 no-gutter'>
+        <%= link_to 'Cancel', back_url, class: 'btn btn-default add-right-margin' %>
+        <button type='submit' class='btn btn-success'>Update</button>
+      </div>
     </div>
-
-    <div class='actions add-vertical-margins col-xs-6 no-gutter'>
-      <%= link_to 'Cancel', back_url, class: 'btn btn-default add-right-margin' %>
-      <button type='submit' class='btn btn-success'>Update</button>
-    </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
 
 <% if @link.url %>
-  <div class='actions add-vertical-margins col-xs-6 no-gutter'>
-    <%= button_to 'Delete', link_path(@local_authority.slug, @service.slug, @interaction.slug), method: :delete, class: 'btn btn-danger pull-right', data: { confirm: 'Are you sure you wish to delete this link?' } %>
-  </div>
+    <div class="actions add-vertical-margins col-xs-6 no-gutter"
+         data-module="track-click"
+         data-track-action="delete-button-click"
+         data-track-category="userInteraction:LLM">
+      <%= button_to 'Delete', link_path(@local_authority.slug, @service.slug, @interaction.slug), method: :delete, class: 'btn btn-danger pull-right js-track', data: { confirm: 'Are you sure you wish to delete this link?', track_label: link_path(@local_authority.slug, @service.slug, @interaction.slug) } %>
+    </div>
 <% end %>
