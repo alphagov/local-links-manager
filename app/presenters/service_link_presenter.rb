@@ -2,10 +2,9 @@ class ServiceLinkPresenter < SimpleDelegator
   include UrlStatusPresentation
   attr_reader :view_context, :first
 
-  def initialize(link, view_context:, first:)
+  def initialize(link, view_context:)
     super(link)
     @view_context = view_context
-    @first = first
   end
 
   def interaction_label
@@ -43,5 +42,9 @@ class ServiceLinkPresenter < SimpleDelegator
       service,
       interaction
     )
+  end
+
+  def link_status
+    url.blank? ? "Missing" : status_description
   end
 end

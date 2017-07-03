@@ -7,7 +7,7 @@ class LinksController < ApplicationController
   helper_method :back_url
 
   def index
-    currently_broken = Link.enabled_links.currently_broken
+    currently_broken = Link.enabled_links.broken_and_missing
     @total_broken_links = currently_broken.count
     @broken_links = currently_broken.order(analytics: :desc).limit(100)
   end

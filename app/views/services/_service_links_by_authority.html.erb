@@ -3,8 +3,6 @@
     <h3><%= link_to local_authority.name, local_authority %></h3>
   </th>
 </tr>
-<% first_link, *remaining_links = links_by_authority %>
-<%= render 'shared/link_table_row', link: ServiceLinkPresenter.new(first_link, view_context: self, first: true) %>
-<% remaining_links.each do |link| %>
-  <%= render 'shared/link_table_row', link: ServiceLinkPresenter.new(link, view_context: self, first: false) %>
+<% links_by_authority.each do |link| %>
+  <%= render 'shared/link_table_row', link: ServiceLinkPresenter.new(link, view_context: self) %>
 <% end %>
