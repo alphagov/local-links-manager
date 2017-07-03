@@ -10,17 +10,19 @@ class Link < ApplicationRecord
 
   validates :local_authority, :service_interaction, presence: true
   validates :service_interaction_id, uniqueness: { scope: :local_authority_id }
-  validates :url, presence: true, non_blank_url: true
+  validates :url, non_blank_url: true
 
+  scope :existing, -> { where.not(url: nil) }
   scope :for_service, ->(service) {
     includes(service_interaction: [:service, :interaction])
       .references(:service_interactions)
       .where(service_interactions: { service_id: service })
   }
 
-  HTTP_OK_STATUS_CODE = 200
+  HTTP_OK_STATUS_CODE = "200".freeze
 
   scope :good_links, -> { where(status: HTTP_OK_STATUS_CODE) }
+  scope :broken_and_missing, -> { where("status != ? OR url IS NULL", HTTP_OK_STATUS_CODE) }
   scope :currently_broken, -> { where.not(status: HTTP_OK_STATUS_CODE) }
   scope :have_been_checked, -> { where.not(status: nil) }
 
@@ -37,10 +39,10 @@ class Link < ApplicationRecord
   end
 
   def self.find_by_service_and_interaction(service, interaction)
-    self.joins(:service, :interaction).find_by(
+    self.joins(:service, :interaction).where(
       services: { id: service.id },
       interactions: { id: interaction.id }
-    )
+    ).where.not(url: nil).first
   end
 
   def self.find_by_base_path(base_path)

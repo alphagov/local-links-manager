@@ -6,7 +6,6 @@ RSpec.describe Link, type: :model do
 
     it { is_expected.to validate_presence_of(:local_authority) }
     it { is_expected.to validate_presence_of(:service_interaction) }
-    it { is_expected.to validate_presence_of(:url) }
     it { is_expected.to validate_uniqueness_of(:service_interaction_id).scoped_to(:local_authority_id) }
 
     describe '#url' do
