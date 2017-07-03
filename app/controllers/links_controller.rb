@@ -72,10 +72,7 @@ private
   def back_url
     flash[:back] ||
       request.env['HTTP_REFERER'] ||
-      local_authority_with_service_path(
-        local_authority_slug: params[:local_authority_slug],
-        service_slug: params[:service_slug]
-      )
+      local_authority_path(local_authority_slug: params[:local_authority_slug])
   end
 
   def link_url
