@@ -14,6 +14,10 @@ RSpec.describe "link path", type: :request do
     let(:service_interaction) { create(:service_interaction, service: service, interaction: interaction) }
     let!(:link) { create(:link, local_authority: local_authority, service_interaction: service_interaction, url: 'http://blackburn.example.com/abandoned-shopping-trolleys/report') }
 
+    let(:interaction_for_missing) { create(:interaction, label: 'apply', lgil_code: 0) }
+    let(:service_interaction_for_missing) { create(:service_interaction, service: service, interaction: interaction_for_missing) }
+    let!(:missing_link) { create(:link, local_authority: local_authority, service_interaction: service_interaction_for_missing, url: nil) }
+
     let(:expected_response) {
       {
         "local_authority" => {
@@ -29,7 +33,19 @@ RSpec.describe "link path", type: :request do
         }
       }
     }
+
     let(:expected_response_with_no_link) {
+      {
+        "local_authority" => {
+          "name" => "Blackburn",
+          "snac" => "00AG",
+          "tier" => "unitary",
+          "homepage_url" => "http://blackburn.example.com",
+        },
+      }
+    }
+
+    let(:expected_response_with_missing_link) {
       {
         "local_authority" => {
           "name" => "Blackburn",
@@ -54,6 +70,13 @@ RSpec.describe "link path", type: :request do
 
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)).to eq(expected_response_with_no_link)
+    end
+
+    it "responds without link if the Link URL is nil (ie missing)" do
+      get "/api/link?authority_slug=blackburn&lgsl=2&lgil=0"
+
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)).to eq(expected_response_with_missing_link)
     end
 
     it "responds with 404 and {} for unsupported local_authority" do

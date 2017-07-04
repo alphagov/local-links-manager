@@ -16,20 +16,16 @@ class LocalAuthority < ApplicationRecord
     Tier.as_string(tier_id)
   end
 
-  def provided_services
-    services.enabled
-  end
-
   # returns the Links for this authority,
   # for the enabled Services that this authority provides.
   def provided_service_links
-    links.joins(:service).merge(provided_services)
+    links.joins(:service_interaction).where(service_interactions: { live: true })
   end
 
   def update_broken_link_count
     update_attribute(
       :broken_link_count,
-      provided_service_links.have_been_checked.currently_broken.count
+      provided_service_links.broken_and_missing.count
     )
   end
 

@@ -7,7 +7,7 @@ class LinksController < ApplicationController
   helper_method :back_url
 
   def index
-    currently_broken = Link.enabled_links.currently_broken
+    currently_broken = Link.enabled_links.broken_and_missing
     @total_broken_links = currently_broken.count
     @broken_links = currently_broken.order(analytics: :desc).limit(100)
   end
@@ -72,10 +72,7 @@ private
   def back_url
     flash[:back] ||
       request.env['HTTP_REFERER'] ||
-      local_authority_with_service_path(
-        local_authority_slug: params[:local_authority_slug],
-        service_slug: params[:service_slug]
-      )
+      local_authority_path(local_authority_slug: params[:local_authority_slug])
   end
 
   def link_url

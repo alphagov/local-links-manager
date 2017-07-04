@@ -1,15 +1,12 @@
 <%= content_tag 'tr',
-    class: [
-      link.first ? 'first-row' : '',
-      link.updated? ? 'success' : ''
-    ].join(' '),
+    class: link.updated? ? 'success' : '',
     data: link.row_data do
 %>
   <td class="text-center lgsl">
     <p><%= link.lgsl_code %></p>
   </td>
   <td class="name">
-    <h4><%= link_to link.service_label, link.interactions_path %></h4>
+    <h4><%= link.service_label %></h4>
     <p>
       <%= link.interaction_label %>
       <br>
@@ -20,7 +17,7 @@
     <h4>&nbsp;</h4>
     <p>
       <span class="<%= link.label_status_class %> text-muted">
-        <b><%= link.status_description %></b>
+        <b><%= link.link_status %></b>
       </span>
       <br>
       <span class="text-muted"><%= link.last_checked %></span>

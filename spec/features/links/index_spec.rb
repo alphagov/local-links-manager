@@ -12,6 +12,9 @@ feature 'The broken links page' do
     @link_1 = create(:link, local_authority: @council_a, service_interaction: @service_interaction, status: 200, link_last_checked: '1 day ago', analytics: 911)
     @link_2 = create(:link, local_authority: @council_m, service_interaction: @service_interaction, status: 404, analytics: 37)
     @link_3 = create(:link, local_authority: @council_z, service_interaction: @service_interaction, status: 503, analytics: 823)
+
+    @council_x = create(:district_council, name: 'xxx')
+    @link_4 = create(:link, local_authority: @council_x, service_interaction: @service_interaction, url: nil, analytics: 999)
     visit '/'
   end
 
@@ -36,6 +39,10 @@ feature 'The broken links page' do
     expect(page).to have_link @link_2.url
   end
 
+  it 'shows missing links' do
+    expect(page).to have_text "No URL"
+  end
+
   it 'doesn\'t show 200 status links' do
     expect(page).not_to have_link @link_1.url
   end
@@ -46,7 +53,7 @@ feature 'The broken links page' do
 
   it 'shows a count of the number of broken links' do
     within('thead') do
-      expect(page).to have_content "2 broken links"
+      expect(page).to have_content "3 broken links"
     end
   end
 

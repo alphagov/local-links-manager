@@ -58,7 +58,7 @@ feature "The local authority show page" do
 
     it 'shows a count of the number of all links for enabled services' do
       within('thead') do
-        expect(page).to have_content "2 links"
+        expect(page).to have_content "3 links"
       end
     end
 
@@ -77,7 +77,7 @@ feature "The local authority show page" do
 
     it "shows only the enabled services provided by the authority according to its tier with links to their individual pages" do
       expect(page).to have_content 'Services and links'
-      expect(page).to have_link(@good_link.service.label, href: local_authority_with_service_path(local_authority_slug: @local_authority.slug, service_slug: @good_link.service.slug))
+      expect(page).to have_text(@good_link.service.label)
     end
 
     it "does not show the disabled service interaction" do

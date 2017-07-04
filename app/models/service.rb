@@ -18,7 +18,7 @@ class Service < ApplicationRecord
   def update_broken_link_count
     update_attribute(
       :broken_link_count,
-      Link.for_service(self).have_been_checked.currently_broken.count
+      Link.for_service(self).broken_and_missing.count
     )
   end
 

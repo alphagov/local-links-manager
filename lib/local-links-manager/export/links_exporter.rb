@@ -24,7 +24,8 @@ module LocalLinksManager
       end
 
       def records
-        Link.joins(:local_authority, :service, :interaction)
+        Link.existing
+          .joins(:local_authority, :service_interaction, :service, :interaction)
           .select(
             "local_authorities.name",
             :snac,
@@ -34,7 +35,7 @@ module LocalLinksManager
             :lgsl_code,
             :lgil_code,
             :url,
-            :enabled
+            "service_interactions.live as live"
           ).order("local_authorities.name", "services.lgsl_code", "interactions.lgil_code").all
       end
 
@@ -49,7 +50,7 @@ module LocalLinksManager
           record.lgsl_code,
           record.lgil_code,
           record.url,
-          record.enabled
+          record.live
         ]
       end
 

@@ -12,12 +12,14 @@
       <a href="https://www.gov.uk/<%= link.service_interaction.govuk_slug %>">GOV.UK</a> &rarr;
       <% if link.url %>
         <%= link_to truncate(link.url, length: 80), link.url %>
+      <% else %>
+        <%= link_to "No URL", link.local_authority.homepage_url %>
       <% end %>
     </div>
   </td>
   <td class="status text-right">
     <div class="<%= link.label_status_class %>">
-        <b><%= link.status_description %></b>
+        <b><%= link.link_status %></b>
     </div>
     <span><%= link.last_checked %></span>
   </td>

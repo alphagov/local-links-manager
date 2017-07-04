@@ -24,7 +24,7 @@
     <% unless @broken_links.blank? %>
       <% @broken_links.each do |link| %>
         <% cache namespaced_cache_key('broken_links', link) do %>
-          <%= render 'link_table_row', link: ServiceLinkPresenter.new(link, view_context: self, first: false) %>
+          <%= render 'link_table_row', link: ServiceLinkPresenter.new(link, view_context: self) %>
         <% end %>
       <% end %>
     <% end %>

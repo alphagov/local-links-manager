@@ -11,10 +11,13 @@ describe LocalLinksManager::CheckLinks::LinkStatusUpdater do
 
   describe '#update' do
     context "with links for enabled Services" do
-      let(:local_authority) { FactoryGirl.create(:local_authority, broken_link_count: 2) }
-      let(:service) { FactoryGirl.create(:service, broken_link_count: 2) }
-      let!(:link_1) { FactoryGirl.create(:link, local_authority: local_authority, service: service, url: 'http://www.example.com') }
-      let!(:link_2) { FactoryGirl.create(:link, local_authority: local_authority, service: service, url: 'http://www.example.com/exampl.html') }
+      let(:local_authority) { FactoryGirl.create(:local_authority, broken_link_count: 3) }
+      let(:service) { FactoryGirl.create(:service, broken_link_count: 3) }
+      let!(:link_1) { FactoryGirl.create(:link, local_authority: local_authority, service: service, url: 'http://www.example.com', status: 500) }
+      let!(:link_2) { FactoryGirl.create(:link, local_authority: local_authority, service: service, url: 'http://www.example.com/exampl.html', status: 404) }
+
+      # missing links are not fixed via link checker
+      let!(:missing_link) { FactoryGirl.create(:link, local_authority: local_authority, service: service, url: nil) }
 
       it 'updates the link\'s status code and link last checked time in the database' do
         allow(link_checker).to receive(:check_link).and_return(status: '200', checked_at: @time)
@@ -29,14 +32,14 @@ describe LocalLinksManager::CheckLinks::LinkStatusUpdater do
         allow(link_checker).to receive(:check_link).and_return(status: '200', checked_at: @time)
         expect { status_updater.update }
           .to change { local_authority.reload.broken_link_count }
-          .from(2).to(0)
+          .from(3).to(1)
       end
 
       it 'updates the Service\'s broken_link_count' do
         allow(link_checker).to receive(:check_link).and_return(status: '200', checked_at: @time)
         expect { status_updater.update }
           .to change { service.reload.broken_link_count }
-          .from(2).to(0)
+          .from(3).to(1)
       end
 
       context "with duplicate links" do

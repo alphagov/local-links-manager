@@ -1,33 +1,4 @@
 RSpec.shared_examples "a UrlStatusPresentation module" do
-  describe '#status_description' do
-    let(:presenter) { described_class.new(@link) }
-
-    it 'returns an empty string if status is not present' do
-      @link = double(:Link, status: nil)
-      expect(presenter.status_description).to eq('')
-    end
-
-    it 'returns "Good" if the status is "200"' do
-      @link = double(:Link, status: '200')
-      expect(presenter.status_description).to eq('Good')
-    end
-
-    it 'returns "Broken Link 404" if the status is "404"' do
-      @link = double(:Link, status: '404')
-      expect(presenter.status_description).to eq('404')
-    end
-
-    it 'returns "Server Error 503" if the status is "503"' do
-      @link = double(:Link, status: '503')
-      expect(presenter.status_description).to eq('503')
-    end
-
-    it 'returns the status name if the status is an unexpected status' do
-      @link = double(:Link, status: "Another Error")
-      expect(presenter.status_description).to eq("Another Error")
-    end
-  end
-
   describe '#label_status_class' do
     let(:presenter) { described_class.new(@link) }
 
