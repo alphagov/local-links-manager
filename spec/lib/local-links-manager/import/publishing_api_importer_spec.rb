@@ -21,10 +21,10 @@ describe LocalLinksManager::Import::PublishingApiImporter do
       }
 
       let(:service_0) { create(:service, lgsl_code: 111, label: "Jewellery destruction") }
-      let(:service_1) { create(:service) }
+      let(:service_1) { create(:service, lgsl_code: 451, label: "Breeding Uruk-hai") }
 
       let(:interaction_0) { create(:interaction, lgil_code: 8, label: "Find out about") }
-      let(:interaction_1) { create(:interaction) }
+      let(:interaction_1) { create(:interaction, lgil_code: 17, label: "Report") }
 
       before do
         publishing_api_has_content([local_transaction], "document_type" => "local_transaction", "per_page" => 150)

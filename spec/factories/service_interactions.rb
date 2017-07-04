@@ -4,6 +4,6 @@ FactoryGirl.define do
     association :service, :all_tiers
     govuk_slug "a-slug"
     govuk_title "A title"
-    live false
+    live true
   end
 end

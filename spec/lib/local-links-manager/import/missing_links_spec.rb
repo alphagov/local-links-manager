@@ -3,9 +3,9 @@ require 'local-links-manager/import/missing_links'
 
 describe LocalLinksManager::Import::MissingLinks do
   describe "#add_missing_links" do
-    let!(:disabled_service_interaction) { create(:service_interaction) }
-    let!(:first_live_service_interaction) { create(:service_interaction, live: true) }
-    let!(:second_live_service_interaction) { create(:service_interaction, live: true) }
+    let!(:disabled_service_interaction) { create(:service_interaction, live: false) }
+    let!(:first_live_service_interaction) { create(:service_interaction) }
+    let!(:second_live_service_interaction) { create(:service_interaction) }
 
 
     let!(:council_with_no_links) { create(:local_authority) }

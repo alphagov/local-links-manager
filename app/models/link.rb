@@ -20,14 +20,18 @@ class Link < ApplicationRecord
   }
 
   HTTP_OK_STATUS_CODE = "200".freeze
+  UNCHECKED_STATUS_CODE = "NULL".freeze
+
+  OK_STATUS_CODES = [HTTP_OK_STATUS_CODE, UNCHECKED_STATUS_CODE].freeze
 
   scope :good_links, -> { where(status: HTTP_OK_STATUS_CODE) }
-  scope :broken_and_missing, -> { where("status != ? OR url IS NULL", HTTP_OK_STATUS_CODE) }
+  scope :broken_and_missing, -> { where("status NOT IN (?) OR url IS NULL", OK_STATUS_CODES) }
+  scope :broken_but_not_missing, -> { where("status NOT IN (?) AND url IS NOT NULL", OK_STATUS_CODES) }
   scope :currently_broken, -> { where.not(status: HTTP_OK_STATUS_CODE) }
-  scope :have_been_checked, -> { where.not(status: nil) }
+  scope :have_been_checked, -> { where("status != ? OR url IS NULL", UNCHECKED_STATUS_CODE) }
 
   def self.enabled_links
-    self.joins(:service).where(services: { enabled: true })
+    self.joins(:service_interaction).where(service_interactions: { live: true })
   end
 
   def self.retrieve(params)

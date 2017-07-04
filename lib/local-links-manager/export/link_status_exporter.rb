@@ -17,7 +17,7 @@ module LocalLinksManager
       def self.links_status_csv
         CSV.generate do |csv|
           csv << HEADINGS
-          Link.enabled_links.group(:status).count.each do |key, value|
+          Link.enabled_links.existing.group(:status).count.each do |key, value|
             csv << [key || "nil", value]
           end
         end

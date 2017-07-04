@@ -10,7 +10,7 @@ FactoryGirl.define do
 
   factory :link_for_disabled_service, parent: :link do
     after(:create) do |link|
-      link.service.update_attribute(:enabled, false)
+      link.service_interaction.update_attribute(:live, false)
     end
   end
 end

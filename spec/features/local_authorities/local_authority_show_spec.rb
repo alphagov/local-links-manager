@@ -58,7 +58,7 @@ feature "The local authority show page" do
 
     it 'shows a count of the number of all links for enabled services' do
       within('thead') do
-        expect(page).to have_content "2 links"
+        expect(page).to have_content "3 links"
       end
     end
 
