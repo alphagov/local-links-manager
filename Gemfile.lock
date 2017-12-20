@@ -163,9 +163,10 @@ GEM
     logging (2.2.2)
       little-plugger (~> 1.1)
       multi_json (~> 1.10)
-    logstash-event (1.1.5)
-    logstasher (0.6.2)
-      logstash-event (~> 1.1.0)
+    logstash-event (1.2.02)
+    logstasher (1.2.2)
+      activesupport (>= 4.0)
+      logstash-event (~> 1.2.0)
       request_store
     loofah (2.1.1)
       crass (~> 1.0.2)
@@ -398,7 +399,7 @@ DEPENDENCIES
   govuk_app_config (~> 0.2.0)
   gretel (= 3.0.9)
   jbuilder (~> 2.0)
-  logstasher (= 0.6.2)
+  logstasher (= 1.2.2)
   mlanett-redis-lock (= 0.2.7)
   pg
   plek (~> 2.0)
