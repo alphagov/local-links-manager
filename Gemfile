@@ -27,7 +27,7 @@ gem 'rails', '~> 5.0.0'
 gem 'redis-namespace', '1.5.2'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'unicorn', '~> 4.9.0'
+gem 'unicorn', '~> 5.3.1'
 gem 'whenever', require: false
 
 group :development do
