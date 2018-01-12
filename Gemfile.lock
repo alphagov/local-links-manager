@@ -95,7 +95,8 @@ GEM
     faraday_middleware (0.12.2)
       faraday (>= 0.7.4, < 1.0)
     ffi (1.9.18)
-    gds-api-adapters (50.8.0)
+    gds-api-adapters (50.9.1)
+      addressable
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -395,7 +396,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.7)
   faraday
   faraday_middleware
-  gds-api-adapters (~> 50.8.0)
+  gds-api-adapters (~> 50.9.1)
   gds-sso (~> 13.0)
   google-api-client (~> 0.19.2)
   googleauth (~> 0.6.2)
