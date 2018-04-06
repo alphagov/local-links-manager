@@ -34,7 +34,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'capybara', '~> 2.18'
+  gem 'capybara', '~> 3.0'
   gem 'factory_girl_rails', '~> 4.7'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.5'
