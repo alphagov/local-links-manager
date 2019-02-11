@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 if ENV['API_DEV']
   gem 'gds-api-adapters', path: '../gds-api-adapters'
 else
-  gem 'gds-api-adapters', '~> 57.2.3'
+  gem 'gds-api-adapters', '~> 57.4.0'
 end
 
 gem 'addressable', '~> 2.5.1'
