@@ -124,7 +124,7 @@ GEM
       representable (~> 3.0)
       retriable (>= 2.0, < 4.0)
       signet (~> 0.10)
-    googleauth (0.6.7)
+    googleauth (0.7.1)
       faraday (~> 0.12)
       jwt (>= 1.4, < 3.0)
       memoist (~> 0.16)
@@ -405,7 +405,7 @@ DEPENDENCIES
   gds-api-adapters (~> 59.0.0)
   gds-sso (~> 14.0)
   google-api-client (~> 0.26.0)
-  googleauth (~> 0.6.7)
+  googleauth (~> 0.7.1)
   govuk-lint
   govuk_admin_template (~> 6.7)
   govuk_app_config (~> 1.15.1)
