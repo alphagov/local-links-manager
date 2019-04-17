@@ -1,5 +1,5 @@
 module SortOrderMatchers
-  class AppearBeforeMatcher < Capybara::RSpecMatchers::Matcher
+  class AppearBeforeMatcher < Capybara::RSpecMatchers::Matchers
     def initialize(*later_content)
       @later_content = later_content[0]
     end

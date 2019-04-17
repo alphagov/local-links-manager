@@ -1,5 +1,5 @@
 module TableRowMatchers
-  class SimpleTableRowMatcher < Capybara::RSpecMatchers::Matcher
+  class SimpleTableRowMatcher < Capybara::RSpecMatchers::Matchers
     def initialize(*row_of_text)
       @row_of_text = row_of_text
     end
