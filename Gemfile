@@ -44,7 +44,7 @@ end
 
 group :test do
   gem 'govuk_test', '~> 0.4.3'
-  gem 'capybara', '~> 3.20'
+  gem 'capybara', '~> 3.21'
   gem 'timecop'
   gem 'webmock', '~> 3.5.1'
 end
