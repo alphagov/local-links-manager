@@ -10,7 +10,7 @@ end
 gem "addressable", "~> 2.7.0"
 gem "dalli"
 gem "gds-sso", "~> 14.2"
-gem "google-api-client", "~> 0.36.0"
+gem "google-api-client", "~> 0.36.1"
 gem "googleauth", "~> 0.10.0"
 gem "govuk-lint"
 gem "govuk_admin_template", "~> 6.7"
