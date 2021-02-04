@@ -6,6 +6,7 @@ class Service < ApplicationRecord
   has_many :interactions, through: :service_interactions
   has_many :service_tiers, dependent: :restrict_with_error
   has_many :local_authorities, through: :service_tiers
+  has_many :local_authority_links, through: :links, source: :local_authority
 
   scope :enabled, -> { where(enabled: true) }
 
