@@ -22,11 +22,11 @@ class ApiController < ApplicationController
 private
 
   def missing_required_params_for_link?
-    params[:authority_slug].blank? || params[:lgsl].blank?
+    (params[:authority_slug].blank? && params[:gss].blank?) || params[:lgsl].blank?
   end
 
   def missing_required_params_for_local_authority?
-    params[:authority_slug].blank?
+    params[:authority_slug].blank? && params[:gss].blank?
   end
 
   def missing_objects_for_link?
@@ -38,7 +38,11 @@ private
   end
 
   def authority
-    @authority ||= LocalAuthority.find_by(slug: params[:authority_slug])
+    @authority ||= if params[:authority_slug]
+                     LocalAuthority.find_by(slug: params[:authority_slug])
+                   elsif params[:gss]
+                     LocalAuthority.find_by(gss: params[:gss])
+                   end
   end
 
   def service
