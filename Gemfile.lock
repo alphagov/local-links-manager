@@ -301,7 +301,7 @@ GEM
     rainbow (3.0.0)
     raindrops (0.19.2)
     rake (13.0.6)
-    rdoc (6.2.1)
+    rdoc (6.3.2)
     redis (4.2.1)
     regexp_parser (1.8.2)
     representable (3.0.4)
