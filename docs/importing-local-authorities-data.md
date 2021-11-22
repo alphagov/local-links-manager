@@ -1,11 +1,11 @@
-# Importing Local Authorities data
+# Creating a new Local Authority
 
-Before running the import rake tasks make sure you have Mapit running locally and have imported data into it.
+You need to run this rake task:
 
-Import all local authorities:
+`bundle exec rake local_authority:create[<gss>, <name>, <snac>, <slug>, <tier_id>, <country_name>]`
 
-`bundle exec rake import:local_authorities:import_all`
+## Importing services and interactions
 
-Then import services and interactions:
+To import services and interactions:
 
 `bundle exec rake import:service_interactions:import_all`
