@@ -32,8 +32,6 @@ describe LocalLinksManager::CheckLinks::LinkStatusRequester do
         webhook_secret_token: Rails.application.secrets.link_checker_api_secret_token,
       )
 
-      stub_request(:get, "/mapit/")
-
       link_status_requester.call
 
       expect(stub1).to have_been_requested
@@ -76,8 +74,6 @@ describe LocalLinksManager::CheckLinks::LinkStatusRequester do
         webhook_uri: "http://local-links-manager.dev.gov.uk/link-check-callback",
         webhook_secret_token: Rails.application.secrets.link_checker_api_secret_token,
       )
-
-      stub_request(:get, "/mapit/")
 
       link_status_requester.check_authority_urls "ambridge"
 
