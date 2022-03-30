@@ -47,6 +47,6 @@ $ bundle exec rake
 - [Checking links](/docs/checking-links.md)
 - [Example API output](/docs/example-api-output.md)
 
-## Licence
+## License
 
-[MIT License](LICENCE)
+[MIT License](LICENSE)
