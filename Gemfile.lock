@@ -223,8 +223,11 @@ GEM
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    mail (2.7.1)
+    mail (2.8.0)
       mini_mime (>= 0.1.1)
+      net-imap
+      net-pop
+      net-smtp
     marcel (1.0.2)
     matrix (0.4.2)
     memoist (0.16.2)
@@ -501,7 +504,7 @@ DEPENDENCIES
   govuk_test
   gretel
   jbuilder
-  mail (~> 2.7.1)
+  mail (~> 2.8.0)
   mlanett-redis-lock
   pg
   plek
