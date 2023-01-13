@@ -13,7 +13,7 @@ gem "govuk_admin_template"
 gem "govuk_app_config"
 gem "gretel"
 gem "jbuilder"
-gem "mail", "~> 2.7.1"  # TODO: remove once https://github.com/mikel/mail/issues/1489 is fixed.
+gem "mail", "~> 2.8.0"  # TODO: remove once https://github.com/mikel/mail/issues/1489 is fixed.
 gem "mlanett-redis-lock"
 gem "pg"
 gem "plek"
