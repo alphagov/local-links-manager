@@ -151,10 +151,10 @@ GEM
       ruby2_keywords
     erubi (1.12.0)
     execjs (2.8.1)
-    factory_bot (6.2.0)
+    factory_bot (6.4.1)
       activesupport (>= 5.0.0)
-    factory_bot_rails (6.2.0)
-      factory_bot (~> 6.2.0)
+    factory_bot_rails (6.4.0)
+      factory_bot (~> 6.4)
       railties (>= 5.0.0)
     faraday (2.7.11)
       base64
@@ -245,7 +245,7 @@ GEM
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
-    irb (1.9.0)
+    irb (1.9.1)
       rdoc
       reline (>= 0.3.8)
     jbuilder (2.11.5)
