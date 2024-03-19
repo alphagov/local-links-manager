@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_04_115751) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_20_163109) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -103,6 +103,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_115751) do
     t.string "slug", null: false
     t.boolean "enabled", default: false, null: false
     t.integer "broken_link_count", default: 0
+    t.boolean "unofficial", default: false
     t.index ["label"], name: "index_services_on_label", unique: true
     t.index ["lgsl_code"], name: "index_services_on_lgsl_code", unique: true
   end
