@@ -6,6 +6,12 @@ FactoryBot.define do
     status { nil }
     link_last_checked { nil }
     analytics { 0 }
+    not_provided_by_authority { false }
+  end
+
+  factory :not_provided_by_authority_link, parent: :link do
+    status { "ok" }
+    not_provided_by_authority { true }
   end
 
   factory :ok_link, parent: :link do

@@ -17,6 +17,7 @@ describe LocalLinksManager::Export::LocalAuthorityLinksExporter do
     let(:missing_link) { create(:missing_link, service:, local_authority:) }
     let(:pending_link) { create(:pending_link, service:, local_authority:) }
     let(:disabled_link) { create(:link_for_disabled_service, service:, local_authority:) }
+    let!(:not_provided_by_authority_link) { create(:not_provided_by_authority_link, service:, local_authority:) }
     let!(:links) do
       {
         "ok" => ok_link,
@@ -28,15 +29,23 @@ describe LocalLinksManager::Export::LocalAuthorityLinksExporter do
       }
     end
 
+    context "when params :not_provided_by_authority is checked" do
+      let(:csv) { exporter.export_links(service.id, %w[ok], true) }
+
+      it "exports links which have a not_provided_by_authority of true" do
+        expect(csv).to include("#{not_provided_by_authority_link.local_authority.name},#{not_provided_by_authority_link.local_authority.gss},#{not_provided_by_authority_link.service.label}: #{not_provided_by_authority_link.interaction.label},#{not_provided_by_authority_link.service.lgsl_code},#{not_provided_by_authority_link.interaction.lgil_code},#{not_provided_by_authority_link.url},#{not_provided_by_authority_link.service.enabled},#{not_provided_by_authority_link.not_provided_by_authority},#{not_provided_by_authority_link.status}")
+      end
+    end
+
     %w[ok broken caution missing pending].each do |status|
       context "when statuses :link_status_checkbox is [#{status}]" do
         let(:statuses) { [status] }
-        let(:csv) { exporter.export_links(service.id, statuses) }
+        let(:csv) { exporter.export_links(service.id, statuses, false) }
 
         it "exports #{status} links for enabled services for a given local authority to CSV format with headings" do
           expect(csv).to include(headings)
           links.slice(status).each_value do |link|
-            expect(csv).to include("#{link.local_authority.name},#{link.local_authority.gss},#{link.service.label}: #{link.interaction.label},#{link.service.lgsl_code},#{link.interaction.lgil_code},#{link.url},#{link.service.enabled},#{link.status}")
+            expect(csv).to include("#{link.local_authority.name},#{link.local_authority.gss},#{link.service.label}: #{link.interaction.label},#{link.service.lgsl_code},#{link.interaction.lgil_code},#{link.url},#{link.service.enabled},#{link.not_provided_by_authority},#{link.status}")
           end
         end
 

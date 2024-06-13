@@ -1,2 +1,2 @@
-Authority Name,GSS,Description,LGSL,LGIL,URL,Supported by GOV.UK
-Belfast,456,Service 123: Interaction 1,123,1,http://www.example.com/456/1,true
+Authority Name,GSS,Description,LGSL,LGIL,URL,Supported by GOV.UK,Not Provided by Authority
+Belfast,456,Service 123: Interaction 1,123,1,http://www.example.com/456/1,true,false

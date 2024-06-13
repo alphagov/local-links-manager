@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_18_105241) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_23_070623) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_18_105241) do
     t.string "link_warnings", default: [], null: false, array: true
     t.string "problem_summary"
     t.string "suggested_fix"
+    t.boolean "not_provided_by_authority", default: false, null: false
     t.index ["analytics"], name: "index_links_on_analytics"
     t.index ["local_authority_id", "service_interaction_id"], name: "index_links_on_local_authority_id_and_service_interaction_id", unique: true
     t.index ["local_authority_id"], name: "index_links_on_local_authority_id"

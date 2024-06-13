@@ -10,8 +10,8 @@ RSpec.describe "Export tasks" do
       la = LocalAuthority.last
       interaction = service_interaction.interaction
       expected_body = <<~EXPECTED_BODY_TEXT
-        Authority Name,GSS,Description,LGSL,LGIL,URL,Supported by GOV.UK
-        #{la.name},#{la.gss},#{service.label}: #{interaction.label},#{service.lgsl_code},#{interaction.lgil_code},#{link.url},true
+        Authority Name,GSS,Description,LGSL,LGIL,URL,Supported by GOV.UK,Not Provided by Authority
+        #{la.name},#{la.gss},#{service.label}: #{interaction.label},#{service.lgsl_code},#{interaction.lgil_code},#{link.url},true,false
       EXPECTED_BODY_TEXT
 
       s3 = double

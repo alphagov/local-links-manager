@@ -25,7 +25,8 @@ class ServicesController < ApplicationController
   def download_links_csv
     service_name = @service.label.parameterize.underscore
     statuses = params[:links_status_checkbox] & %w[ok broken caution missing pending]
-    data = LocalLinksManager::Export::ServiceLinksExporter.new.export_links(@service.id, statuses)
+    not_provided_by_authority = params[:not_provided_by_authority_checkbox] & %w[not_provided_by_authority]
+    data = LocalLinksManager::Export::ServiceLinksExporter.new.export_links(@service.id, statuses, not_provided_by_authority)
     send_data data, filename: "#{service_name}_links.csv"
   end
 

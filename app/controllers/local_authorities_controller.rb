@@ -42,7 +42,8 @@ class LocalAuthoritiesController < ApplicationController
   def download_links_csv
     authority_name = @authority.name.parameterize.underscore
     statuses = params[:links_status_checkbox] & %w[ok broken caution missing pending]
-    data = LocalLinksManager::Export::LocalAuthorityLinksExporter.new.export_links(@authority.id, statuses)
+    not_provided_by_authority = params[:not_provided_by_authority_checkbox] & %w[not_provided_by_authority]
+    data = LocalLinksManager::Export::LocalAuthorityLinksExporter.new.export_links(@authority.id, statuses, not_provided_by_authority)
     send_data data, filename: "#{authority_name}_links.csv"
   end
 
