@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_18_105241) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_30_142812) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -106,6 +106,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_18_105241) do
     t.string "slug", null: false
     t.boolean "enabled", default: false, null: false
     t.integer "broken_link_count", default: 0
+    t.string "organisation_slugs", default: [], array: true
     t.index ["label"], name: "index_services_on_label", unique: true
     t.index ["lgsl_code"], name: "index_services_on_lgsl_code", unique: true
   end
