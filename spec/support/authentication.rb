@@ -17,6 +17,10 @@ module AuthenticationControllerHelpers
     create(:user)
   end
 
+  def login_as_user_from(organisation_slug:)
+    login_as_new(create(:user, organisation_slug:))
+  end
+
   def login_as_gds_editor
     login_as_new(create(:user, permissions: ["GDS Editor"], organisation_slug: "government-digital-service"))
   end
