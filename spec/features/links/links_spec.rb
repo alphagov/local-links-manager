@@ -1,6 +1,6 @@
 feature "The links for a local authority" do
   before do
-    User.create!(email: "user@example.com", name: "Test User", permissions: %w[signin])
+    User.create!(email: "user@example.com", name: "Test User", permissions: ["signin", "GDS Editor"])
     @time = Timecop.freeze("2016-07-14 11:34:09 +0100")
     @local_authority = create(:local_authority, status: "ok", link_last_checked: @time - (60 * 60))
     @service = create(:service)

@@ -1,6 +1,6 @@
 feature "The services index page" do
   before do
-    User.create!(email: "user@example.com", name: "Test User", permissions: %w[signin])
+    User.create!(email: "user@example.com", name: "Test User", permissions: ["signin", "GDS Editor"])
 
     @aardvark = create(:service, label: "Aardvark Wardens")
     @zebra = create(:service, label: "Zebra Fouling", broken_link_count: 1)
