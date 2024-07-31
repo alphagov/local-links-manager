@@ -5,6 +5,7 @@ class LocalAuthoritiesController < ApplicationController
   before_action :set_authority, except: %i[index bad_homepage_url_and_status_csv]
 
   def index
+    raise GDS::SSO::PermissionDeniedError, "You do not have permission to view this page" unless gds_editor?
     Rails.logger.info(params)
 
     @authorities = if params[:filter]&.include?("only_active")

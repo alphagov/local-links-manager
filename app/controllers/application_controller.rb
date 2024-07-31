@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include GDS::SSO::ControllerMethods
-  include ServicePermissions
+  include ServicePermissions  
 
   before_action :authenticate_user!
   # Prevent CSRF attacks by raising an exception.
