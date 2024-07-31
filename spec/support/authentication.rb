@@ -1,4 +1,10 @@
 module AuthenticationControllerHelpers
+  def login_as_new(user)
+    allow_any_instance_of(ApplicationController).to receive(:authenticate_user!).and_return(true)
+    allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+  end
+
   def login_as(user)
     request.env["warden"] = double(
       authenticate!: true,
@@ -12,11 +18,11 @@ module AuthenticationControllerHelpers
   end
 
   def login_as_gds_editor
-    login_as(create(:user, permissions: ["GDS Editor"], organisation_slug: "government-digital-service"))
+    login_as_new(create(:user, permissions: ["GDS Editor"], organisation_slug: "government-digital-service"))
   end
 
   def login_as_stub_user
-    login_as stub_user
+    login_as_new(stub_user)
   end
 end
 RSpec.configuration.include AuthenticationControllerHelpers, type: :controller

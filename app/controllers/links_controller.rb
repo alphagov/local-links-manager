@@ -4,6 +4,8 @@ class LinksController < ApplicationController
   helper_method :back_url
 
   def index
+    raise GDS::SSO::PermissionDeniedError, "You do not have permission to view this page" unless gds_editor?
+
     currently_broken = Link.enabled_links.broken_or_missing
     @total_broken_links = currently_broken.count
     @broken_links = currently_broken.order(analytics: :desc).limit(200)
