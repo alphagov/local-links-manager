@@ -5,8 +5,8 @@ class ServicesController < ApplicationController
   before_action :set_service, except: :index
 
   def index
-    @services = Service.enabled.order(broken_link_count: :desc)
-    raise "Missing Data" if @services.empty?
+    @services = services_for_user(current_user).enabled.order(broken_link_count: :desc)
+    #raise "Missing Data" if @services.empty?
 
     @breadcrumbs = index_breadcrumbs
   end
@@ -39,6 +39,12 @@ class ServicesController < ApplicationController
   end
 
 private
+
+  def services_for_user(user)
+    return Service.all if gds_editor?
+
+    Service.where(":organisation_slugs = ANY(organisation_slugs)", organisation_slugs: user.organisation_slug)
+  end
 
   def set_service
     @service = Service.find_by!(slug: params[:service_slug])

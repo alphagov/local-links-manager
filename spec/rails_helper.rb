@@ -39,6 +39,10 @@ ActiveRecord::Migration.maintain_test_schema!
 Rails.application.load_tasks
 
 RSpec.configure do |config|
+  config.infer_spec_type_from_file_location!
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [Rails.root.join("spec/fixtures")]
 
