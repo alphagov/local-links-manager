@@ -15,5 +15,17 @@ RSpec.describe "ServicesPage" do
         expect(response).to have_http_status(:ok)
       end
     end
+
+    context "with a user from a different department" do
+        before do
+          login_as_stub_user
+        end
+    
+        it "does not show the page of the department" do
+          get "/services/aardvark-wardens"
+    
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
   end
   
