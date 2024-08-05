@@ -1,7 +1,7 @@
 RSpec.describe "Council page", type: :request do
   include AuthenticationControllerHelpers
 
-  context "with a gds editor" do
+  context "with GDS Editor permission" do
     before do
       login_as_gds_editor
     end
@@ -13,15 +13,15 @@ RSpec.describe "Council page", type: :request do
     end
   end
 
-  context "with a council editor" do
+  context "without GDS Editor permission" do
     before do
       login_as_stub_user
     end
 
-    it "does not show the page" do
+    it "redirects to the services path" do
       get "/local_authorities"
 
-      expect(response).to have_http_status(403)
+      expect(response).to redirect_to(services_path)
     end
   end
 end

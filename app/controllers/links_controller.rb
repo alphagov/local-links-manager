@@ -1,11 +1,11 @@
 class LinksController < ApplicationController
   before_action :load_dependencies, only: %i[edit update destroy]
   before_action :set_back_url_before_post_request, only: %i[edit update destroy]
+  before_action :check_permissions, except: %i[edit update destroy]
+
   helper_method :back_url
 
   def index
-    raise GDS::SSO::PermissionDeniedError, "You do not have permission to view this page" unless gds_editor?
-
     currently_broken = Link.enabled_links.broken_or_missing
     @total_broken_links = currently_broken.count
     @broken_links = currently_broken.order(analytics: :desc).limit(200)
@@ -55,6 +55,10 @@ class LinksController < ApplicationController
   end
 
 private
+
+  def check_permissions
+    redirect_to services_path unless gds_editor?
+  end
 
   def load_dependencies
     @local_authority = LocalAuthority.find_by!(slug: params[:local_authority_slug])

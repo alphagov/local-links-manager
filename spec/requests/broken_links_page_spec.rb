@@ -1,7 +1,7 @@
 RSpec.describe "Broken Links Page", type: :request do
   include AuthenticationControllerHelpers
 
-  context "with a gds editor" do
+  context "with GDS Editor permission" do
     before do
       login_as_gds_editor
     end
@@ -13,7 +13,7 @@ RSpec.describe "Broken Links Page", type: :request do
     end
   end
 
-  context "with a department editor" do
+  context "without GDS Editor permission" do
     before do
       login_as_stub_user
     end
@@ -21,7 +21,7 @@ RSpec.describe "Broken Links Page", type: :request do
     it "does not show the page" do
       get "/"
 
-      expect(response).to have_http_status(:forbidden)
+      expect(response).to redirect_to(services_path)
     end
   end
 end
