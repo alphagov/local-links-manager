@@ -19,7 +19,7 @@ RSpec.describe ServicesController, type: :controller do
 
   describe "GET #show" do
     it "returns http success" do
-      login_as_stub_user
+      login_as_gds_editor
       service = create(:service)
       get :show, params: { service_slug: service.slug }
       expect(response).to have_http_status(200)
@@ -28,7 +28,7 @@ RSpec.describe ServicesController, type: :controller do
 
   describe "GET #download_links_form" do
     it "returns a success response" do
-      login_as_stub_user
+      login_as_gds_editor
       service = create(:service)
       get :download_links_form, params: { service_slug: service.slug }
       expect(response).to be_successful
@@ -44,7 +44,7 @@ RSpec.describe ServicesController, type: :controller do
     end
 
     it "returns a success response" do
-      login_as_stub_user
+      login_as_gds_editor
       post :download_links_csv, params: { service_slug: service.slug }
       expect(response).to be_successful
     end

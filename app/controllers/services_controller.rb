@@ -3,6 +3,7 @@ class ServicesController < ApplicationController
   include LinkImporterUtils
 
   before_action :set_service, except: :index
+  before_action :check_permissions, except: :index
 
   def index
     @services = services_for_user(current_user).enabled.order(broken_link_count: :desc)
@@ -48,6 +49,10 @@ private
 
   def set_service
     @service = Service.find_by!(slug: params[:service_slug])
+  end
+
+  def check_permissions
+    raise GDS::SSO::PermissionDeniedError, "You do not have permission to view this page" unless permission_for_service?(@service)
   end
 
   def links_for_service

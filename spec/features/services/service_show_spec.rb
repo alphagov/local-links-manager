@@ -1,6 +1,6 @@
 feature "The services show page" do
   before do
-    User.create!(email: "user@example.com", name: "Test User", permissions: %w[signin])
+    User.create!(email: "user@example.com", name: "Test User", permissions: ["signin", "GDS Editor"])
 
     @service = create(:service, :all_tiers)
     service_interaction = create(:service_interaction, service: @service)
