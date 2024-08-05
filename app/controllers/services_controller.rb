@@ -6,7 +6,7 @@ class ServicesController < ApplicationController
 
   def index
     @services = services_for_user(current_user).enabled.order(broken_link_count: :desc)
-    #raise "Missing Data" if @services.empty?
+    # raise "Missing Data" if @services.empty?
 
     @breadcrumbs = index_breadcrumbs
   end
