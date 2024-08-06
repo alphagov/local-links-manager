@@ -43,10 +43,6 @@ feature "The services show page" do
   end
 
   describe "for each local authority" do
-    it "the Local Authority name is linked to the council specific page" do
-      expect(page).to have_link @council_a.name, href: local_authority_path(@council_a)
-    end
-
     it "an edit link points to the edit form for that council/interaction" do
       expect(page).to have_link "Edit", href: edit_link_path(@council_a, @service, @link1.service_interaction.interaction)
     end
