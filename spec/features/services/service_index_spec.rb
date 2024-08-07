@@ -1,6 +1,8 @@
 feature "The services index page" do
+  include AuthenticationControllerHelpers
+
   before do
-    User.create!(email: "user@example.com", name: "Test User", permissions: ["signin", "GDS Editor"])
+    login_as_gds_editor
 
     @aardvark = create(:service, label: "Aardvark Wardens")
     @zebra = create(:service, label: "Zebra Fouling", broken_link_count: 1)

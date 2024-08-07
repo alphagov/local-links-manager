@@ -1,9 +1,12 @@
 feature "The local authority upload CSV page" do
+  include AuthenticationControllerHelpers
+
   let!(:local_authority) { create(:district_council) }
   let(:test_authority_path) { local_authority_path(local_authority_slug: local_authority.slug) }
 
   before do
-    User.create!(email: "user@example.com", name: "Test User", permissions: ["signin", "GDS Editor"])
+    login_as_gds_editor
+
     visit test_authority_path
 
     service = create(:service, :all_tiers, label: "OK Service")

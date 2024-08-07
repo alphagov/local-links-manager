@@ -1,5 +1,6 @@
 feature "The services show page" do
   include AuthenticationControllerHelpers
+
   before do
     login_as_gds_editor
 
