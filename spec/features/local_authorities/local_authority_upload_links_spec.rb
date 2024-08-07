@@ -3,7 +3,7 @@ feature "The local authority upload CSV page" do
   let(:test_authority_path) { local_authority_path(local_authority_slug: local_authority.slug) }
 
   before do
-    User.create!(email: "user@example.com", name: "Test User", permissions: %w[signin])
+    User.create!(email: "user@example.com", name: "Test User", permissions: ["signin", "GDS Editor"])
     visit test_authority_path
 
     service = create(:service, :all_tiers, label: "OK Service")

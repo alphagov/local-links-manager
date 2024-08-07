@@ -1,6 +1,7 @@
 feature "The services show page" do
+  include AuthenticationControllerHelpers
   before do
-    User.create!(email: "user@example.com", name: "Test User", permissions: ["signin", "GDS Editor"])
+    login_as_gds_editor
 
     @service = create(:service, :all_tiers)
     service_interaction = create(:service_interaction, service: @service)
