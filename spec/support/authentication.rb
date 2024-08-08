@@ -25,6 +25,10 @@ module AuthenticationControllerHelpers
     login_as_new(create(:user, permissions: ["GDS Editor"], organisation_slug: "government-digital-service"))
   end
 
+  def login_as_department_user
+    login_as_new(stub_user)
+  end
+
   def login_as_stub_user
     login_as_new(stub_user)
   end

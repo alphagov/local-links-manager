@@ -32,7 +32,7 @@
       <%= render "govuk_publishing_components/components/button", { text: "Update" } %>
     <% end %>
 
-    <% if @link.url %>
+    <% if @link.url && gds_editor? %>
       <div class="app-danger-block">
         <%= form_for @link, url: link_path(@local_authority.slug, @service.slug, @interaction.slug), method: "delete", data: { confirm: "Are you sure you wish to delete this link?" } do |f| %>
         <p class="govuk-body">You can also delete this link if you are certain it is no longer necessary (NB: this cannot be undone)</p>

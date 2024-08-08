@@ -26,7 +26,7 @@ Rails.application.routes.draw do
       get "upload_links_form"
       post "upload_links_csv"
       get "update-owner-form"
-      post "update-owner"
+      patch "update-owner"
     end
   end
 

@@ -19,6 +19,20 @@ class ServicesController < ApplicationController
     @breadcrumbs = service_breadcrumbs(@service)
   end
 
+  def update_owner_form
+    raise GDS::SSO::PermissionDeniedError, "You do not have permission to view this page" unless gds_editor?
+
+    @breadcrumbs = service_breadcrumbs(@service) + [{ title: "Update Owner", url: update_owner_form_service_path(@service) }]
+  end
+
+  def update_owner
+    raise GDS::SSO::PermissionDeniedError, "You do not have permission to view this page" unless gds_editor?
+
+    @service.update!(organisation_slugs: params["service"]["organisation_slugs"].split(" "))
+
+    redirect_to service_path(@service, filter: "broken_links")
+  end
+
   def download_links_form
     @breadcrumbs = service_breadcrumbs(@service) + [{ title: "Download Links", url: download_links_form_service_path(@service) }]
   end
