@@ -17,6 +17,7 @@
         <div class="app-side__actions">
           <%= render "govuk_publishing_components/components/list", {
             items: [
+              link_to("Update Owner", update_owner_form_service_path(@service), class: "govuk-link"),
               link_to("Download Links", download_links_form_service_path(@service), class: "govuk-link"),
               link_to("Upload Links", upload_links_form_service_path(@service), class: "govuk-link"),
               link_to(@filter_var == "broken_links" ? "Show only broken links" : "Show all links", service_path(@service.slug, filter: @filter_var), class: "govuk-link"),
