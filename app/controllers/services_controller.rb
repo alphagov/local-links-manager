@@ -26,6 +26,8 @@ class ServicesController < ApplicationController
   end
 
   def update_owner
+    Rails.logger.info(params)
+
     raise GDS::SSO::PermissionDeniedError, "You do not have permission to view this page" unless gds_editor?
 
     @service.update!(organisation_slugs: params["service"]["organisation_slugs"].split(" "))

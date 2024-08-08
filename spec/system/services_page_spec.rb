@@ -1,13 +1,10 @@
-RSpec.describe "ServicesPage" do
-  include AuthenticationControllerHelpers
+RSpec.describe "Services Page" do
   before do
     create(:service, label: "Aardvark Wardens", organisation_slugs: %w[department-of-aardvarks])
   end
 
-  context "with a gds editor" do
-    before do
-      login_as_gds_editor
-    end
+  context "as a gds editor" do
+    before { login_as_gds_editor }
 
     it "shows all the services" do
       visit "/services"
@@ -16,10 +13,8 @@ RSpec.describe "ServicesPage" do
     end
   end
 
-  context "with a user from some other department" do
-    before do
-      login_as_stub_user
-    end
+  context "as a department user" do
+    before { login_as_department_user }
 
     it "does not show Aardvark Wardens service" do
       visit "/services"
@@ -28,10 +23,8 @@ RSpec.describe "ServicesPage" do
     end
   end
 
-  context "with a user from a particular department" do
-    before do
-      login_as_user_from(organisation_slug: "department-of-aardvarks")
-    end
+  context "as a user from the owning department" do
+    before { login_as_department_user(organisation_slug: "department-of-aardvarks") }
 
     it "shows the related services only" do
       visit "/services"

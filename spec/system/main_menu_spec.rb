@@ -1,6 +1,4 @@
 RSpec.describe "Main Menu" do
-  include AuthenticationControllerHelpers
-
   context "as a normal user" do
     before { login_as_department_user }
 

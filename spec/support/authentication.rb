@@ -17,7 +17,7 @@ module AuthenticationControllerHelpers
     create(:user)
   end
 
-  def login_as_user_from(organisation_slug:)
+  def login_as_department_user(organisation_slug: "random-deparment")
     login_as_new(create(:user, organisation_slug:))
   end
 
@@ -25,12 +25,61 @@ module AuthenticationControllerHelpers
     login_as_new(create(:user, permissions: ["GDS Editor"], organisation_slug: "government-digital-service"))
   end
 
-  def login_as_department_user
-    login_as_new(stub_user)
-  end
-
   def login_as_stub_user
     login_as_new(stub_user)
   end
 end
-RSpec.configuration.include AuthenticationControllerHelpers, type: :controller
+
+RSpec.shared_examples "only GDS Editors can visit" do |path|
+  context "as a GDS Editor" do
+    before { login_as_gds_editor }
+
+    it "shows the page" do
+      get path
+
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
+  context "as a department user" do
+    before { login_as_department_user }
+
+    it "does not show the page" do
+      get path
+
+      expect(response).to redirect_to(services_path)
+    end
+  end
+end
+
+RSpec.shared_examples "it is forbidden to non-owners" do |path, owning_department|
+  context "as a GDS Editor" do
+    before { login_as_gds_editor }
+
+    it "returns 200" do
+      get path
+
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
+  context "as a department user from the owning department" do
+    before { login_as_department_user(organisation_slug: owning_department) }
+
+    it "returns 200" do
+      get path
+
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
+  context "as a department user" do
+    before { login_as_department_user }
+
+    it "returns 403" do
+      get path
+
+      expect(response).to have_http_status(:forbidden)
+    end
+  end
+end
