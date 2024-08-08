@@ -15,7 +15,7 @@ class LinksTablePresenter
         { text: link.analytics.to_i, format: "numeric" },
         { text: "<span class=\"app-service-label\">#{title}</span>".html_safe },
         { text: "<span class=\"app-interaction-label\">#{link.interaction.label}</span>".html_safe },
-        { text: @view_context.link_to(link.local_authority.name, @view_context.local_authority_path(link.local_authority), class: "govuk-link") },
+        { text: link.local_authority.name },
         { text: "<span class=\"govuk-tag govuk-tag--#{pres.status_tag_colour}\">#{pres.status_description}</span>".html_safe },
         { text: @view_context.link_to("Edit <span class=\"govuk-visually-hidden\">#{link.local_authority.name} - #{si.service.label} - #{si.interaction.label}</span>".html_safe, @view_context.edit_link_path(link.local_authority, link.service, link.interaction), class: "govuk-link") },
       ]

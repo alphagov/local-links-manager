@@ -1,6 +1,8 @@
 feature "The local authorities index page" do
+  include AuthenticationControllerHelpers
+
   before do
-    User.create!(email: "user@example.com", name: "Test User", permissions: %w[signin])
+    login_as_gds_editor
 
     @angus = create(:local_authority, name: "Angus")
     @zorro = create(:local_authority, name: "Zorro Council", status: "caution", problem_summary: "Redirect", broken_link_count: 1)

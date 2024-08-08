@@ -3,6 +3,7 @@ class LocalAuthoritiesController < ApplicationController
   include LinkImporterUtils
 
   before_action :set_authority, except: %i[index bad_homepage_url_and_status_csv]
+  before_action :check_permissions
 
   def index
     Rails.logger.info(params)
@@ -62,6 +63,10 @@ class LocalAuthoritiesController < ApplicationController
   end
 
 private
+
+  def check_permissions
+    redirect_to services_path unless gds_editor?
+  end
 
   def set_authority
     @authority = LocalAuthority.find_by!(slug: params[:local_authority_slug])

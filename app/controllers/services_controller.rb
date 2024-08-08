@@ -3,10 +3,11 @@ class ServicesController < ApplicationController
   include LinkImporterUtils
 
   before_action :set_service, except: :index
+  before_action :check_permissions, except: :index
 
   def index
-    @services = Service.enabled.order(broken_link_count: :desc)
-    raise "Missing Data" if @services.empty?
+    @services = services_for_user(current_user).enabled.order(broken_link_count: :desc)
+    # raise "Missing Data" if @services.empty?
 
     @breadcrumbs = index_breadcrumbs
   end
@@ -16,6 +17,22 @@ class ServicesController < ApplicationController
     @link_filter = params[:filter]
     @links = links_for_service
     @breadcrumbs = service_breadcrumbs(@service)
+  end
+
+  def update_owner_form
+    raise GDS::SSO::PermissionDeniedError, "You do not have permission to view this page" unless gds_editor?
+
+    @breadcrumbs = service_breadcrumbs(@service) + [{ title: "Update Owner", url: update_owner_form_service_path(@service) }]
+  end
+
+  def update_owner
+    Rails.logger.info(params)
+
+    raise GDS::SSO::PermissionDeniedError, "You do not have permission to view this page" unless gds_editor?
+
+    @service.update!(organisation_slugs: params["service"]["organisation_slugs"].split(" "))
+
+    redirect_to service_path(@service, filter: "broken_links")
   end
 
   def download_links_form
@@ -40,8 +57,18 @@ class ServicesController < ApplicationController
 
 private
 
+  def services_for_user(user)
+    return Service.all if gds_editor?
+
+    Service.where(":organisation_slugs = ANY(organisation_slugs)", organisation_slugs: user.organisation_slug)
+  end
+
   def set_service
     @service = Service.find_by!(slug: params[:service_slug])
+  end
+
+  def check_permissions
+    raise GDS::SSO::PermissionDeniedError, "You do not have permission to view this page" unless permission_for_service?(@service)
   end
 
   def links_for_service

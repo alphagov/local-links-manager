@@ -1,8 +1,10 @@
 feature "The local authority show page" do
+  include AuthenticationControllerHelpers
+
   let!(:local_authority) { create(:district_council) }
 
   before do
-    User.create!(email: "user@example.com", name: "Test User", permissions: %w[signin])
+    login_as_gds_editor
     visit local_authority_path(local_authority_slug: local_authority.slug)
   end
 

@@ -1,6 +1,6 @@
 RSpec.describe LinksController, type: :controller do
   before do
-    login_as_stub_user
+    login_as_gds_editor
     @local_authority = create(:local_authority)
     @service = create(:service)
     @interaction = create(:interaction)

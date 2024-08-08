@@ -15,12 +15,15 @@
     <aside class="app-side__wrapper">
       <div class="app-side">
         <div class="app-side__actions">
+          <%
+            items = []
+            items << link_to("Update Owner", update_owner_form_service_path(@service), class: "govuk-link") if gds_editor?
+            items << link_to("Download Links", download_links_form_service_path(@service), class: "govuk-link")
+            items << link_to("Upload Links", upload_links_form_service_path(@service), class: "govuk-link")
+            items << link_to(@filter_var == "broken_links" ? "Show only broken links" : "Show all links", service_path(@service.slug, filter: @filter_var), class: "govuk-link")
+          %>
           <%= render "govuk_publishing_components/components/list", {
-            items: [
-              link_to("Download Links", download_links_form_service_path(@service), class: "govuk-link"),
-              link_to("Upload Links", upload_links_form_service_path(@service), class: "govuk-link"),
-              link_to(@filter_var == "broken_links" ? "Show only broken links" : "Show all links", service_path(@service.slug, filter: @filter_var), class: "govuk-link"),
-            ],
+            items:,
             margin_bottom: 0,
           } %>
         </div>

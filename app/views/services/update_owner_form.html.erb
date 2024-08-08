@@ -1,0 +1,23 @@
+<% content_for :page_title, "Update Owner" %>
+
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Update Owner",
+  heading_level: 1,
+  font_size: "l",
+  margin_bottom: 5,
+} %>
+
+<%= form_for(@service, url: update_owner_service_path(@service)) do %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: { text: "Organisation Slugs" },
+    hint: "For multiple owning organisations, list slugs separated by spaces",
+    name: "service[organisation_slugs]",
+    value: @service&.organisation_slugs,
+  } %>
+  <%= render "govuk_publishing_components/components/button", { text: "Submit" } %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Cancel",
+    secondary_quiet: true,
+    href: service_path(@service, filter: "broken_links"),
+  } %>
+<% end %>

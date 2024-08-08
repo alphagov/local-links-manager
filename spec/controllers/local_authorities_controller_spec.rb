@@ -2,7 +2,7 @@ RSpec.describe LocalAuthoritiesController, type: :controller do
   describe "GET #index" do
     context "when there is sufficient data" do
       it "returns http succcess" do
-        login_as_stub_user
+        login_as_gds_editor
         create(:local_authority)
         get :index
         expect(response).to have_http_status(200)
@@ -17,7 +17,7 @@ RSpec.describe LocalAuthoritiesController, type: :controller do
     end
 
     it "returns http success" do
-      login_as_stub_user
+      login_as_gds_editor
       get :show, params: { local_authority_slug: @local_authority.slug, service_slug: @service.slug }
       expect(response).to have_http_status(200)
     end
@@ -30,7 +30,7 @@ RSpec.describe LocalAuthoritiesController, type: :controller do
     end
 
     it "returns http success" do
-      login_as_stub_user
+      login_as_gds_editor
       get :edit_url, params: { local_authority_slug: @local_authority.slug }
       expect(response).to have_http_status(200)
     end
@@ -43,7 +43,7 @@ RSpec.describe LocalAuthoritiesController, type: :controller do
     end
 
     it "returns http redirect" do
-      login_as_stub_user
+      login_as_gds_editor
       post :update, params: { local_authority_slug: @local_authority.slug, homepage_url: "http://www.example.com/new-homepage" }
       expect(response).to have_http_status(302)
       @local_authority.reload
@@ -53,7 +53,7 @@ RSpec.describe LocalAuthoritiesController, type: :controller do
 
   describe "GET bad_homepage_url_and_status_csv" do
     it "retrieves HTTP success" do
-      login_as_stub_user
+      login_as_gds_editor
       get :bad_homepage_url_and_status_csv
       expect(response).to have_http_status(200)
       expect(response.headers["Content-Type"]).to eq("text/csv")
@@ -66,7 +66,7 @@ RSpec.describe LocalAuthoritiesController, type: :controller do
     end
 
     it "retrieves HTTP success" do
-      login_as_stub_user
+      login_as_gds_editor
       get(
         :download_links_csv,
         params: {
@@ -87,7 +87,7 @@ RSpec.describe LocalAuthoritiesController, type: :controller do
       let(:url_regex) { /http:\/\/.+\/local_authorities\/#{@local_authority.slug}/ }
 
       it "retrieves HTTP found" do
-        login_as_stub_user
+        login_as_gds_editor
         post(:upload_links_csv, params: { local_authority_slug: @local_authority.slug, csv: })
 
         expect(response.status).to eq(302)
@@ -98,7 +98,7 @@ RSpec.describe LocalAuthoritiesController, type: :controller do
 
     context "with errors in the CSV" do
       before do
-        login_as_stub_user
+        login_as_gds_editor
         interaction = create(:interaction, lgil_code: 1)
         6.times do |i|
           service = create(:service, lgsl_code: i + 1)

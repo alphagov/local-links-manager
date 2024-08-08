@@ -1,6 +1,9 @@
 class LinksController < ApplicationController
   before_action :load_dependencies, only: %i[edit update destroy]
   before_action :set_back_url_before_post_request, only: %i[edit update destroy]
+  before_action :check_permissions, except: %i[edit update]
+  before_action :check_ownership, only: %i[edit update]
+
   helper_method :back_url
 
   def index
@@ -63,6 +66,14 @@ private
 
   def set_back_url_before_post_request
     flash[:back] = back_url
+  end
+
+  def check_permissions
+    redirect_to services_path unless gds_editor?
+  end
+
+  def check_ownership
+    redirect_to services_path unless permission_for_service?(@service)
   end
 
   def back_url
