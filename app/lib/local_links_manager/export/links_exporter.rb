@@ -13,6 +13,7 @@ module LocalLinksManager
         :lgil_code,
         :url,
         :enabled,
+        :not_provided_by_authority,
       ].freeze
       COMMON_HEADINGS = [
         "Authority Name",
@@ -22,6 +23,7 @@ module LocalLinksManager
         "LGIL",
         "URL",
         "Supported by GOV.UK",
+        "Not Provided by Authority",
       ].freeze
       EXTRA_HEADINGS = ["Status", "New URL"].freeze
 
@@ -43,11 +45,11 @@ module LocalLinksManager
         io.write(output)
       end
 
-      def export_links(object_id, statuses)
+      def export_links(object_id, statuses, not_provided_by_authority)
         CSV.generate do |csv|
           csv << COMMON_HEADINGS + EXTRA_HEADINGS
           statuses.each do |status|
-            links(object_id, status).each do |link|
+            links(object_id, status, not_provided_by_authority).each do |link|
               csv << format(link).push(link.status)
             end
           end
@@ -71,6 +73,7 @@ module LocalLinksManager
           record.lgil_code,
           record.url,
           record.enabled,
+          record.not_provided_by_authority,
         ]
       end
 

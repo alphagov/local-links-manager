@@ -21,6 +21,7 @@ class LinksController < ApplicationController
 
   def update
     @link.url = link_url
+    @link.not_provided_by_authority = link_not_provided_by_authority
 
     if @link.save
       @link.local_authority.update_broken_link_count
@@ -73,6 +74,10 @@ private
 
   def link_url
     params[:url].strip
+  end
+
+  def link_not_provided_by_authority
+    params[:not_provided_by_authority].present? && params[:not_provided_by_authority] == "on"
   end
 
   def redirect_back

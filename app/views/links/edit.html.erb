@@ -29,6 +29,13 @@
         value: @link.url,
       } %>
 
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "not_provided_by_authority",
+        heading: "Is this provided by the local authority",
+        hint_text: "Check this if the link is NOT provided by the local authority",
+        items: [{ checked: @link.not_provided_by_authority }],
+      } %>
+
       <%= render "govuk_publishing_components/components/button", { text: "Update" } %>
     <% end %>
 

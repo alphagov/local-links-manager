@@ -21,6 +21,15 @@
     ],
   } %>
 
+    <%= render "govuk_publishing_components/components/checkboxes", {
+      name: "not_provided_by_authority_checkbox[]",
+      heading: "Include links where link is not provided by authority:",
+      hint_text: "",
+      items: [
+        { label: "Service not provided", value: "not_provided_by_authority", checked: false },
+      ],
+  } %>
+
   <%= render "govuk_publishing_components/components/button", { text: "Download Links" } %>
 
 <% end %>

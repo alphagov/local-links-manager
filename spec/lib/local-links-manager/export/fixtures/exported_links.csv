@@ -1,6 +1,6 @@
-Authority Name,GSS,Description,LGSL,LGIL,URL,Supported by GOV.UK
-Exeter,456,Service 123: Interaction 0,123,0,http://www.example.com/456/0,true
-Exeter,456,Service 123: Interaction 1,123,1,http://www.example.com/456/1,true
-Exeter,456,Service 666: Interaction 0,666,0,http://www.example.com/456/0,false
-London,123,Service 123: Interaction 0,123,0,http://www.example.com/123/0,true
-London,123,Service 123: Interaction 1,123,1,http://www.example.com/123/1,true
+Authority Name,GSS,Description,LGSL,LGIL,URL,Supported by GOV.UK,Not Provided by Authority
+Exeter,456,Service 123: Interaction 0,123,0,http://www.example.com/456/0,true,false
+Exeter,456,Service 123: Interaction 1,123,1,http://www.example.com/456/1,true,false
+Exeter,456,Service 666: Interaction 0,666,0,http://www.example.com/456/0,false,false
+London,123,Service 123: Interaction 0,123,0,http://www.example.com/123/0,true,false
+London,123,Service 123: Interaction 1,123,1,http://www.example.com/123/1,true,false

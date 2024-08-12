@@ -20,6 +20,7 @@ module LocalLinksManager
           @total_rows += 1
           index += 1
           new_url = row["New URL"]
+          not_provided_by_authority = row["Not Provided by Authority"]
           next if new_url.blank?
 
           local_authority = LocalAuthority.find_by(gss: row["GSS"])
@@ -38,6 +39,7 @@ module LocalLinksManager
 
           begin
             link.update!(url: new_url)
+            link.update!(not_provided_by_authority:) if not_provided_by_authority
             updated += 1
           rescue ActiveRecord::RecordInvalid => e
             Rails.logger.warn("#{e.message} (#{slugs.merge(link_id: link.id)})")

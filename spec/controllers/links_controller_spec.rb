@@ -33,9 +33,10 @@ RSpec.describe LinksController, type: :controller do
 
   describe "POST edit" do
     it "updates valid links" do
-      post :update, params: { local_authority_slug: @local_authority.slug, service_slug: @service.slug, interaction_slug: @interaction.slug, url: "http://www.example.com/new" }
+      post :update, params: { local_authority_slug: @local_authority.slug, service_slug: @service.slug, interaction_slug: @interaction.slug, url: "http://www.example.com/new", not_provided_by_authority: "on" }
       expect(response).to have_http_status(302)
       expect(Link.last.url).to eq("http://www.example.com/new")
+      expect(Link.last.not_provided_by_authority).to eq(true)
       expect(flash[:danger]).to be nil
     end
 
