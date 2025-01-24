@@ -3,4 +3,5 @@
 
 <% content_for :page_title, title %>
 
+<%= render partial: "shared/flash" %>
 <%= render partial: "shared/upload_links_form", locals: { form_path:, title: } %>
