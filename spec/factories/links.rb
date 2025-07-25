@@ -16,10 +16,14 @@ FactoryBot.define do
   factory :broken_link, parent: :link do
     sequence(:url) { |n| "hhhttttttppp://www.example.com/broken-#{n}" }
     status { "broken" }
+    problem_summary { "Website unvailable" }
+    link_errors { ["This redirects to a page not found (404)."] }
   end
 
   factory :caution_link, parent: :link do
     status { "caution" }
+    problem_summary { "Bad redirect" }
+    link_warnings { ["This redirects too many times and will open slowly."] }
   end
 
   factory :missing_link, parent: :link do

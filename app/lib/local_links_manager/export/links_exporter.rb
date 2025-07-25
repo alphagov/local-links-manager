@@ -14,6 +14,9 @@ module LocalLinksManager
         :url,
         :title,
         :enabled,
+        :problem_summary,
+        :link_errors,
+        :link_warnings,
       ].freeze
       COMMON_HEADINGS = [
         "Authority Name",
@@ -25,15 +28,7 @@ module LocalLinksManager
         "Title",
         "Supported by GOV.UK",
       ].freeze
-      EXTRA_HEADINGS = ["Status", "New URL", "New Title"].freeze
-
-      def self.export_links
-        path = Rails.root.join("public/data/links_to_services_provided_by_local_authorities.csv")
-
-        File.open(path, "w") do |file|
-          new.export(file)
-        end
-      end
+      EXTRA_HEADINGS = ["Status", "Problem summary", "Status error", "Status warning", "New URL", "New Title"].freeze
 
       def export(io)
         output = CSV.generate do |csv|
@@ -50,7 +45,7 @@ module LocalLinksManager
           csv << COMMON_HEADINGS + EXTRA_HEADINGS
           statuses.each do |status|
             links(object_id, status).each do |link|
-              csv << format(link).push(link.status)
+              csv << format(link).push(link.status, link.problem_summary, link.link_errors.first, link.link_warnings.first)
             end
           end
         end
