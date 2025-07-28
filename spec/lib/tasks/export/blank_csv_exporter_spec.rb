@@ -34,6 +34,12 @@ RSpec.describe "Export blank csvs" do
 
       expect(File).to exist("blank_file_unitary.csv")
     end
+
+    it "should abort if invalid tier name is passed" do
+      args = Rake::TaskArguments.new(%i[tier_name], "abcdefg")
+
+      expect { Rake::Task["export:blank_csv"].execute(args) }.to raise_error(SystemExit, "Tier name must be one of: district, county, unitary")
+    end
   end
 end
 
