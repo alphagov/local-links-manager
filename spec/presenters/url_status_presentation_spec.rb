@@ -40,4 +40,22 @@ RSpec.describe UrlStatusPresentation do
       end
     end
   end
+
+  describe "#status_tag_colour" do
+    it "returns grey if the status isn't set" do
+      expect(subject.status_tag_colour).to eq("grey")
+    end
+
+    it "returns green if the status is 'ok'" do
+      subject.status = "ok"
+
+      expect(subject.status_tag_colour).to eq("green")
+    end
+
+    it "returns yellow if the status is 'caution'" do
+      subject.status = "caution"
+
+      expect(subject.status_tag_colour).to eq("yellow")
+    end
+  end
 end

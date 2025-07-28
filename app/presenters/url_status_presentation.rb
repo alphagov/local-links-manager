@@ -19,10 +19,6 @@ module UrlStatusPresentation
     end
   end
 
-  def status_detailed_description
-    (link_errors + link_warnings).uniq
-  end
-
   def label_status_class
     return nil unless status
     return "label label-success" if status == "ok"
