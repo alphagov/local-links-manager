@@ -93,4 +93,27 @@ describe LocalAuthorityPresenter do
       expect(presenter.active_end_date_title).to eq("Date authority became inactive")
     end
   end
+
+  describe "#homepage_status_colour" do
+    it "returns yellow if the status is 'caution'" do
+      allow(local_authority).to receive(:homepage_url).and_return("http://example.com")
+      allow(local_authority).to receive(:status).and_return("caution")
+
+      expect(presenter.homepage_status_colour).to eq("yellow")
+    end
+
+    it "returns red if the status is 'broken'" do
+      allow(local_authority).to receive(:homepage_url).and_return("http://example.com")
+      allow(local_authority).to receive(:status).and_return("broken")
+
+      expect(presenter.homepage_status_colour).to eq("red")
+    end
+
+    it "returns green if the status is not 'broken' or 'caution'" do
+      allow(local_authority).to receive(:homepage_url).and_return("http://example.com")
+      allow(local_authority).to receive(:status).and_return("ok")
+
+      expect(presenter.homepage_status_colour).to eq("green")
+    end
+  end
 end
