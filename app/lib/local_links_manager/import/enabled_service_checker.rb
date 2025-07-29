@@ -6,10 +6,6 @@ module LocalLinksManager
     class EnabledServiceChecker
       CSV_URL = "https://raw.githubusercontent.com/alphagov/publisher/master/data/local_services.csv".freeze
 
-      def self.enable
-        new.enable_services
-      end
-
       def initialize(csv_downloader = CsvDownloader.new(CSV_URL))
         @csv_downloader = csv_downloader
       end

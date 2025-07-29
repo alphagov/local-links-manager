@@ -87,6 +87,18 @@ describe LocalLinksManager::Import::EnabledServiceChecker, :csv_importer do
         expect(response).not_to be_successful
         expect(response.errors).to include("1 Service is not present.\n100010001\n")
       end
+
+      it "should warn when services do not correspond to an lgsl code" do
+        csv_rows = [{ "LGSL" => "1614" }, { "LGSL" => "13" }, { "LGSL" => "100010001" }, { "LGSL" => "100010002" }]
+
+        stub_csv_rows(csv_rows)
+
+        checker = LocalLinksManager::Import::EnabledServiceChecker.new(csv_downloader)
+
+        response = checker.enable_services
+        expect(response).not_to be_successful
+        expect(response.errors).to include("2 Services are not present.\n100010001\n100010002\n")
+      end
     end
   end
 end

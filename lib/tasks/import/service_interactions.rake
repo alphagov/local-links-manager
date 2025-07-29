@@ -50,7 +50,7 @@ namespace :import do
 
     desc "Enable services used on Gov.uk"
     task enable_services: :environment do
-      LocalLinksManager::Import::EnabledServiceChecker.enable
+      LocalLinksManager::Import::EnabledServiceChecker.new.enable_services
     end
 
     desc "Import LocalTransactions from Publishing API"
