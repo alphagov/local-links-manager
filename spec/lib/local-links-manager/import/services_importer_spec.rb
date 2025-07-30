@@ -108,6 +108,24 @@ describe LocalLinksManager::Import::ServicesImporter, :csv_importer do
           expect(importer.import_records).to be_successful
         end
       end
+
+      context "when a service has a blank code in the CSV" do
+        it "raises a MissingIdentifierError error" do
+          create(:service, lgsl_code: "1614", label: "16 to 19 bursary fund")
+
+          csv_rows = [
+            {
+              lgsl_code: "",
+              label: "16 to 19 bursary fund",
+            },
+          ]
+          stub_csv_rows(csv_rows)
+
+          response = importer.import_records
+
+          expect(response.errors).to include(/MissingIdentifierError/)
+        end
+      end
     end
   end
 end
