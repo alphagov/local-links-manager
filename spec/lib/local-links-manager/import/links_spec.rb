@@ -89,6 +89,40 @@ RSpec.describe LocalLinksManager::Import::Links do
         expect(links_importer.import_links(csv)).to eq(0)
       end
     end
+
+    context "when local authority, service and interaction" do
+      let(:new_url) { "url" }
+
+      it "does not update existing links" do
+        csv << "blah,blah,#{local_authority.gss},blah,8,8,blah,blah,blah,blah,#{new_url},#{new_title}"
+
+        expect { links_importer.import_links(csv) }.to_not(change { links.map(&:reload).map(&:url) })
+      end
+    end
+
+    context "when local authority code is not valid" do
+      let(:new_url) { "http://example.com/new-url" }
+
+      it "does not update existing links" do
+        local_authority.id = "12345"
+        csv = create_csv(local_authority, links, new_url, new_title)
+
+        expect { links_importer.import_links(csv) }.to_not(change { links.map(&:reload).map(&:url) })
+      end
+    end
+
+    context "when service code is not valid for a service" do
+      let(:new_url) { "http://example.com/new-url" }
+      let(:service) { create(:service) }
+      subject(:links_importer) { described_class.new(type: :service, object: service) }
+
+      it "does not update existing links" do
+        service.id = "12345"
+        csv = create_csv(local_authority, links, new_url, new_title)
+
+        expect { links_importer.import_links(csv) }.to_not(change { links.map(&:reload).map(&:url) })
+      end
+    end
   end
 
   def create_csv(local_authority, links, new_url, new_title)
