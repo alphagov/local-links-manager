@@ -1,10 +1,6 @@
 module LocalLinksManager
   module Import
     class MissingLinks
-      def self.add
-        new.add_missing_links
-      end
-
       def add_missing_links
         ServiceInteraction.where(live: true).find_each do |service_interaction|
           las_with_no_link(service_interaction).each do |local_authority_id|
