@@ -4,10 +4,6 @@ require_relative "errors"
 module LocalLinksManager
   module Import
     class AnalyticsImporter
-      def self.import
-        new.import_records
-      end
-
       def initialize(data = GoogleAnalytics::AnalyticsImportService.activity)
         @data = data
         @processed_ids = Set.new

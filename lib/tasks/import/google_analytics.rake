@@ -6,7 +6,7 @@ namespace :import do
     LocalLinksManager::DistributedLock.new("analytics-import").lock(
       lock_obtained: lambda {
         begin
-          LocalLinksManager::Import::AnalyticsImporter.import
+          LocalLinksManager::Import::AnalyticsImporter.new.import_records
         rescue StandardError => e
           raise e
         end

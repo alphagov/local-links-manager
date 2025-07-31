@@ -49,5 +49,28 @@ describe LocalLinksManager::Import::AnalyticsImporter do
       link_with_analytics = Link.lookup_by_base_path("/living-statue-permit/hogsmeade")
       expect(link_with_analytics.analytics).to be 0
     end
+
+    it "does not reset the count for links that are not in the data set if the import was not successful" do
+      importer = described_class.new(ga_data)
+      summariser = LocalLinksManager::Import::Summariser.new(importer.import_name, importer.import_source_name)
+      response = importer.import_records
+      response.errors << "Import error"
+
+      importer.all_items_imported(response, summariser)
+
+      expect(importer).not_to receive(:reset_count_on_links_not_in_analytics)
+    end
+
+    it "raises a standard error if it could not reset all old analytics counts" do
+      importer = described_class.new(ga_data)
+      summariser = LocalLinksManager::Import::Summariser.new(importer.import_name, importer.import_source_name)
+      response = importer.import_records
+
+      allow(importer).to receive(:reset_count_on_links_not_in_analytics).and_raise("Import error")
+
+      importer.all_items_imported(response, summariser)
+
+      expect(response.errors).to include(/Could not reset all old analytics counts due to: Import error/)
+    end
   end
 end
