@@ -70,6 +70,22 @@ describe LocalLinksManager::Import::InteractionsImporter, :csv_importer do
       let(:import_comparer) { LocalLinksManager::Import::ImportComparer.new }
       let(:importer) { LocalLinksManager::Import::InteractionsImporter.new(csv_downloader, import_comparer) }
 
+      context "when there is an empty lgil_code" do
+        it "raises a MissingIdentifierError error" do
+          csv_rows = [
+            {
+              lgil_code: "",
+              label: "Applications for service",
+            },
+          ]
+          stub_csv_rows(csv_rows)
+
+          response = importer.import_records
+
+          expect(response.errors).to include(/MissingIdentifierError/)
+        end
+      end
+
       context "when an interaction is no longer in the CSV" do
         it "alerts Icinga that an interaction is now missing and does not delete anything" do
           create(:interaction, lgil_code: "0", label: "Applications for service")
