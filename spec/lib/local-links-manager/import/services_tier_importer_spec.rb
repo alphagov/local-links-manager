@@ -250,8 +250,23 @@ describe LocalLinksManager::Import::ServicesTierImporter, :csv_importer do
       csv_rows = []
 
       stub_csv_rows(csv_rows)
-      subject.import_tiers
+      response = subject.import_tiers
+
+      expect(response.errors).to include(/1 Service is not present in the import. Its service tiers have been deleted./)
       expect(dead_animal_removal.reload.tiers).to be_empty
+    end
+
+    it "deletes all service tiers for multiple services that are no longer required" do
+      dead_animal_removal = create(:service, :all_tiers, lgsl_code: 576, label: "Dead animal removal")
+      abandoned_shopping_trolleys = create(:service, lgsl_code: 1152, label: "Abandoned shopping trolleys")
+
+      csv_rows = []
+      stub_csv_rows(csv_rows)
+      response = subject.import_tiers
+
+      expect(response.errors).to include(/2 Services are not present in the import. Their service tiers have been deleted./)
+      expect(dead_animal_removal.reload.tiers).to be_empty
+      expect(abandoned_shopping_trolleys.reload.tiers).to be_empty
     end
   end
 end
