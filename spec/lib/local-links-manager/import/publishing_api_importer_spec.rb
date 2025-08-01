@@ -50,6 +50,26 @@ describe LocalLinksManager::Import::PublishingApiImporter do
         expect(response).to_not be_successful
         expect(response.errors).to include(/1 Local Transaction is no longer in the import source/)
       end
+
+      it "does not import transaction slugs that are not part of a service interaction" do
+        another_transaction = {
+          "base_path" => "/ring-finder-services",
+          "description" => "Contact the council of Elrond to discuss finding powerful magic rings",
+          "details" => {
+            "lgsl_code" => 999,
+            "lgil_code" => 2,
+          },
+          "document_type" => "local_transaction",
+          "title" => "Finder of The One Ring",
+        }
+        stub_publishing_api_has_content([another_transaction], "document_type" => "local_transaction", "per_page" => 150)
+
+        described_class.new.import_data
+        service_interaction = ServiceInteraction.find_by(service: service0, interaction: interaction0)
+
+        expect(service_interaction.govuk_slug).not_to eq("ring-finder-services")
+        expect(service_interaction.govuk_title).not_to eq("Finder of The One Ring")
+      end
     end
 
     context "Unexpected data from Publishing API" do
