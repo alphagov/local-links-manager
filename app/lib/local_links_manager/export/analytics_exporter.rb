@@ -11,10 +11,6 @@ module LocalLinksManager
         @service = @client.build
       end
 
-      def self.export
-        new.export_bad_links
-      end
-
       def bad_links_data
         LocalLinksManager::Export::BadLinksUrlAndStatusExporter.bad_links_url_and_status_csv(with_ga_headings: true)
       end

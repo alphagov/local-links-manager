@@ -81,5 +81,14 @@ describe LocalLinksManager::Export::AnalyticsExporter do
 
       expect(subject.export_bad_links).to eq(upload_response)
     end
+
+    it "raises an error when the export failed" do
+      allow(Rails.logger).to receive(:error)
+      allow(subject.client).to receive(:export_bad_links).and_raise(StandardError, "Export failed")
+
+      subject.export_bad_links
+
+      expect(Rails.logger).to have_received(:error).with("The export has failed with the following error: Export failed")
+    end
   end
 end

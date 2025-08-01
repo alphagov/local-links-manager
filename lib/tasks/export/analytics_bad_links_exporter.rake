@@ -10,7 +10,7 @@ namespace :export do
             begin
               Rails.logger.info("Starting link exporter")
 
-              LocalLinksManager::Export::AnalyticsExporter.export
+              LocalLinksManager::Export::AnalyticsExporter.export_bad_links
 
               Rails.logger.info("Bad links export to GA has completed")
             rescue StandardError => e
