@@ -73,7 +73,7 @@ id,gss,snac,local_custodian_code,tier_id,parent_local_authority_id,slug,country_
 409,E08000031,00CW,4635,3,,wolverhampton,England,http://www.wolverhampton.gov.uk,"City of Wolverhampton Council"
 418,E06000014,00FF,2741,3,,york,England,https://www.york.gov.uk/,"City of York Council"
 81,S12000005,00QF,9056,3,,clackmannanshire,Scotland,https://www.clacks.gov.uk/,"Clackmannanshire Council"
-82,E07000071,22UG,1530,2,134,colchester,England,http://www.colchester.gov.uk/,"Colchester Borough Council"
+82,E07000071,22UG,1530,2,134,colchester,England,http://www.colchester.gov.uk/,"Colchester City Council"
 230,S12000013,00RJ,9020,3,,eilean-siar,Scotland,https://www.cne-siar.gov.uk/,"Comhairle nan Eilean Siar"
 83,W06000003,00NE,6905,3,,conwy,Wales,https://www.conwy.gov.uk,"Conwy County Borough Council"
 86,E06000052,00HE,840,3,,cornwall,England,https://www.cornwall.gov.uk/,"Cornwall Council"
