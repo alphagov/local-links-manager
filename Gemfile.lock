@@ -176,7 +176,7 @@ GEM
       logger
     faraday-net_http (3.4.2)
       net-http (~> 0.5)
-    gds-api-adapters (101.0.0)
+    gds-api-adapters (101.1.0)
       addressable
       link_header
       null_logger
@@ -277,7 +277,7 @@ GEM
     hashdiff (1.2.1)
     hashie (5.0.0)
     http-accept (1.7.0)
-    http-cookie (1.0.8)
+    http-cookie (1.1.0)
       domain_name (~> 0.5)
     httpclient (2.8.3)
     i18n (1.14.7)
@@ -318,7 +318,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2025.0812)
+    mime-types-data (3.2025.0924)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (5.26.2)
