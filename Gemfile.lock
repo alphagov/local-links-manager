@@ -176,7 +176,7 @@ GEM
       logger
     faraday-net_http (3.4.2)
       net-http (~> 0.5)
-    gds-api-adapters (101.1.0)
+    gds-api-adapters (101.2.0)
       addressable
       link_header
       null_logger
