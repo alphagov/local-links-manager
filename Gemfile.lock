@@ -242,7 +242,7 @@ GEM
       multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
-    govuk_app_config (9.23.2)
+    govuk_app_config (9.23.3)
       connection_pool (< 3)
       logstasher (~> 2.1)
       opentelemetry-exporter-otlp (>= 0.25, < 0.32)
@@ -818,7 +818,7 @@ DEPENDENCIES
   gds-sso
   google-api-client
   googleauth
-  govuk_app_config (= 9.23.2)
+  govuk_app_config (= 9.23.3)
   govuk_publishing_components
   govuk_test
   gretel
