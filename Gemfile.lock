@@ -258,7 +258,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (63.2.0)
+    govuk_publishing_components (63.3.1)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -296,8 +296,8 @@ GEM
     json (2.18.0)
     jwt (3.1.2)
       base64
-    kramdown (2.5.1)
-      rexml (>= 3.3.9)
+    kramdown (2.5.2)
+      rexml (>= 3.4.4)
     language_server-protocol (3.17.0.5)
     link_header (0.0.8)
     lint_roller (1.1.0)
