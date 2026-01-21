@@ -1,0 +1,24 @@
+name: Notify Slack of failure on main
+
+on:
+  workflow_run:
+    workflows: [CI, Deploy]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - run: echo 'The triggering workflow passed'
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - name: Notify Slack if failure on main
+        uses: alphagov/govuk-infrastructure/.github/actions/report-run-failure@main
+        with:
+          slack_webhook_url: ${{ secrets.GOVUK_SLACK_WEBHOOK_URL }}
+          channel: govuk-patterns-and-pages-tech
+          message: "Github was unable to complete the CI or Deploy Actions workflow - requires further investigation."
