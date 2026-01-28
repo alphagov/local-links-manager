@@ -9,9 +9,9 @@ module LocalLinksManager
         ServiceInteraction.includes(:service)
           .where(services: { enabled: true })
           .find_each do |service|
-          links = service.links.with_url.order(analytics: :asc)
-          urls = links.select { |link| link.local_authority.active? }.map(&:url).uniq
-          check_urls(urls) unless urls.empty?
+            links = service.links.with_url.order(analytics: :asc)
+            urls = links.select { |link| link.local_authority.active? }.map(&:url).uniq
+            check_urls(urls) unless urls.empty?
         end
 
         check_urls homepage_urls
