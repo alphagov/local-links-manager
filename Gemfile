@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby "~> 3.3.1"
 
-gem "rails", "8.1.2.1"
+gem "rails", "8.1.3"
 
 gem "addressable"
 gem "aws-sdk-s3"
