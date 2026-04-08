@@ -147,7 +147,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    dalli (4.3.3)
+    dalli (5.0.2)
       logger
     dartsass-rails (0.5.1)
       railties (>= 6.0.0)
@@ -817,7 +817,7 @@ DEPENDENCIES
   bootsnap
   capistrano-rails
   capybara
-  dalli (~> 4)
+  dalli (~> 5)
   dartsass-rails
   erb_lint
   factory_bot_rails
