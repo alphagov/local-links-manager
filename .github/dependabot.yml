@@ -4,8 +4,18 @@ updates:
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 3
+      exclude:
+        - gds-api-adapters
+        - gds-sso
+        - govuk_*
+        - plek
+        - rubocop-govuk
 
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 3
