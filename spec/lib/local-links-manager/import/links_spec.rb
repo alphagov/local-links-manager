@@ -59,7 +59,7 @@ RSpec.describe LocalLinksManager::Import::Links do
 
       it "logs to the Rails logger (for surfacing in Kibana)" do
         line = /Validation failed: Url \(#{new_url}\) is not a URL/
-        debug_info = /\({:local_authority_slug=>"local-authority-name-\d+", :service_slug=>"all-tiers-\d+", :interaction_slug=>"interaction-label-\d+", :link_id=>\d+}\)/
+        debug_info = /\({local_authority_slug: "local-authority-name-\d+", service_slug: "all-tiers-\d+", interaction_slug: "interaction-label-\d+", link_id: \d+}\)/
         expect(Rails.logger).to receive(:warn)
           .with(/^#{line} #{debug_info}$/)
           .exactly(5).times
