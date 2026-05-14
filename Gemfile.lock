@@ -147,6 +147,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    csv (3.3.5)
     dalli (4.3.3)
       logger
     dartsass-rails (0.5.1)
@@ -818,6 +819,7 @@ DEPENDENCIES
   bootsnap
   capistrano-rails
   capybara
+  csv
   dalli (~> 4)
   dartsass-rails
   erb_lint
