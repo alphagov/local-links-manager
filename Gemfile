@@ -1,12 +1,13 @@
 source "https://rubygems.org"
 
-ruby "~> 3.3.1"
+ruby "~> 4.0"
 
 gem "rails", "8.1.3"
 
 gem "addressable"
 gem "aws-sdk-s3"
 gem "bootsnap", require: false
+gem "csv"
 gem "dalli", "~> 4"
 gem "dartsass-rails"
 gem "gds-api-adapters"
@@ -18,6 +19,7 @@ gem "govuk_publishing_components"
 gem "gretel"
 gem "jbuilder"
 gem "mlanett-redis-lock"
+gem "mutex_m"
 gem "pg"
 gem "plek"
 gem "redis"

@@ -147,6 +147,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    csv (3.3.5)
     dalli (4.3.3)
       logger
     dartsass-rails (0.5.1)
@@ -335,6 +336,7 @@ GEM
     multi_json (1.19.1)
     multi_xml (0.8.1)
       bigdecimal (>= 3.1, < 5)
+    mutex_m (0.3.0)
     net-http (0.9.1)
       uri (>= 0.11.1)
     net-imap (0.6.4)
@@ -818,6 +820,7 @@ DEPENDENCIES
   bootsnap
   capistrano-rails
   capybara
+  csv
   dalli (~> 4)
   dartsass-rails
   erb_lint
@@ -832,6 +835,7 @@ DEPENDENCIES
   gretel
   jbuilder
   mlanett-redis-lock
+  mutex_m
   pg
   plek
   pry-byebug
@@ -848,7 +852,7 @@ DEPENDENCIES
   whenever
 
 RUBY VERSION
-   ruby 3.3.1p55
+  ruby 4.0.2p0
 
 BUNDLED WITH
-   2.3.24
+  4.0.11
