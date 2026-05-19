@@ -260,7 +260,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (66.3.0)
+    govuk_publishing_components (66.4.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -592,7 +592,7 @@ GEM
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
       rack (>= 3.0.0, < 4)
-    rack-proxy (0.7.7)
+    rack-proxy (0.8.2)
       rack
     rack-session (2.1.2)
       base64 (>= 0.1.0)
@@ -805,7 +805,7 @@ GEM
       chronic (>= 0.6.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.7.5)
+    zeitwerk (2.8.0)
 
 PLATFORMS
   aarch64-linux
