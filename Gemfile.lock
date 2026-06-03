@@ -260,7 +260,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (66.4.1)
+    govuk_publishing_components (66.4.2)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -297,7 +297,7 @@ GEM
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
     jmespath (1.6.2)
-    json (2.19.5)
+    json (2.19.7)
     jwt (3.2.0)
       base64
     kramdown (2.5.2)
@@ -400,7 +400,7 @@ GEM
     opentelemetry-helpers-sql-processor (0.5.0)
       opentelemetry-api (~> 1.0)
       opentelemetry-common (~> 0.21)
-    opentelemetry-instrumentation-action_mailer (0.8.0)
+    opentelemetry-instrumentation-action_mailer (0.8.1)
       opentelemetry-instrumentation-active_support (~> 0.10)
     opentelemetry-instrumentation-action_pack (0.18.0)
       opentelemetry-instrumentation-rack (~> 0.29)
@@ -412,7 +412,7 @@ GEM
       opentelemetry-instrumentation-active_support (>= 0.7.0)
     opentelemetry-instrumentation-active_record (0.13.0)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-active_storage (0.5.0)
+    opentelemetry-instrumentation-active_storage (0.5.1)
       opentelemetry-instrumentation-active_support (~> 0.10)
     opentelemetry-instrumentation-active_support (0.12.0)
       opentelemetry-instrumentation-base (~> 0.25)
@@ -580,11 +580,11 @@ GEM
     pry-byebug (3.12.0)
       byebug (~> 13.0)
       pry (>= 0.13, < 0.17)
-    psych (5.3.1)
+    psych (5.4.0)
       date
       stringio
     public_suffix (7.0.5)
-    puma (8.0.1)
+    puma (8.0.2)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.6)
@@ -657,7 +657,8 @@ GEM
       netrc (~> 0.8)
     retriable (3.1.2)
     rexml (3.4.4)
-    rouge (4.7.0)
+    rouge (5.0.0)
+      strscan (~> 3.1)
     rspec-core (3.13.6)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.5)
@@ -729,10 +730,10 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    sentry-rails (6.5.0)
+    sentry-rails (6.6.0)
       railties (>= 5.2.0)
-      sentry-ruby (~> 6.5.0)
-    sentry-ruby (6.5.0)
+      sentry-ruby (~> 6.6.0)
+    sentry-ruby (6.6.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
       logger
@@ -769,6 +770,7 @@ GEM
       ostruct
     statsd-ruby (1.5.0)
     stringio (3.2.0)
+    strscan (3.1.8)
     thor (1.5.0)
     timecop (0.9.11)
     timeout (0.6.1)
