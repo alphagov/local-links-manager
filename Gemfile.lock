@@ -222,9 +222,6 @@ GEM
       base64 (~> 0.2)
       faraday (>= 1.0, < 3.a)
     google-logging-utils (0.2.0)
-    google-protobuf (4.35.0)
-      bigdecimal
-      rake (~> 13.3)
     google-protobuf (4.35.0-aarch64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
@@ -326,13 +323,13 @@ GEM
       mime-types-data (~> 3.2025, >= 3.2025.0507)
     mime-types-data (3.2026.0414)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.9)
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
     mlanett-redis-lock (0.2.7)
       redis
     msgpack (1.8.1)
+    multi_json (1.21.1)
     multi_xml (0.8.1)
       bigdecimal (>= 3.1, < 5)
     mutex_m (0.3.0)
@@ -354,9 +351,6 @@ GEM
     net-ssh (7.3.0)
     netrc (0.11.0)
     nio4r (2.7.5)
-    nokogiri (1.19.3)
-      mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
     nokogiri (1.19.3-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.19.3-arm64-darwin)
@@ -561,7 +555,6 @@ GEM
     parser (3.3.11.1)
       ast (~> 2.4.1)
       racc
-    pg (1.6.3)
     pg (1.6.3-aarch64-linux)
     pg (1.6.3-arm64-darwin)
     pg (1.6.3-x86_64-linux)
@@ -714,9 +707,6 @@ GEM
       rubocop (~> 1.81)
     ruby-progressbar (1.13.0)
     rubyzip (3.2.2)
-    sass-embedded (1.77.8)
-      google-protobuf (~> 4.26)
-      rake (>= 13)
     sass-embedded (1.77.8-aarch64-linux-gnu)
       google-protobuf (~> 4.26)
     sass-embedded (1.77.8-arm64-darwin)
@@ -811,7 +801,6 @@ GEM
 PLATFORMS
   aarch64-linux
   arm64-darwin
-  ruby
   x86_64-linux
 
 DEPENDENCIES
@@ -836,6 +825,7 @@ DEPENDENCIES
   gretel
   jbuilder
   mlanett-redis-lock
+  multi_json
   mutex_m
   pg
   plek
