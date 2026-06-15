@@ -177,7 +177,7 @@ GEM
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
-    faraday-net_http (3.4.2)
+    faraday-net_http (3.4.4)
       net-http (~> 0.5)
     gds-api-adapters (103.3.1)
       addressable
@@ -222,9 +222,6 @@ GEM
       base64 (~> 0.2)
       faraday (>= 1.0, < 3.a)
     google-logging-utils (0.2.0)
-    google-protobuf (4.35.0)
-      bigdecimal
-      rake (~> 13.3)
     google-protobuf (4.35.0-aarch64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
@@ -236,13 +233,13 @@ GEM
       rake (~> 13.3)
     googleapis-common-protos-types (1.23.0)
       google-protobuf (~> 4.26)
-    googleauth (1.16.2)
+    googleauth (1.17.0)
       faraday (>= 1.0, < 3.a)
       google-cloud-env (~> 2.2)
       google-logging-utils (~> 0.1)
       jwt (>= 1.4, < 4.0)
-      multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
+      pstore (~> 0.1)
       signet (>= 0.16, < 2.a)
     govuk_app_config (9.25.0)
       connection_pool (< 4)
@@ -326,14 +323,13 @@ GEM
       mime-types-data (~> 3.2025, >= 3.2025.0507)
     mime-types-data (3.2026.0414)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.9)
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
     mlanett-redis-lock (0.2.7)
       redis
     msgpack (1.8.1)
-    multi_json (1.19.1)
+    multi_json (1.21.1)
     multi_xml (0.8.1)
       bigdecimal (>= 3.1, < 5)
     mutex_m (0.3.0)
@@ -355,9 +351,6 @@ GEM
     net-ssh (7.3.0)
     netrc (0.11.0)
     nio4r (2.7.5)
-    nokogiri (1.19.3)
-      mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
     nokogiri (1.19.3-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.19.3-arm64-darwin)
@@ -562,7 +555,6 @@ GEM
     parser (3.3.11.1)
       ast (~> 2.4.1)
       racc
-    pg (1.6.3)
     pg (1.6.3-aarch64-linux)
     pg (1.6.3-arm64-darwin)
     pg (1.6.3-x86_64-linux)
@@ -580,6 +572,7 @@ GEM
     pry-byebug (3.12.0)
       byebug (~> 13.0)
       pry (>= 0.13, < 0.17)
+    pstore (0.2.1)
     psych (5.4.0)
       date
       stringio
@@ -714,9 +707,6 @@ GEM
       rubocop (~> 1.81)
     ruby-progressbar (1.13.0)
     rubyzip (3.2.2)
-    sass-embedded (1.77.8)
-      google-protobuf (~> 4.26)
-      rake (>= 13)
     sass-embedded (1.77.8-aarch64-linux-gnu)
       google-protobuf (~> 4.26)
     sass-embedded (1.77.8-arm64-darwin)
@@ -739,11 +729,10 @@ GEM
       logger
     shoulda-matchers (7.0.1)
       activesupport (>= 7.1)
-    signet (0.21.0)
+    signet (0.22.0)
       addressable (~> 2.8)
       faraday (>= 0.17.5, < 3.a)
       jwt (>= 1.5, < 4.0)
-      multi_json (~> 1.10)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -812,7 +801,6 @@ GEM
 PLATFORMS
   aarch64-linux
   arm64-darwin
-  ruby
   x86_64-linux
 
 DEPENDENCIES
@@ -837,6 +825,7 @@ DEPENDENCIES
   gretel
   jbuilder
   mlanett-redis-lock
+  multi_json
   mutex_m
   pg
   plek
