@@ -727,7 +727,7 @@ GEM
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
       logger
-    shoulda-matchers (8.0.0)
+    shoulda-matchers (8.0.1)
       activesupport (>= 7.2)
     signet (0.22.0)
       addressable (~> 2.8)
