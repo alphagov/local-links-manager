@@ -1,9 +1,5 @@
 <% environment = GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment %>
 
-<% content_for :head do %>
-  <%= javascript_include_tag "es6-components", type: "module" %>
-<% end %>
-
 <% content_for :body do %>
   <main id="content">
     <%= yield %>
