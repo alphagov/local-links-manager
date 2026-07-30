@@ -150,7 +150,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.7)
-    csv (3.3.5)
+    csv (3.3.6)
     dalli (4.3.3)
       logger
     dartsass-rails (0.5.1)
