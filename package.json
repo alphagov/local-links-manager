@@ -23,7 +23,7 @@
   "devDependencies": {
     "standard": "^17.1.2",
     "stylelint": "^15.11.0",
-    "stylelint-config-gds": "^1.1.1",
+    "stylelint-config-gds": "^3.0.0",
     "stylelint-stylistic": "^0.4.5"
   },
   "packageManager": "yarn@4.18.0"
