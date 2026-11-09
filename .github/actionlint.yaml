@@ -1,0 +1,6 @@
+self-hosted-runner:
+  # These are GitHub-hosted runners, but actionlint v1.7.12 does not yet
+  # recognise them. Remove this once actionlint supports Ubuntu 26.04 labels:
+  # https://github.com/rhysd/actionlint/pull/743
+  labels:
+    - ubuntu-26.04-arm
