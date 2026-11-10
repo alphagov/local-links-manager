@@ -14,7 +14,7 @@ class LocalAuthoritiesTablePresenter
         { text: "<span class=\"govuk-tag govuk-tag--#{la_presenter.homepage_status_colour}\">#{la_presenter.homepage_status}</span>".html_safe },
         { text: authority.active? ? "Yes" : "No" },
         { text: authority.broken_link_count, format: "numeric" },
-        { text: @view_context.link_to("Edit <span class=\"govuk-visually-hidden\">#{authority.name}</span>".html_safe, @view_context.local_authority_path(authority.slug, filter: "broken_links"), class: "govuk-link") },
+        { text: @view_context.link_to("Edit <span class=\"govuk-visually-hidden\">#{authority.name}</span>".html_safe, @view_context.local_authority_path(authority.slug), class: "govuk-link") },
       ]
     end
   end

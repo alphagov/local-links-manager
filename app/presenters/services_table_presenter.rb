@@ -14,7 +14,7 @@ class ServicesTablePresenter
         { text: govuk_pages.compact.any? ? govuk_pages.compact.join("<br />").html_safe : "Not used on GOV.UK" },
         { text: service.lgsl_code },
         { text: service.broken_link_count, format: "numeric" },
-        { text: @view_context.link_to("Edit <span class=\"govuk-visually-hidden\">#{service.label}</span>".html_safe, @view_context.service_path(service, filter: "broken_links"), class: "govuk-link") },
+        { text: @view_context.link_to("Edit <span class=\"govuk-visually-hidden\">#{service.label}</span>".html_safe, @view_context.service_path(service), class: "govuk-link") },
       ]
     end
   end
