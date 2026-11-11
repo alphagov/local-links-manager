@@ -21,8 +21,8 @@ feature "The local authorities index page" do
   end
 
   it "shows links to each local authority page" do
-    expect(page).to have_link("Edit Angus", href: local_authority_path(@angus.slug, filter: "broken_links"), exact: true)
-    expect(page).to have_link("Edit Zorro Council", href: local_authority_path(@zorro.slug, filter: "broken_links"), exact: true)
+    expect(page).to have_link("Edit Angus", href: local_authority_path(@angus.slug), exact: true)
+    expect(page).to have_link("Edit Zorro Council", href: local_authority_path(@zorro.slug), exact: true)
   end
 
   it "shows the count of broken links for each local authority" do
