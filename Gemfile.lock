@@ -266,7 +266,7 @@ GEM
     govuk_personalisation (1.2.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (71.1.0)
+    govuk_publishing_components (71.2.0)
       chartkick
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
@@ -308,7 +308,7 @@ GEM
     json (3.2.0)
     jwt (3.3.1)
       base64
-    kramdown (2.5.2)
+    kramdown (2.6.1)
       rexml (>= 3.4.4)
     language_server-protocol (3.17.0.6)
     link_header (0.0.8)
@@ -821,10 +821,10 @@ GEM
       hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.9.2)
     websocket (1.2.11)
-    websocket-driver (0.8.2)
+    websocket-driver (0.9.1)
       base64
-      websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.5)
+      websocket-extensions (>= 0.2.0)
+    websocket-extensions (0.3.0)
     whenever (1.1.4)
       chronic (>= 0.6.3)
     xpath (3.2.0)
